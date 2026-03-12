@@ -1,0 +1,11 @@
+Hiện code cho phép 12 hình bắt buộc tên các hình phải có tên photo1.jpg , photo2.jpg,photo3, .... , photo12.jpg
+Có thể tăng số lượng hình thì có thể vào file vutru.html để thêm hình , giữ nguyên cloud.jpg , cloud1.png , paperHeart.png
+
+Về việc viết thư phải đúng số lượng ký tự là 480 ký tự để web tự động tính thời gian , 
+nếu biết về code thì có thể tăng số lượng thời gian nhưng phải set time để chuẩn 
+
+
+về âm thanh thì đổi tên âm thanh thôi
+
+
+

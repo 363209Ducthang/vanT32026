@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thành Viên Nhóm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideDown 0.8s ease;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 20px;
+        }
+
+        .member-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease backwards;
+            cursor: pointer;
+        }
+
+        .member-card:nth-child(1) { animation-delay: 0.2s; }
+        .member-card:nth-child(2) { animation-delay: 0.4s; }
+        .member-card:nth-child(3) { animation-delay: 0.6s; }
+        .member-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .member-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .member-card:hover .member-image {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.5), rgba(118, 75, 162, 0.5));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .member-card:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .member-info {
+            padding: 30px 25px;
+            text-align: center;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .member-position {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .member-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+
+        .member-tiktok {
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .member-tiktok a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .member-tiktok a:hover {
+            text-decoration: underline;
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .members-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .image-container {
+                height: 250px;
+            }
+        }
+
+        /* Nút quay lại */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+            border-color: white;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+
+        <div class="header">
+            <h1>🌟 Thành Viên Nhóm</h1>
+            <p>Giới thiệu các thành viên tại gia nhân tập san Sinh Học</p>
+        </div>
+
+        <div class="members-grid">
+            <!-- Thành viên 1 -->
+            <div class="member-card">
+                <div class="image-container">
+                    <img src="../IMGI/img10.png" alt="Thành viên 1" class="member-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="member-info">
+                    <h2 class="member-name">Hà Thị Minh Thư</h2>
+                    <p class="member-position">Trưởng nhóm</p>
+                    <p class="member-description">Chuyên trách quản lý dự án, phối hợp các hoạt động của nhóm</p>
+                    <p class="member-tiktok">TikTok: <a href="#" target="_blank">@nguyenvana</a></p>
+                    <div class="member-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thành viên 2 -->
+            <div class="member-card">
+                <div class="image-container">
+                    <img src="../IMGI/14.png" alt="Thành viên 2" class="member-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="member-info">
+                    <h2 class="member-name">Nguyễn Văn Đức</h2>
+                    <p class="member-position">Phó trưởng nhóm</p>
+                    <p class="member-description">Đảm nhiệm việc tổng hợp nội dung và thiết kế hình ảnh</p>
+                    <p class="member-tiktok">TikTok: <a href="#" target="_blank">@tranthib</a></p>
+                    <div class="member-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thành viên 3 -->
+            <div class="member-card">
+                <div class="image-container">
+                    <img src="../IMGI/11.png" alt="Thành viên 3" class="member-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="member-info">
+                    <h2 class="member-name">Lê Thị Thúy Hằng</h2>
+                    <p class="member-position">Thành viên</p>
+                    <p class="member-description">Phụ trách nghiên cứu tài liệu và viết bài cho tập san</p>
+                    <p class="member-tiktok">TikTok: <a href="#" target="_blank">@leminhc</a></p>
+                    <div class="member-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thành viên 4 -->
+            <div class="member-card">
+                <div class="image-container">
+                    <img src="../IMGI/imag12.jpg" alt="Thành viên 4" class="member-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="member-info">
+                    <h2 class="member-name">Nguyễn Ngọc Đạt</h2>
+                    <p class="member-position">Thành viên</p>
+                    <p class="member-description">Chịu trách nhiệm quay video và hỗ trợ kỹ thuật</p>
+                    <p class="member-tiktok">TikTok: <a href="#" target="_blank">@phamhuud</a></p>
+                    <div class="member-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Thêm hiệu ứng mouse parallax cho ảnh
+        document.querySelectorAll('.member-card').forEach(card => {
+            const image = card.querySelector('.member-image');
+            
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                image.style.transform = `scale(1.1) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                image.style.transform = 'scale(1.1) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+
+        // Hiệu ứng ripple khi click
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const ripple = document.createElement('span');
+                const rect = icon.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: rgba(255, 255, 255, 0.5);
+                    border-radius: 50%;
+                    left: ${x}px;
+                    top: ${y}px;
+                    pointer-events: none;
+                    animation: ripple 0.6s ease-out;
+                `;
+                
+                icon.style.position = 'relative';
+                icon.style.overflow = 'hidden';
+                icon.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body>
+</html>

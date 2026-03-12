@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Planet - Vũ trụ Tình yêu 3D</title>
+    <meta name="description" content="Hành tinh tình yêu được tạo từ tinh vân, xoay quanh vũ trụ 3D đầy cảm xúc.">
+    <meta name="keywords" content="Love Planet, thiên hà 3D, vũ trụ, quà tặng, hiệu ứng 3D, tinh vân">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            overflow: hidden;
+            background: #000;
+        }
+        #container { position:relative; width:100vw; height:100vh; }
+        #canvas-container { width:100%; height:100%; position:absolute; top:0; left:0; }
+        canvas { display:block; }
+
+        .ui-overlay {
+            position: absolute; inset:0;
+            pointer-events: none; z-index: 10;
+        }
+        .ui-overlay * { pointer-events: auto; }
+
+        .loading {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(30,10,40,0.9), #000 70%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+        .loading.hidden { opacity: 0; pointer-events: none; }
+
+        .loader-content {
+            text-align: center;
+            max-width: 380px;
+            padding: 30px 20px;
+            background: rgba(15,5,25,0.75);
+            border-radius: 24px;
+            border: 1px solid rgba(255,51,102,0.4);
+            box-shadow: 0 0 90px rgba(255,51,102,0.45),
+                        inset 0 0 40px rgba(255,153,204,0.12);
+            backdrop-filter: blur(14px);
+        }
+
+        .cosmic-spinner {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            border: 6px solid rgba(255,51,102,0.2);
+            border-top: 6px solid #ff3366;
+            border-radius: 50%;
+            animation: spin 1.35s cubic-bezier(0.55, 0.1, 0.68, 0.9) infinite;
+            box-shadow: 0 0 35px #ff99cc;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff3366, #ff99cc, #ff66aa, #ff3366);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 4s ease infinite;
+            text-shadow: 0 0 25px rgba(255,51,102,0.8);
+            margin-bottom: 16px;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .loading-subtitle {
+            font-size: 1.05rem;
+            color: #ffccdd;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            width: 280px;
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff3366, #ff66aa, #ff99cc);
+            background-size: 200% 100%;
+            animation: progressShine 3s linear infinite;
+            transition: width 0.35s ease;
+        }
+
+        @keyframes progressShine {
+            0% { background-position: 0% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .notification {
+            position: fixed; bottom: 100px; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.82);
+            backdrop-filter: blur(12px);
+            padding: 14px 32px;
+            border-radius: 50px;
+            border: 1px solid #ff3366;
+            color: #fff; z-index: 1000;
+            opacity: 0; transition: opacity 0.6s ease;
+            font-size: 0.94rem; text-align: center;
+            max-width: 85%; box-shadow: 0 8px 35px rgba(255,51,102,0.4);
+        }
+        .notification.show { opacity: 1; }
+
+        .controls-info {
+            position: absolute; bottom: 24px; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            padding: 10px 24px; border-radius: 30px;
+            font-size: 0.84rem; color: #ddd; z-index: 10;
+            text-align: center; backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,51,102,0.3);
+        }
+
+        .stats {
+            position: absolute; top: 16px; right: 16px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 14px; border-radius: 12px;
+            font-size: 0.82rem; color: #ccc; z-index: 10;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,51,102,0.3);
+        }
+
+        /* Nút hiệu ứng bay lên - FIX CHO ĐIỆN THOẠI */
+        .float-action-btn {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff3366, #ff66aa);
+            border: none;
+            border-radius: 50px;
+            padding: 16px 40px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 25px rgba(255, 51, 102, 0.4);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            min-width: 220px;
+            text-align: center;
+            touch-action: manipulation;
+        }
+
+        .float-action-btn:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.6);
+            background: linear-gradient(135deg, #ff2266, #ff5599);
+        }
+
+        .float-action-btn:active {
+            transform: translateX(-50%) translateY(1px);
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
+            background: linear-gradient(135deg, #ff1166, #ff4488);
+        }
+
+        .float-action-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            background: linear-gradient(135deg, #aa2244, #cc4488);
+        }
+
+        /* Responsive cho điện thoại - CẢI THIỆN */
+        @media (max-width: 768px) {
+            .float-action-btn {
+                bottom: 120px;
+                padding: 18px 35px;
+                font-size: 1.2rem;
+                width: 90%;
+                max-width: 300px;
+                min-width: 250px;
+                border-radius: 60px;
+                border: 3px solid rgba(255, 255, 255, 0.4);
+            }
+            
+            .controls-info {
+                bottom: 200px;
+                font-size: 0.8rem;
+                padding: 12px 20px;
+                width: 95%;
+                border-radius: 40px;
+            }
+            
+            .stats {
+                top: 20px;
+                right: 20px;
+                font-size: 0.8rem;
+                padding: 10px 15px;
+                border-radius: 20px;
+            }
+            
+            .notification {
+                bottom: 180px;
+                padding: 16px 24px;
+                font-size: 1rem;
+                width: 90%;
+                border-radius: 60px;
+            }
+        }
+
+        /* Đặc biệt cho màn hình rất nhỏ */
+        @media (max-width: 480px) {
+            .float-action-btn {
+                bottom: 100px;
+                padding: 16px 30px;
+                font-size: 1.1rem;
+                width: 92%;
+                min-width: 200px;
+            }
+            
+            .controls-info {
+                bottom: 180px;
+                font-size: 0.75rem;
+                padding: 10px 16px;
+            }
+            
+            .stats {
+                top: 15px;
+                right: 15px;
+                font-size: 0.75rem;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="canvas-container"></div>
+
+        <div class="ui-overlay">
+            <button class="float-action-btn" id="floatBtn">✨ Bấm đây ngay đi  ✨</button>
+           
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="loader-content">
+                <div class="cosmic-spinner"></div>
+                <div class="loading-title">Đợi xíu</div>
+                <div class="loading-subtitle" id="loading-text">Đang hình thành vũ trụ </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="loading-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="notification" id="notification">Chào mừng đến với Love Planet</div>
+    </div>
+
+    <script>
+        // ────────────────────────────────────────────────
+        //  Biến toàn cục
+        // ────────────────────────────────────────────────
+        let scene, camera, renderer, controls;
+        let planetCore, pinkNebulaDisk, stars;
+        let imageMeshes = [];
+        let imageTextures = [];
+        let animationId = null;
+        let isFloatingMode = false;
+        let floatAnimationId = null;
+
+        const RED_NEBULA_COLOR   = 0xfe003f;
+        const PINK_NEBULA_COLOR  = 0xff99cc;
+        const BRIGHT_PINK        = 0xff66aa;
+        const HOT_PINK           = 0xff33aa;
+
+        const CONFIG = {
+            coreRadius: 8,
+            diskInnerRadius: 8,
+            diskOuterRadius: 100,
+            diskHeight: 1,
+            copiesPerImage: 50,
+            baseImageScale: 3.0,
+            imageOpacity: 0.92,
+            imageGlowIntensity: 0.4,
+            coreRotationSpeed: 0.0002,
+            diskRotationSpeed: -0.0012,
+            starRotationSpeed: 0.00008,
+            safeDistanceFromCore: 9,
+            minDistanceBetweenImages: 2.5,
+            starCount: 8000,
+            nebulaParticleCount: 15000,
+            imageFloatAmplitude: 0,
+            imageFloatSpeed: 0
+        };
+
+        // Cấu hình hiệu ứng bay lên - CHỈ TINH CẦU QUAY NHANH
+        const FLOAT_CONFIG = {
+            coreRotationSpeedBoost: 5, // Tăng tốc độ quay của tinh cầu gấp 5 lần
+            diskRotationSpeed: 0, // Đĩa tinh vân KHÔNG quay
+            floatHeight: { min: 15, max: 40 }, // Chiều cao bay lên
+            floatDuration: 3500, // Thời gian bay lên
+            cameraZoomDistance: 200, // Khoảng cách zoom
+            floatSpeed: 0.4, // Tốc độ bay lên
+            keepImagesStatic: true // Ảnh KHÔNG xoay, chỉ bay lên
+        };
+
+        // ────────────────────────────────────────────────
+        //  Khởi tạo
+        // ────────────────────────────────────────────────
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000);
+            scene.fog = new THREE.Fog(0x000000, 80, 350);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1200);
+            camera.position.set(40, 30, 60);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.06;
+            controls.rotateSpeed = 0.55;
+            controls.minDistance = 18;
+            controls.maxDistance = 180;
+            controls.maxPolarAngle = Math.PI * 0.82;
+
+            setupLights();
+            createRedNebulaCore();
+            createPinkNebulaDisk();
+            createStars();
+
+            loadImagesFromDirectory();
+            animate();
+
+            window.addEventListener('resize', onWindowResize);
+            
+            // Thêm sự kiện click cho nút bay lên - FIX CHO TOUCH
+            const floatBtn = document.getElementById('floatBtn');
+            
+            // Sự kiện cho desktop
+            floatBtn.addEventListener('click', startFloatEffect);
+            
+            // Sự kiện cho mobile/touch
+            floatBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault(); // Ngăn hành vi mặc định
+                e.stopPropagation(); // Ngăn lan truyền sự kiện
+                
+                // Thêm hiệu ứng visual cho touch
+                this.style.transform = 'translateX(-50%) translateY(1px)';
+                this.style.boxShadow = '0 4px 15px rgba(255, 51, 102, 0.3)';
+                this.style.background = 'linear-gradient(135deg, #ff1166, #ff4488)';
+                
+                startFloatEffect();
+                
+                // Khôi phục style sau 200ms
+                setTimeout(() => {
+                    this.style.transform = 'translateX(-50%)';
+                    this.style.boxShadow = '0 6px 25px rgba(255, 51, 102, 0.4)';
+                    this.style.background = 'linear-gradient(135deg, #ff3366, #ff66aa)';
+                }, 200);
+            }, { passive: false });
+            
+            // Ngăn các sự kiện touch không mong muốn trên canvas
+            renderer.domElement.addEventListener('touchstart', function(e) {
+                if (e.target === this) {
+                    e.stopPropagation();
+                }
+            });
+        }
+
+        function setupLights() {
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+            const dir = new THREE.DirectionalLight(0xffffff, 1.2);
+            dir.position.set(22, 35, 18);
+            scene.add(dir);
+
+            scene.add(new THREE.PointLight(HOT_PINK, 2.8, 300).position.set(28, 22, 30));
+            scene.add(new THREE.PointLight(RED_NEBULA_COLOR, 3.5, 180).position.set(0, 0, 0));
+            scene.add(new THREE.PointLight(0xffffff, 1.5, 180).position.set(0, 12, 0));
+        }
+
+        function generateCircleTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+            gradient.addColorStop(0,   'rgba(255,255,255,1)');
+            gradient.addColorStop(0.25,'rgba(255,255,255,0.85)');
+            gradient.addColorStop(0.7, 'rgba(255,255,255,0.4)');
+            gradient.addColorStop(1,   'rgba(255,255,255,0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 128, 128);
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        function createRedNebulaCore() {
+            const count = 4800;
+            const geo = new THREE.BufferGeometry();
+            const pos = new Float32Array(count*3);
+            const col = new Float32Array(count*3);
+            const siz = new Float32Array(count);
+
+            for (let i = 0; i < count; i++) {
+                const i3 = i*3;
+                const r = CONFIG.coreRadius * (0.7 + Math.random()*0.3);
+                const theta = Math.random()*Math.PI*2;
+                const phi = Math.acos(2*Math.random()-1);
+                pos[i3  ] = r * Math.sin(phi) * Math.cos(theta);
+                pos[i3+1] = r * Math.sin(phi) * Math.sin(theta);
+                pos[i3+2] = r * Math.cos(phi);
+
+                const br = 0.85 + Math.random()*0.5;
+                const color = new THREE.Color(RED_NEBULA_COLOR).multiplyScalar(br);
+                col[i3] = color.r; col[i3+1] = color.g; col[i3+2] = color.b;
+                siz[i] = 0.12 + Math.random()*0.14;
+            }
+
+            geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+            geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
+            geo.setAttribute('size',     new THREE.BufferAttribute(siz,1));
+
+            const mat = new THREE.PointsMaterial({
+                map: generateCircleTexture(),
+                size: 0.42,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                sizeAttenuation: true,
+                opacity: 0.55
+            });
+
+            planetCore = new THREE.Points(geo, mat);
+            scene.add(planetCore);
+        }
+
+        function createPinkNebulaDisk() {
+            pinkNebulaDisk = new THREE.Group();
+
+            const count = CONFIG.nebulaParticleCount;
+            const geo = new THREE.BufferGeometry();
+            const pos = new Float32Array(count*3);
+            const col = new Float32Array(count*3);
+            const siz = new Float32Array(count);
+
+            for (let i = 0; i < count; i++) {
+                const i3 = i*3;
+                const r = CONFIG.diskInnerRadius + Math.random() * (CONFIG.diskOuterRadius - CONFIG.diskInnerRadius);
+                const a = Math.random()*Math.PI*2;
+                const h = (Math.random()-0.5) * CONFIG.diskHeight;
+
+                pos[i3  ] = Math.cos(a) * r;
+                pos[i3+1] = h;
+                pos[i3+2] = Math.sin(a) * r;
+
+                const br = 0.8 + Math.random()*0.6;
+                const colors = [0xff3366];
+                const c = new THREE.Color(colors[Math.floor(Math.random()*colors.length)]).multiplyScalar(br);
+                col[i3] = c.r; col[i3+1] = c.g; col[i3+2] = c.b;
+
+                const sf = 1 - (r - CONFIG.diskInnerRadius)/(CONFIG.diskOuterRadius - CONFIG.diskInnerRadius);
+                siz[i] = 0.14 + Math.random() * 0.18 * sf;
+            }
+
+            geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+            geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
+            geo.setAttribute('size',     new THREE.BufferAttribute(siz,1));
+
+            const mat = new THREE.PointsMaterial({
+                map: generateCircleTexture(),
+                size: 0.38,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                sizeAttenuation: true,
+                opacity: 0.92
+            });
+
+            pinkNebulaDisk.add(new THREE.Points(geo, mat));
+            scene.add(pinkNebulaDisk);
+        }
+
+        function createStars() {
+            const count = CONFIG.starCount;
+            const geo = new THREE.BufferGeometry();
+            const pos = new Float32Array(count*3);
+            const col = new Float32Array(count*3);
+            const siz = new Float32Array(count);
+
+            for (let i = 0; i < count; i++) {
+                const i3 = i*3;
+                pos[i3  ] = (Math.random()-0.5)*1200;
+                pos[i3+1] = (Math.random()-0.5)*1200;
+                pos[i3+2] = (Math.random()-0.5)*1200;
+
+                const rand = Math.random();
+                if (rand < 0.12) {
+                    col[i3  ] = 0.95; col[i3+1] = 0.6 + rand*0.3; col[i3+2] = 0.8 + rand*0.15;
+                } else {
+                    col[i3  ] = 0.7 + Math.random()*0.15;
+                    col[i3+1] = 0.75 + Math.random()*0.15;
+                    col[i3+2] = 0.9 + Math.random()*0.1;
+                }
+
+                siz[i] = 0.04 + Math.random() * 0.10;
+            }
+
+            geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+            geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
+            geo.setAttribute('size',     new THREE.BufferAttribute(siz,1));
+
+            const mat = new THREE.PointsMaterial({
+                size: 0.08,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                sizeAttenuation: true,
+                opacity: 0.65
+            });
+
+            stars = new THREE.Points(geo, mat);
+            scene.add(stars);
+        }
+
+        // ────────────────────────────────────────────────
+        //  Phần ảnh và các hàm còn lại
+        // ────────────────────────────────────────────────
+        async function discoverImagesInDirectory() {
+            return [
+                'img/photo1.jpg','img/photo2.jpg','img/photo3.jpg','img/photo4.jpg','img/photo5.jpg','img/photo6.jpg','img/photo7.jpg','img/photo8.jpg','img/photo9.jpg','img/photo10.jpg','img/photo11.jpg','img/photo12.jpg'
+            ];
+        }
+
+        async function loadImagesFromDirectory() {
+            try {
+                updateLoading('Đang quét ảnh...', 5);
+                const list = await discoverImagesInDirectory();
+
+                if (list.length === 0) {
+                    createSampleImages();
+                    return;
+                }
+
+                updateLoading(`Tìm thấy ${list.length} ảnh`, 18);
+                await loadAndCreateTextures(list);
+                distributeImagesOnDisk();
+
+                updateLoading('Vũ trụ đã sẵn sàng!', 100);
+                setTimeout(() => {
+                    document.getElementById('loading').classList.add('hidden');
+                   // showNotification(`Đã tạo ${imageMeshes.length} ngôi sao tình yêu`);
+                }, 800);
+            } catch (err) {
+                console.error(err);
+                createSampleImages();
+                updateLoading('Sử dụng ảnh mẫu', 100);
+                setTimeout(() => document.getElementById('loading').classList.add('hidden'), 1200);
+            }
+        }
+
+        async function loadAndCreateTextures(list) {
+            const loader = new THREE.TextureLoader();
+            for (let i = 0; i < list.length; i++) {
+                updateLoading(`Đang tải ảnh ${i+1}/${list.length}`, 20 + (i/list.length)*65);
+
+                try {
+                    const tex = await loader.loadAsync(list[i]);
+                    tex.needsUpdate = true;
+                    if (tex.image) {
+                        tex.userData = {
+                            width: tex.image.width,
+                            height: tex.image.height,
+                            aspectRatio: tex.image.width / tex.image.height
+                        };
+                    }
+                    imageTextures.push(tex);
+                } catch {
+                    imageTextures.push(createFallbackTexture(i));
+                }
+            }
+        }
+
+        function createFallbackTexture(idx) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024; canvas.height = 768;
+            const ctx = canvas.getContext('2d');
+            const hue = (idx * 137.5) % 360;
+            const grad = ctx.createLinearGradient(0,0,1024,768);
+            grad.addColorStop(0, `hsl(${hue}, 85%, 38%)`);
+            grad.addColorStop(1, `hsl(${(hue+55)%360}, 85%, 58%)`);
+            ctx.fillStyle = grad;
+            ctx.fillRect(0,0,1024,768);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 220px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('❤', 512, 384);
+
+            ctx.font = 'bold 80px Arial';
+            ctx.fillText(`${idx+1}`, 512, 520);
+
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.userData = { width:1024, height:768, aspectRatio:1024/768 };
+            return tex;
+        }
+
+        function createSampleImages() {
+            for (let i = 0; i < 8; i++) {
+                imageTextures.push(createFallbackTexture(i));
+            }
+            distributeImagesOnDisk();
+        }
+
+        function createImageMesh(texture, position) {
+            let w = CONFIG.baseImageScale;
+            let h = CONFIG.baseImageScale * 0.78;
+
+            if (texture.userData?.aspectRatio) {
+                const ar = texture.userData.aspectRatio;
+                if (ar > 1.25)      { w *= 1.22; h *= 0.78; }
+                else if (ar < 0.8)  { w *= 0.78; h *= 1.22; }
+                else                { w = h = CONFIG.baseImageScale; }
+            }
+
+            const geo = new THREE.PlaneGeometry(w, h, 32, 32);
+            const mat = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                side: THREE.DoubleSide,
+                opacity: CONFIG.imageOpacity,
+                depthWrite: false
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.copy(position);
+            
+            // Giữ ảnh luôn thẳng đứng và hướng về tâm
+            mesh.lookAt(new THREE.Vector3(0, position.y, 0));
+            mesh.rotation.y += Math.PI;
+
+            const glowGeo = new THREE.PlaneGeometry(w*1.18, h*1.18, 32, 32);
+            const glowMat = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                side: THREE.DoubleSide,
+                opacity: 0.12,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending
+            });
+            const glow = new THREE.Mesh(glowGeo, glowMat);
+            glow.position.copy(position);
+            glow.rotation.copy(mesh.rotation);
+
+            const group = new THREE.Group();
+            group.add(glow);
+            group.add(mesh);
+
+            group.userData = {
+                originalPosition: position.clone(),
+                originalRotation: mesh.rotation.clone(),
+                radius: Math.sqrt(position.x**2 + position.z**2),
+                angle: Math.atan2(position.z, position.x),
+                targetHeight: position.y,
+                floating: false,
+                floatProgress: 0,
+                floatSpeed: 0.3 + Math.random() * 0.4,
+                originalScale: new THREE.Vector3(1, 1, 1),
+                // Lưu rotation ban đầu để giữ nguyên khi bay lên
+                initialRotation: mesh.rotation.clone()
+            };
+
+            return group;
+        }
+
+        function distributeImagesOnDisk() {
+            if (!imageTextures.length) return;
+
+            const totalTextures = imageTextures.length;
+            const totalInstances = totalTextures * CONFIG.copiesPerImage;
+            const positions = generateDistributedPositions(totalInstances);
+
+            for (let i = 0; i < totalInstances; i++) {
+                const tex = imageTextures[i % totalTextures];
+                const pos = positions[i];
+                const imgGroup = createImageMesh(tex, pos);
+                pinkNebulaDisk.add(imgGroup);
+                imageMeshes.push(imgGroup);
+            }
+
+            updateStats();
+        }
+
+        function generateDistributedPositions(total) {
+            const positions = [];
+            const attemptsPerSlot = 80;
+            const minDist = CONFIG.minDistanceBetweenImages;
+
+            for (let i = 0; i < total; i++) {
+                let placed = false;
+                let tries = 0;
+
+                while (!placed && tries < attemptsPerSlot) {
+                    tries++;
+                    const r = CONFIG.diskInnerRadius + 3 + Math.random() * (CONFIG.diskOuterRadius - CONFIG.diskInnerRadius - 6);
+                    const ang = Math.random() * Math.PI * 2;
+                    const y = (Math.random() - 0.5) * CONFIG.diskHeight * 0.5;
+
+                    const x = Math.cos(ang) * r;
+                    const z = Math.sin(ang) * r;
+
+                    if (Math.sqrt(x*x + z*z) < CONFIG.safeDistanceFromCore) continue;
+
+                    let tooClose = false;
+                    for (const p of positions) {
+                        const dx = x - p.x;
+                        const dy = y - p.y;
+                        const dz = z - p.z;
+                        if (Math.sqrt(dx*dx + dy*dy + dz*dz) < minDist) {
+                            tooClose = true;
+                            break;
+                        }
+                    }
+
+                    if (!tooClose) {
+                        positions.push(new THREE.Vector3(x, y, z));
+                        placed = true;
+                    }
+                }
+
+                if (!placed) {
+                    const r = CONFIG.diskInnerRadius + 6 + Math.random() * (CONFIG.diskOuterRadius - CONFIG.diskInnerRadius - 12);
+                    const ang = Math.random() * Math.PI * 2;
+                    const x = Math.cos(ang) * r;
+                    const z = Math.sin(ang) * r;
+                    const y = (Math.random() - 0.5) * CONFIG.diskHeight * 0.4;
+                    positions.push(new THREE.Vector3(x, y, z));
+                }
+            }
+            return positions;
+        }
+
+        // ────────────────────────────────────────────────
+        //  Hiệu ứng bay lên - CHỈ TINH CẦU QUAY, ẢNH KHÔNG XOAY
+        // ────────────────────────────────────────────────
+        function startFloatEffect() {
+            if (isFloatingMode) return;
+            
+            isFloatingMode = true;
+            const btn = document.getElementById('floatBtn');
+            btn.disabled = true;
+            btn.textContent = '✨ Chúc mọi người vui vẻ nhé ✨';
+            
+            // Lưu tốc độ ban đầu
+            const originalCoreSpeed = CONFIG.coreRotationSpeed;
+            const originalDiskSpeed = CONFIG.diskRotationSpeed;
+            
+            // Tăng tốc độ quay của tinh cầu lên gấp 5 lần
+            CONFIG.coreRotationSpeed *= FLOAT_CONFIG.coreRotationSpeedBoost;
+            
+            // DỪNG quay đĩa tinh vân
+            CONFIG.diskRotationSpeed = FLOAT_CONFIG.diskRotationSpeed;
+            
+            // Cấu hình hiệu ứng cho từng ảnh
+            imageMeshes.forEach(mesh => {
+                mesh.userData.floating = true;
+                mesh.userData.floatProgress = 0;
+                
+                // Chiều cao bay lên
+                const floatAmount = FLOAT_CONFIG.floatHeight.min + 
+                    Math.random() * (FLOAT_CONFIG.floatHeight.max - FLOAT_CONFIG.floatHeight.min);
+                
+                mesh.userData.targetHeight = mesh.position.y + floatAmount;
+                
+                // Tăng độ sáng
+                if (mesh.children[1] && mesh.children[1].material) {
+                    mesh.children[1].material.opacity = Math.min(1, CONFIG.imageOpacity + 0.2);
+                }
+                if (mesh.children[0] && mesh.children[0].material) {
+                    mesh.children[0].material.opacity = 0.25;
+                }
+            });
+            
+            // Zoom camera ra xa để xem rõ hiệu ứng
+            const startPos = camera.position.clone();
+            const targetPos = camera.position.clone().normalize().multiplyScalar(FLOAT_CONFIG.cameraZoomDistance);
+            targetPos.y = Math.max(targetPos.y, 60);
+            
+            let cameraProgress = 0;
+            const cameraAnimation = () => {
+                cameraProgress += 0.008;
+                camera.position.lerpVectors(startPos, targetPos, cameraProgress);
+                
+                if (cameraProgress < 1) {
+                    requestAnimationFrame(cameraAnimation);
+                }
+            };
+            cameraAnimation();
+            
+            // Cập nhật animation loop
+            if (floatAnimationId) cancelAnimationFrame(floatAnimationId);
+            animateFloatEffect();
+            
+            // Hiển thị thông báo
+            //showNotification(`🔼 ${imageMeshes.length} ảnh đang bay lên thẳng đứng...`);
+            
+            // Sau khi hiệu ứng hoàn thành
+            setTimeout(() => {
+                // Giữ tốc độ tinh cầu nhanh hơn ban đầu
+                CONFIG.coreRotationSpeed = originalCoreSpeed * 2.5;
+                
+                // Đĩa vẫn dừng quay
+                CONFIG.diskRotationSpeed = 0;
+                
+                // Cập nhật nút
+                btn.textContent = '✨Yêu Cô lắm luôn✨';
+                showNotification(`🌟 Yêu Cô nhất `);
+            }, FLOAT_CONFIG.floatDuration);
+        }
+
+        function animateFloatEffect() {
+            floatAnimationId = requestAnimationFrame(animateFloatEffect);
+            
+            let allFloated = true;
+            
+            // Cập nhật từng ảnh
+            imageMeshes.forEach(mesh => {
+                if (mesh.userData.floating) {
+                    // Kiểm tra tiến trình bay lên
+                    if (mesh.userData.floatProgress < 1) {
+                        mesh.userData.floatProgress += 0.005 * mesh.userData.floatSpeed;
+                        allFloated = false;
+                        
+                        // Bay lên cao với easing
+                        const startY = mesh.userData.originalPosition.y;
+                        const targetY = mesh.userData.targetHeight;
+                        const t = mesh.userData.floatProgress;
+                        const easeT = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+                        
+                        // Chỉ thay đổi position Y - bay lên thẳng đứng
+                        mesh.position.y = startY + (targetY - startY) * easeT;
+                        
+                        // KHÔNG XOAY ẢNH - Giữ nguyên rotation ban đầu
+                        if (mesh.children[1]) {
+                            // Giữ nguyên rotation ban đầu
+                            mesh.children[1].rotation.copy(mesh.userData.initialRotation);
+                            
+                            // Cập nhật glow để giống nhau
+                            if (mesh.children[0]) {
+                                mesh.children[0].rotation.copy(mesh.children[1].rotation);
+                            }
+                        }
+                    }
+                    
+                    // Hiệu ứng phát sáng khi bay lên
+                    const glow = mesh.children[0];
+                    if (glow && glow.material) {
+                        const progress = mesh.userData.floatProgress;
+                        glow.material.opacity = 0.15 + 0.15 * progress;
+                    }
+                }
+            });
+            
+            // Cập nhật các hiệu ứng khác
+            if (planetCore) {
+                // TINH CẦU QUAY RẤT NHANH
+                planetCore.rotation.y += CONFIG.coreRotationSpeed;
+                planetCore.rotation.x += CONFIG.coreRotationSpeed * 0.5; // Quay nhanh hơn trên trục X
+            }
+            
+            if (pinkNebulaDisk) {
+                // ĐĨA TINH VÂN DỪNG QUAY
+                pinkNebulaDisk.rotation.y += CONFIG.diskRotationSpeed;
+            }
+            
+            if (stars) {
+                stars.rotation.y += CONFIG.starRotationSpeed;
+            }
+            
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // ────────────────────────────────────────────────
+        //  UI Helpers
+        // ────────────────────────────────────────────────
+        function updateLoading(text, percent) {
+            document.getElementById('loading-text').textContent = text;
+            document.getElementById('loading-bar').style.width = percent + '%';
+        }
+
+        function showNotification(msg) {
+            const el = document.getElementById('notification');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3400);
+        }
+
+        function updateStats() {
+           
+        }
+
+        function animate() {
+            animationId = requestAnimationFrame(animate);
+
+            if (planetCore) {
+                planetCore.rotation.y += CONFIG.coreRotationSpeed;
+                planetCore.rotation.x += CONFIG.coreRotationSpeed * 0.3;
+            }
+            if (pinkNebulaDisk) {
+                pinkNebulaDisk.rotation.y += CONFIG.diskRotationSpeed;
+            }
+            if (stars) {
+                stars.rotation.y += CONFIG.starRotationSpeed;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Cập nhật vị trí nút khi resize
+            const floatBtn = document.getElementById('floatBtn');
+            if (floatBtn && !floatBtn.disabled) {
+                floatBtn.style.transform = 'translateX(-50%)';
+            }
+        }
+
+        // Khởi động
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(init, 600);
+        });
+
+        window.addEventListener('beforeunload', () => {
+            if (animationId) cancelAnimationFrame(animationId);
+            if (floatAnimationId) cancelAnimationFrame(floatAnimationId);
+            window.removeEventListener('resize', onWindowResize);
+            if (renderer) renderer.dispose();
+        });
+    </script>
+</body>
+</html>

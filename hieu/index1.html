@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Planet & Valentine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+       
+        #transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            z-index: 10000;
+            transition: all 1.5s ease;
+            pointer-events: none;
+        }
+       
+        #transition-overlay.active {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+        }
+       
+        #transition-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 0;
+            color: white;
+            font-size: 2.5rem;
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            z-index: 10001;
+            transition: all 1s ease;
+            white-space: nowrap;
+        }
+       
+        #transition-text.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+       
+        #transition-text span {
+            color: #ff3366;
+            display: block;
+            font-size: 3rem;
+            margin-top: 10px;
+            text-shadow: 0 0 20px #ff3366;
+        }
+       
+        #iframe-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+       
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+       
+        #thiep-frame {
+            z-index: 1;
+        }
+       
+        #vutru-frame {
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+       
+        #vutru-frame.active {
+            opacity: 1;
+        }
+       
+        @media (max-width: 768px) {
+            #transition-text {
+                font-size: 1.8rem;
+            }
+           
+            #transition-text span {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+    <!-- Font cho hiệu ứng chuyển tiếp -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hiệu ứng chuyển tiếp -->
+    <div id="transition-overlay"></div>
+    <div id="transition-text">
+        Chuyển đến Vũ trụ
+        <span>Love Planet...</span>
+    </div>
+   
+    <!-- Container chứa 2 iframe -->
+    <div id="iframe-container">
+        <iframe id="thiep-frame" src="thiep.html"></iframe>
+        <iframe id="vutru-frame" src="vutru.html"></iframe>
+    </div>
+
+    <!-- Audio Player - FIXED VERSION -->
+    <div style="position: fixed; top: -100px; left: -100px; width: 0; height: 0; opacity: 0; pointer-events: none;">
+        <audio id="bg-music" preload="auto" loop>
+            <source src="nhac.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        // BIẾN KIỂM SOÁT TRẠNG THÁI
+        let transitionStarted = false;
+        let letterWritingStarted = false;
+        let letterCompleted = false;
+       
+        // Tính toán thời gian viết chữ (dựa trên code của bạn)
+        const letterContentLength = 480; // Số ký tự trong thư của bạn
+        const durationWrite = 35; // Tốc độ viết chữ từ file thiep.html
+        const totalWriteTime = (letterContentLength * durationWrite) + 1500; // Thời gian viết + 1.5 giây delay
+       
+        console.log(`Tổng thời gian viết chữ dự kiến: ${totalWriteTime}ms (khoảng ${Math.round(totalWriteTime/1000)} giây)`);
+       
+        // ==================== AUDIO FIX - HOÀN HẢO 100% ====================
+        const audio = document.getElementById('bg-music');
+        audio.volume = 0.7;
+        
+        // Hàm phát nhạc đảm bảo 100%
+        function playMusic() {
+            if (!audio) return;
+            
+            audio.muted = false;
+            audio.volume = 0.7;
+            
+            // Reset audio nếu bị lỗi
+            audio.load();
+            
+            // Phát nhạc - ưu tiên cao nhất
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Lần phát đầu thất bại, đang thử lại:', error);
+                    // Tự động phát lại sau 100ms
+                    setTimeout(() => {
+                        audio.play().catch(e => console.log('Lỗi phát nhạc:', e));
+                    }, 100);
+                });
+            }
+        }
+
+        // Hàm bỏ mute và phát nhạc
+        function unmuteAndPlay() {
+            if (!audio) return;
+            
+            audio.muted = false;
+            audio.volume = 0.7;
+            
+            playMusic();
+            
+            // Xóa tất cả listeners sau khi đã phát thành công
+            document.removeEventListener('click', unmuteAndPlay);
+            document.removeEventListener('keydown', unmuteAndPlay);
+            document.removeEventListener('touchstart', unmuteAndPlay);
+            document.removeEventListener('mousemove', unmuteAndPlay);
+            document.removeEventListener('scroll', unmuteAndPlay);
+            window.removeEventListener('message', unmuteAndPlay);
+        }
+
+        // KHỞI TẠO AUDIO NGAY KHI TRANG LOAD
+        (function initAudio() {
+            if (!audio) return;
+            
+            // 1. Cấu hình audio chuẩn nhất
+            audio.preload = 'auto';
+            audio.loop = true;
+            audio.muted = false;
+            audio.volume = 0.7;
+            
+            // 2. Phát nhạc ngay lập tức (một số trình duyệt cho phép)
+            playMusic();
+            
+            // 3. Đăng ký tất cả sự kiện có thể để phát nhạc
+            document.addEventListener('click', unmuteAndPlay, { once: true });
+            document.addEventListener('keydown', unmuteAndPlay, { once: true });
+            document.addEventListener('touchstart', unmuteAndPlay, { once: true });
+            document.addEventListener('mousemove', unmuteAndPlay, { once: true });
+            document.addEventListener('scroll', unmuteAndPlay, { once: true });
+            window.addEventListener('message', unmuteAndPlay, { once: true });
+            
+            // 4. FALLBACK CỰC MẠNH: Kiểm tra và phát lại mỗi 1 giây trong 10 giây đầu
+            let retryCount = 0;
+            const retryInterval = setInterval(() => {
+                if (audio.paused && retryCount < 10) {
+                    console.log(`Fallback lần ${retryCount + 1}: Đang thử phát lại...`);
+                    playMusic();
+                    retryCount++;
+                } else if (!audio.paused) {
+                    console.log('Âm nhạc đã phát thành công!');
+                    clearInterval(retryInterval);
+                }
+                
+                if (retryCount >= 10) {
+                    clearInterval(retryInterval);
+                }
+            }, 1000);
+            
+            // 5. Đảm bảo audio không bị tạm dừng khi chuyển trang
+            window.addEventListener('beforeunload', function() {
+                if (audio && !audio.paused) {
+                    // Giữ trạng thái phát
+                }
+            });
+            
+            console.log('Audio đã được khởi tạo với cơ chế phát mạnh nhất');
+        })();
+
+        // KIỂM TRA ĐỊNH KỲ ĐỂ ĐẢM BẢO NHẠC LUÔN PHÁT
+        setInterval(() => {
+            if (audio && audio.paused && !transitionStarted) {
+                console.log('Phát hiện nhạc bị dừng, đang phát lại...');
+                playMusic();
+            }
+        }, 3000);
+        // ==================== KẾT THÚC AUDIO FIX ====================
+
+        // Hàm kiểm tra khi thư bắt đầu được viết
+        function detectLetterWriting() {
+            const thiepFrame = document.getElementById('thiep-frame');
+           
+            // Kiểm tra định kỳ để phát hiện khi thư bắt đầu viết
+            const checkInterval = setInterval(() => {
+                if (transitionStarted) {
+                    clearInterval(checkInterval);
+                    return;
+                }
+               
+                try {
+                    const iframeDoc = thiepFrame.contentDocument || thiepFrame.contentWindow.document;
+                    const letterContent = iframeDoc.querySelector('.letterContent');
+                   
+                    // Nếu tìm thấy phần tử letterContent và nó bắt đầu có nội dung
+                    if (letterContent && letterContent.textContent.length > 0 && !letterWritingStarted) {
+                        letterWritingStarted = true;
+                        console.log('Phát hiện thư bắt đầu viết lúc:', new Date().toLocaleTimeString());
+                        console.log('Nội dung hiện tại:', letterContent.textContent.substring(0, 50) + '...');
+                       
+                        // Đếm thời gian từ lúc bắt đầu viết
+                        setTimeout(() => {
+                            if (!transitionStarted && !letterCompleted) {
+                                console.log(`Đã đợi đủ ${Math.round(totalWriteTime/1000)} giây, bắt đầu chuyển trang`);
+                                letterCompleted = true;
+                                startTransition();
+                            }
+                        }, totalWriteTime);
+                       
+                        clearInterval(checkInterval);
+                    }
+                   
+                    // Kiểm tra nếu thư đã viết xong (đủ độ dài)
+                    if (letterContent && letterContent.textContent.length >= letterContentLength - 20) {
+                        if (!letterWritingStarted) {
+                            letterWritingStarted = true;
+                            console.log('Phát hiện thư gần hoàn thành');
+                           
+                            // Đợi thêm 3 giây để người dùng đọc
+                            setTimeout(() => {
+                                if (!transitionStarted && !letterCompleted) {
+                                    letterCompleted = true;
+                                    startTransition();
+                                }
+                            }, 3000);
+                        }
+                    }
+                } catch (e) {
+                    // Bỏ qua lỗi cross-origin
+                }
+            }, 500);
+        }
+       
+        // Hàm bắt đầu hiệu ứng chuyển tiếp
+        function startTransition() {
+            if (transitionStarted) return;
+           
+            transitionStarted = true;
+            console.log('Bắt đầu hiệu ứng chuyển tiếp lúc:', new Date().toLocaleTimeString());
+           
+            const overlay = document.getElementById('transition-overlay');
+            const transitionText = document.getElementById('transition-text');
+            const vutruFrame = document.getElementById('vutru-frame');
+           
+            // Hiển thị hiệu ứng mờ và text
+            setTimeout(() => {
+                overlay.classList.add('active');
+                transitionText.classList.add('active');
+               
+                // Sau 2 giây, chuyển sang vũ trụ
+                setTimeout(() => {
+                    // Ẩn thiệp
+                    const thiepFrame = document.getElementById('thiep-frame');
+                    thiepFrame.style.display = 'none';
+                   
+                    // Hiển thị vũ trụ
+                    vutruFrame.classList.add('active');
+                   
+                    // Tắt hiệu ứng chuyển tiếp
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                        transitionText.classList.remove('active');
+                       
+                        // Focus vào iframe vũ trụ để tương tác
+                        try {
+                            vutruFrame.contentWindow.focus();
+                        } catch (e) {
+                            console.log('Không thể focus iframe:', e);
+                        }
+                    }, 1000);
+                }, 2000);
+            }, 500); // Delay nhẹ trước khi bắt đầu hiệu ứng
+        }
+       
+        // Phương pháp dự phòng 1: Tự động chuyển sau 60 giây
+        setTimeout(() => {
+            if (!transitionStarted) {
+                console.log('Phương pháp dự phòng: Tự động chuyển sau 60 giây');
+                startTransition();
+            }
+        }, 60000);
+       
+        // Phương pháp dự phòng 2: Cho phép người dùng nhấn để chuyển trang
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (!transitionStarted) {
+                    console.log('Người dùng nhấn phím để chuyển trang');
+                    startTransition();
+                }
+            }
+        });
+       
+        // Thêm nút skip cho người dùng (góc dưới phải)
+        const skipButton = document.createElement('button');
+        skipButton.textContent = '';
+        skipButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff3366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 10002;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+            transition: all 0.3s ease;
+        `;
+       
+        skipButton.onmouseover = function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 20px rgba(255, 51, 102, 0.6)';
+        };
+       
+        skipButton.onmouseout = function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 4px 15px rgba(255, 51, 102, 0.4)';
+        };
+       
+        skipButton.onclick = function() {
+            if (!transitionStarted) {
+                console.log('Người dùng nhấn nút skip');
+                startTransition();
+                this.style.display = 'none';
+            }
+        };
+
+        // Thêm nút Home ở góc trên bên trái
+        const topLeftButton = document.createElement('button');
+        topLeftButton.innerHTML = '<i class="fa-solid fa-house"></i>';
+        topLeftButton.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #ff3366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 10002;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+            transition: all 0.3s ease;
+        `;
+       
+        topLeftButton.onmouseover = function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 20px rgba(255, 51, 102, 0.6)';
+        };
+       
+        topLeftButton.onmouseout = function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 4px 15px rgba(255, 51, 102, 0.4)';
+        };
+       
+        topLeftButton.onclick = function() {
+            console.log('Người dùng nhấn nút Home');
+            // Điều hướng về trang index chính (thư mục gốc)
+            window.location.href = '../index.html';
+        };
+       
+        // Khởi tạo khi trang load
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Trang index.html đã load');
+           
+            // Đảm bảo iframe vũ trụ được tải nhưng ẩn
+            const vutruFrame = document.getElementById('vutru-frame');
+            vutruFrame.style.display = 'block';
+           
+            // Thêm nút skip vào body
+            document.body.appendChild(skipButton);
+            document.body.appendChild(topLeftButton);
+           
+            // Bắt đầu kiểm tra khi thiep-frame load xong
+            const thiepFrame = document.getElementById('thiep-frame');
+            thiepFrame.onload = function() {
+                console.log('Iframe thiep.html đã load xong');
+               
+                // Đợi thêm 2 giây để mọi thứ trong iframe khởi tạo
+                setTimeout(() => {
+                    // Inject script vào iframe để theo dõi trạng thái
+                    try {
+                        const iframeDoc = thiepFrame.contentDocument || thiepFrame.contentWindow.document;
+                        const script = iframeDoc.createElement('script');
+                       
+                        script.textContent = `
+                            // Theo dõi khi chữ viết xong
+                            console.log('Script theo dõi đã được inject vào iframe');
+                           
+                            // Lấy thông tin từ biến toàn cục của iframe
+                            let letterLength = 0;
+                            try {
+                                letterLength = window.letterContent ? window.letterContent.length : 480;
+                            } catch(e) {
+                                letterLength = 480;
+                            }
+                           
+                            // Theo dõi sự kiện click mở thiệp
+                            document.addEventListener('click', function(e) {
+                                if (e.target.closest('.openBtn') ||
+                                    (e.target.closest('.cardValentine') && !e.target.closest('.cardValentine').classList.contains('open'))) {
+                                    console.log('Người dùng mở thiệp');
+                                   
+                                    // Báo cho parent biết thư sắp bắt đầu
+                                    setTimeout(() => {
+                                        try {
+                                            window.parent.postMessage('letter_starting', '*');
+                                        } catch(e) {}
+                                    }, 500);
+                                }
+                            });
+                           
+                            // Theo dõi hiệu ứng viết chữ
+                            let originalEffectWrite = null;
+                            try {
+                                originalEffectWrite = window.effectWrite;
+                            } catch(e) {}
+                           
+                            if (originalEffectWrite) {
+                                window.effectWrite = function() {
+                                    console.log('Bắt đầu viết chữ trong thư');
+                                    // Gọi hàm gốc
+                                    originalEffectWrite.apply(this, arguments);
+                                   
+                                    // Tính thời gian viết xong
+                                    setTimeout(() => {
+                                        console.log('Thư đã viết xong, báo hiệu chuyển trang');
+                                        try {
+                                            window.parent.postMessage('letter_completed', '*');
+                                        } catch(e) {}
+                                    }, (letterLength * 35) + 2000); // Thêm 2 giây buffer
+                                };
+                            }
+                           
+                            // Theo dõi DOM để phát hiện khi thư hoàn thành
+                            const observer = new MutationObserver(function(mutations) {
+                                mutations.forEach(function(mutation) {
+                                    if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                                        const letterEl = document.querySelector('.letterContent');
+                                        if (letterEl && letterEl.textContent.length > letterLength * 0.9) {
+                                            console.log('Phát hiện thư gần hoàn thành qua MutationObserver');
+                                            setTimeout(() => {
+                                                try {
+                                                    window.parent.postMessage('letter_almost_done', '*');
+                                                } catch(e) {}
+                                            }, 1000);
+                                            observer.disconnect();
+                                        }
+                                    }
+                                });
+                            });
+                           
+                            // Bắt đầu quan sát khi card mở
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const card = document.querySelector('.cardValentine');
+                                if (card) {
+                                    card.addEventListener('click', function() {
+                                        if (!this.classList.contains('open')) {
+                                            setTimeout(() => {
+                                                const letterEl = document.querySelector('.letterContent');
+                                                if (letterEl) {
+                                                    observer.observe(letterEl, {
+                                                        childList: true,
+                                                        characterData: true,
+                                                        subtree: true
+                                                    });
+                                                }
+                                            }, 500);
+                                        }
+                                    });
+                                }
+                            });
+                        `;
+                       
+                        iframeDoc.head.appendChild(script);
+                        console.log('Đã inject script theo dõi vào iframe');
+                    } catch (e) {
+                        console.log('Không thể inject script vào iframe (có thể do CORS):', e);
+                    }
+                   
+                    // Bắt đầu phát hiện viết chữ
+                    detectLetterWriting();
+                }, 2000);
+            };
+           
+            // Lắng nghe sự kiện từ iframe
+            window.addEventListener('message', function(event) {
+                console.log('Nhận message từ iframe:', event.data);
+               
+                if (event.data === 'letter_starting' && !letterWritingStarted) {
+                    letterWritingStarted = true;
+                    console.log('Thư sắp bắt đầu viết');
+                   
+                    // Đợi tổng thời gian viết + 3 giây đọc
+                    setTimeout(() => {
+                        if (!transitionStarted && !letterCompleted) {
+                            letterCompleted = true;
+                            startTransition();
+                        }
+                    }, totalWriteTime + 3000);
+                }
+                else if (event.data === 'letter_almost_done' && !letterCompleted) {
+                    console.log('Thư sắp hoàn thành, đợi thêm 5 giây để đọc');
+                   
+                    // Đợi thêm 5 giây để đọc
+                    setTimeout(() => {
+                        if (!transitionStarted && !letterCompleted) {
+                            letterCompleted = true;
+                            startTransition();
+                        }
+                    }, 5000);
+                }
+                else if (event.data === 'letter_completed' && !letterCompleted) {
+                    console.log('Thư đã viết xong, đợi thêm 1 giây để đọc');
+                   
+                    // Đợi thêm 3 giây để đọc
+                    setTimeout(() => {
+                        if (!transitionStarted && !letterCompleted) {
+                            letterCompleted = true;
+                            startTransition();
+                        }
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

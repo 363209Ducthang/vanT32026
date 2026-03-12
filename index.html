@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="/chinh/style.css">
+  <link rel="stylesheet" href="/chinh/script.js">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href=""><img
+          src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhMSEhIVFRUXFRUVFRcVFxIVFRUVFRcWFhUVFRUYHSggGBolGxUWITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGi0fHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0vLS0tLS0tLS0tLS0tLS0tLS0rLf/AABEIAKoBKQMBIgACEQEDEQH/xAAcAAACAwEBAQEAAAAAAAAAAAAEBQMGBwIBAAj/xAA6EAABAwIEBAQEBQQCAQUAAAABAAIRAwQFEiExBkFRYRMicbEygZGhFFLB0fAHI0LxYuGiFRYzcpL/xAAZAQADAQEBAAAAAAAAAAAAAAABAgMABAX/xAAmEQACAgICAQQCAwEAAAAAAAAAAQIRAyESMUEEEyJRYbFxkcGB/9oADAMBAAIRAxEAPwDHy5c5ly4riU5zpEhcvWPKhUtFkrGaSCGaoqhauOwKNwPD/EeGrTbTCqNFoBAlOkcssiRlL2FuhELlrloPF+BMLPEYFnr9FgfweVKigbU1UdaouAULKxhob0q8iFxVpzsgbdxJAWn8J8Jh7BUqbbo2TcaKJQsah2aVxcUnN+IELcKNlQpAAMEITFuG6Fy05QA7kVgabMMqtUTCQVY+I8BfavyuGnI9UieyUCifhj3CcRiBKcVnB7VSKLy0qx4bdyITxZy5sdbRDWpQUuvqSfXLJQNWhOizQmOdMqz2QUbZou4wt++VcW9uRukS2dsslxCidEurzKaubonPCvDf4h8uHl90zI45KyuYfhdWr8LSnDuEq4bOUrV22FK2aA1oRVvfNcNQEOLG92LdH5+urJzXQQm2EWxWm8V8Jsqt8VgAPNVayw/JoQjFCZ50qIXMgJFibVYropFibdEzOXF2VqsdVw2SpqlEkphYYaTyU6PSckkeYfbEptUMCFO23DGqLDSKlYN7pjmvkzyz4ZqVzMaIvEeC6lNuYarQKjm0aYAHJd4deCqC06rOIY5U3Rh9dpaYK4zqy8aWAbWOUKv/AIQpS2ha9cLolSUqcpTpuke0aUo+jQhdUKMKR7kyRzTnYy4evBTqAlX6tctqwQ5ZOSZTG2vqgESUyZKcE9svHEWLNFLwwZKzm4MkphUqF25Q76MrAjNIVuYvA1Hvt1A6klousiYTgNtnrMEbke6322cKduBEafusIwG68Gsx8bFbfTuxVoNI2j7FFISctCO4xIT+nNNcNvD5X8pg/Pn9kgdZHPJgievdM7Y5nBrToDJHpsPuqNHIpMH/AKp2ofRa9o0kH6gj3hZCWkFbD/UPEG+GyjzMadhr7kLNKtqCkov7mxQWIqxJBUr7SF1b0dVjOdob0zIVv4W4cY9njVBI5Dr3KqdtT2Wj2lRv4IZXEENG35oGh+cpjnjSbZ62tRADPDbEkRCrXFfDDGDx6Q8vMdPTsobWu81CCdyddoPUHkrNiTgLF+cnbSev+4QaorGd2mZRVGsLUeC7YNtw4bx7rLnul3zWn8IVh+HDQeX3HJZCO+LSPOIcRc06jRLcNxKSAiMbc58N3EoHDrEhw0O+ydk42XqwqF9Mg9FU7+3hzoHMqyvuG0qXQnRJnVA6SeaRFcz+KRUbuiZQVxZFytF5RagczQmOdSoSWmB6yQmLrZtMLuvibW7JBiOKF0wlLJykQYve8gl2DX+SqHHqpBY1Kp0BKmdwzWaM2UpWdcEkjRBfsrsGvJSULhlAEzqs/shVZpqrFhtjUqRmlNbOduMWdVrQ3NTNHNGf+2uysFhZCmEZ4zUaJSyNs/O7Gyj7elCjt6SnqugKaR6M5Xo6qVoUQfKGLpKJosWFcUkSU2opgXtGku6ohOc8pXo5Ll2woaVaeDcF8eoJGg3/AECwvEDsMFqVjDWkpw7gCuRMD6rS6Fqyg0NaAIH0XDMRMxIHKTqPnGyA6gomMYpw/VoHzsI6HkfQplw9xK+38j5cz7gdu3Za7Xs6dw006jBO8HY+n7hZJxfgn4asQ34Xat69wfQrAk62ui4uv7V7Q/xWgGP8mjfrJ09FCeJrOi1xbUzOGwAJJPbl91mLmKNzUQKSGOL4w64quqHn8I3gch68/UoUXBQzQpxTWA6JW3HVFWzwSuMHwOrdVBTpNnbM46NYDzceX6rRME4ApUYdXqeK78rZaz7an7LB42tCbDcNLwIE+itOF2FVrMhZLe5AIn5qy2eH7BrWsaNBoAI6wjaNsGyDU1P86oOQY4KdtlUdgDQc5a4x+VoJ+gO6qnGN298U2ghjdhET3IWt/hncnA676hB4vYtqMyV6eZp0zCMzTydmWTGnj19GAW1sc2ytuCZqZBb/ALTzGeFRQcHNOamfhPMHo7uvba0ATKjkm5KVMmFZjhL9/nP1UVbGaTNmkn5Lu5tiRok1axMrUb3pIgrXlSs/YnoBJUl22tSbLmEDqn9lTbQty/KS4iSRBIH7LrC75twCx3maRlIPfmt0NGKk9vZSziBchb2qYRl3Y5Kr2jYOI+hUV3R0RJ9MrNxVJKecL8PGu4E7IB9rLvmtO4StBTog9kKLrIkrJqWG0rcAZQmFKpSeILQkOPYkQdQhMMxGSAs4hjlY6veFmF2ZoRtthAYNkywuvmbqpsQqgNSK+imSMa5FWxKrl0Sj8QUVi9cSUl/EBVRwvszpjICHrao240QDnaqTPUjvZ8ymjbamoaDZRrBCyQmSXgIGgQ1V0rmpWUbSmJKPk6Y3Vaz/AE0o5WB0bkn6D/aylgWhcAY3lPhH1b+oWYYyqRaeIbs5oHQfdV+1xE+JDdZMDv8AVWHGLcVACOn1Hql9vZtaNYG2oJJ15dE0aonNvndlnsrwN8PMJJDmdxGVzSO8OCpn9UrWHsfpuW/UB37qxYP/APJ4kANaD6Dqf50CqHG2IePXgfC3l3P6gQPqlrYZzuLKaaS+ssJq13+HSYXO+wHVx5BMvCC0b+muGNFJ1TSXGddtJDR7n5osnityoVYR/TihSGa6eXuj4QSxo+hk+pI9E3dwJYVW/wBtjmafE17xHoHOcD9F5ePf+JdTfvDp82scteXX5KwWTCY5DSISvR140pdoiwzhkW1JtGi2BMue6CT1c4jny9kdUDaYOUieZ0/gCmxC9ytAVfvxVyeIWRT3zlzWiDtuZKyX2Cc4p1BX/ge+/B/z26fQSvDejLyM899fnqkeGBhd4jnE6GARDSI3/M5uv+ICfVrh8EinTzHytB1MiYHnPpoBtKLESbV2D2uLtJIJ+2u+mg5JxY4gDod+2oVWuZhxr02uhwPlaGEDyxBaBJJkQQYy9DKb22F56TX0X5hlkh3ldPONx+iDryPj5X8R6+3Y9pygEHluD2IPsq1iuCwDUpDKQJcz3y9+yOsr1w33BHWd4IIPyTSq6R4g16jt19QhtDyjGa2UO3rh2ilr0RCP4lwwMIuKfwudDwOTjMO7Tt6+qEonMFROzz5wcXTFleuHM8JxyxIB5QeRUVrXp0A403ZnERtoO5MaqfEbWZSkWhWoyyNHwp5nEnc6lcXVsIRlCgV5dMRJiVljqrphDstKOyrVI6qw4ZTJCDHg/AnxsF5iFBhNkQ4aK0VrETJXVJjRsELLqKXkYW5ytEJfil7oiHV9EpxHUIJC5cl6RVcWuySUn8cpvf28lA/hE5ApdzUlDMpklNKlomODYKargAFKj0lNJaF1nauOwTm34erVNmlaNgfC1Om0OeE6pVqTDAAREdXsyK44QrtE5CktW0cwwQv0Oa1MxIGqrXFfCDKrfEpDXmBz/wC0LDKOriY8xqLtw4EEaFNn4KWmCFKyzhUo45THmA8SuAyV9RydEx6ge4TerjlsBJknoJ1+o0VNc6BCEfVQoZZpFtxPi0FmSiwtP/KIHfQ6lVUvJMocVV74yNCSk5dk4BWp8IupvtAxro/t69c7ZkH5lZRSr667J9wvjxtnERLHb9QdpHXTSFmHHJJ7LVgtsfFqVHydmSdSTuRPyarrb0YGbtA+e5SCxqtqta+loCS7Xvoe/IfRWKq/KxvTT78lPtncqjjImYb4rgXRkBk8s3b21S/FTUqve5hGSmA2mzUMc6d5BEbRERHYyrDdH+0A0wXACRyB3I7xKBxaKVF3/FsjadI0QUm2W9mMY1/1iGrXpU2NYGgGCDzBcA2RI1c5uURrOiJp3tN7WF5DoJLCR+UaZfynoqlWqU3U2uJgZ3EjWA50AHNMgy0bdURc3LPAD3umoYDM5OTSAT5dSJLp9B3VeCOR+od0kuhyx3iPb42Rz2ZxoTl85LSIO/ljfujLaoKUvpZobmBEOg88zQdS3V0RpJ9VSalbIS5jjDi5stJDmg6hzTr+XforTg187wczsxA+FoBlwGgMxqec91pQpDYc0Zunp/ZZMQtW1WCo0eYQT3Hcdevp2UWF1CTHfXlPyU2EuDXupjUEeIOweYI21EieupUTqWWq4NOUjsIcN/b2UV9HTJXUv7PLu2BbVpETI99vv7Kp4bqY2VzxAxWpnk5hE8tD/wB/ZUdryKtQdHvH/kU8GcfqoqLX4GFa2zIB9tyhObfULx9AuIDd/b1TWc6hy6FLbYdEHd2xVluqbKY8xM/z7LmlkeNyNZ1APuFrKeyumyr22H67JvSGQJpXsIbmbBHZJLlxWuycoOD2cXN4o2XCDqtKhEok7YbVu0FXuZC4eEO8ogbBaskrzKeiJDwF14zVjFLy5itF4Pw0NaHEKh4PSl4la3hFMCkPRIdTfFMMvagybwqpc1PNvzR+MteQYVMr3jgYKeqJKfIuDLnYSrVhVeWw7mFmmFXhLoKuGDg55SSR04pNMg4mtGgzEGYPfofoqTfVAFeuN3EMnu0d/hWb3BLkY9EPUKsjArm5g6IF9cymP4IlT08MOhhERSSFFMEoqnRJTi3wudAJPbVMrbCHAj+27/8ALlhW76K8y2MbIu1oahO7nDXs3puHyJH1CDpVA10HrB7dUQOy9YVbmnTpTp5QSOY0gD6H7KyXx/tMjmP0SeQWgDYwAfaE6sWh7Gg92/Tb7Qp+bO2m48V5OLsvi0yujRuYGRnECRp9flHNJ+Lrwhr2klrRuGtLiQNBHmGbftzRPEFQMFEPBy0jOkzpoCI6DX1SriWm6o0POoeAZBmHfC5sj0WitotKVqUf4/RRKlQ03/CCGuOaSC14B/Kf59FE24cS36NbJOjjyHoUbb27gXuZTPkbLnNmWgzrmjy89UDXqnMHACJ+ESRoeuk+q6zx7LDh/kgVKbXBvrAnNIlo31PX0TKyv6maKfwiAMxExyaJOp7jXT1lSHaNbTJNMxmBAOZwOpHSTA016pjbUczgGHVuUwcrgXD4SB/jqfspM6cV8kkW3Cary6jUcMs5mvaSTzcKZBbprmMz2RWKPi4bymmCT6EgykofUAph2QkGSWyDmnWBGkQJ6wfk3rMdUqBxiCGgDTQQD17qFbPR5Wml+AnEXSKXZ37fuqli1Ai4qGNzI7ggGVasRqBsMGpAB+bpI9glt5Q8Sp6ADX+d0YkPUbX9C2jULWk9AmNnswN+KoZ12309pUGJUMlF7ugH3IH6qalUDfw7tYDWjTecoHvKY518VvywTHopnO4uOkAg6u2GYztziI0QthetfIIIOYgh5mRsZJ26aHkguLazy9jiDHh95BAEwOun3SrDbsthoaPM4xz0MnptrzTKPxKPJU6S0X2zIaQ0TkcNJJJ7gpfilsGkx6H913bXJ8rQOZ17GNvnKJxVk6+nsprTLZEpQZWqqFcEfc00uq6Jzz2Q3B0Sq4fCPrFLLoIgBnV1546Gqlc51gpBuEW4BC0LDankjssupYlGysuB8Qj4SUpaP0x5iV2QCFUrmlmJ01lWuuG1BoVBSwzXZHkFY2JMMoQ4LQMJoty5toEpPRwxrdShsZ4gFJuRm8fyUrdlorhtnnFV6Htid3THYAjVVqkGyJISy6xBzySTuoRVcUy0cuVubsd+K0GYCsOD4S6o0GoIadWNHxOnmeg/mig4QwsFgqubmeT5QdQADAjuSFeqxbRbGhd/kf0HZBy8FceBVykB2mHMpjYMHMNAJ+buZ+qnNWkObo/+24+iUXOLsE5wSYJaQ5wA6aDuOqWXGNF0TDgPhEAHWN43+qHEo81dItzaLHfC+DvB2j1Cr3EnDfi+ZoaypzJ0a8dyOfdc2eJCRyJ9dVasNrtqNLH/ACPQrNUFNZPjIqWE1qlINoVQQ5urDoWva2DDXDmBy9FaMJr6lsyD5mkdt/n+yBxewkAkkOpOzjLBkAatHqP0UeE1mvpitSdLTqCPeOWsghAZRa0NcbuGvyt6779TAPylA6OpuYGj8rW7AO6gDQ7bnsibloqNLgJ5kdClJM6EkOGzuvZyKonOU+XIr1VlSk8gj/IuA828FpOnxCCddvupKdownyUy45TlY2HFpDZLoIMyehMfYOalbzE1QXEgDq3Q8uh0X1KnTku5aEAiIiZ17yqciMWk+hZSfmcGtgANDS4tBg6ZtOZJDk1ssPAaS+mQQ4vmRGpIAEbRAEdyo6NywOMQNA3K0ACQdxHPWEY26mGDyk6kySdNdTOjf5zStjxlbPs7jMadNtzs7XommE0MriXbAAk6wOf89FHa2skesfz+ckVidSGhjewJ6n+ewU2zoxQ4q2BvuM1QuP8AkRHSPT0hHUqcknqZUVnYRq7Xp2TBtNEWWwS8tRUY5h2IienQpHVY5jfDcZLTLT2M/urLpMSJ6KO7w5lWMwMjYgwR8+Y7LXQqjemUzFKxcGtqtzQZB2jeDO/NBUqLR5mtjYAmSdPl7KzvwOqCAcr2g6HQGO6JpYSebWj7o8zez9sEwm3EZnT/ADou68mZTKnZZe/sPQKOtQQNOWuKENakl1xbqwV6SArUk5ytFZuKcJdcMVju7dJ7miiKxDWpqPL2TOpRlc/g1jJlLpsKOoMcNQh6NwJTOi8QkR0TsaYXij2b6p5Txpx2VNqXQCmt8Q6I6AufgttS/qO5pXc2ebUoD/1UjdfOxoRujoWSk+z2pZAFEWNmHODRuSB9Uor4pJTPhWs6pcMA1iSfQArNgjBtpM1Hh23AnKNGDKPXafoD9UuxyuTmEwrDwuyKbp3Lj7D/ALVb4rptafKYBGvXmdZSRezsyR+Nk1PCM1APeRqMzCIAFMDRzpE9eeupXFrRpND2jKSCIIYzSIjU6kHnvt8kZxBeltAhjgPgGnJopsgEd5VNtqryHifi10aDMxMH+bp4xtWTyyjjaSVlmGDBzXmm3+6C50DNkqgOzODSdWvAjYwdYhSYPn8pbJDtZ6/6kIfhq8yn4tGkuk6bH4h2LZGnU9UwsKzaV5VAnK19SAPh1OvuB8kNp0ZxjJRl0NsdtjUouE5S5jmE8wS0x7lYtw9jdS0foSWHR7Jie46H32W6XtUOZm6uHssFxBoNzXyjy+NVy+mcx9ksQ53STTNMw/HGVYNJ4k6FpMO9Mp1TDM18zDTOoOg25FZzYNy6jT00KtGE4qx5is/K7YOIJa4Rs6NkzROGW3T1+h3Uw5zT5QddQCdP+/ZC1LV505enP05fNGWt02QGVZAHwhzXN+QOwRIvw4wYHTb3S2dCjF9i6naOiNY6AdvrCNoWYa3zaA7yY7+pU2d06ehg6/XopX2ubVx9z9yhs3wifMuNm0/Tv8uiZW9psTqfZD2VJrdl7jlxlpQDBd5ZG8c1qDGSZ9c3pL/DpaxOZ3Jvz2S+8uhsXFx+g+Ur51RlFuUjQDUDr09Aqdi2LyTBM9BtHZMoEZeoS6LU2sx0AuIM7y0/snFpWcweY526ajceo5Kh4dfFrA+CJBggnN/J5J1gOLkxOztvYrOI2PK29outFwcJGy7LEtsq2V8f4u27JvCk9HdGKkgV9NDVqaPe1D1Wpkzny46FFxSSyuxPK4SLELkMBJTo4pRAK7Equ6ac2122qCEvu2QSimJOFCV7NV9AU9emoPCKYkZJb1zKe2dYkKt03Kw8PjO9oUkz1c0Cx4Rw46uZOyuVhw1QpwHAEpnhNMUqQ05JPiGIjPvzTUc3u1pBmK8LUarCGAAxpCyXH8OqW7y1wO613C8QkjXRL/6j2LalDOBqErVF4tSRjja5V2/p5dhtaDu4QP2VILIKOw+6NNzXAwQQQe4RA6W0fobC35mPaDqAHDrGx/RV3GLcydz7rzhjFTVbTrDfVrwPofkd08u7cP1Gx2WRpq9iO1e1zXUn7wJJk/CAMw66GChqlpmMhoADQG6xpykjd3bsir3D+0xshqVs4uguLR6D5J0zmlF2EUwyi0sAzOMAA7TuAJ1gKfA7V/iRMydYMyd9+aEt8MOaTLu5nX9grNaRQbm5/wCI6nb6d0GxoQsk4lum0WO10p03PPqBp7D6rFLGSZO5Mn1O6snGfE4q5qNN2aSfFdyMH4G9RI1O2irds6EIg9RJN0h9SIjdQurwVLhNDx6gZsNyegG6tQZbUXeH4NNwj4nQ4k6fvsmshDHfZT6NwZT3Drs6LjiLCGUi2pS+B/8AjvkcNxPTdCWj9UVsWUXF0y7Ydc7Ju+roqvh1TZOX15SspF6C6NVD4g8mrSadpHvO3PYL61dqucTaQWVN8pE+m6BSDI7ml4nlPcnrHPVUXHbUl9SDoJOg0np25q939BzmOy/7adVRr6oWS3eZ0M8+qpZFQp7R3hDi6m1r5gGSTJHy+SeWbjGmkPdDRGjZ0I567quWd4fKwaTprqBoBtz9VZbBpDpAEzqdd+3TZKy0S02tT+2D0I++h91YqZkKuW/wR6fv+isFt8IUJHqYejt6Gqoh5QleoAtEXP0B3CqePW7nAgK1VXyllyAqo82X5K5hFoaepXV5qUyrOCWXbkUJOVqgEkSutEDcVoKH/FlMSsx8FPuFK0Vm+qQkKewuTTeHDqoHtyVo/Qpqjwh6KmYq2X6Lrh/iRtRgY46psKFM6khVUtHmvE1Ij4dpkmCjeN7prbctJEwhLnFKVu0kOErOeIuIX3Djrolbs6McGkKartSvGrqlTJRdK3WFlJIe8L4tVokBp05g7FaphOIlzQY9QstwW11Cu9K58Nm/JFxIxzNP8FofUYd5b6gx9Vw6nTGpcPusxxniio0mHn6pHV4tuCMviuj1/XdLRdTUvBsVzi9Clu9gP/JwEfKZVG4v4u8QGnRcYPxP1Ej8reg3VEfflxkmT917TfJRSFlKX1QVbtRodC4tmaL64MBOcrdj7hHEm06xzGMzS0dJKdXNo59XOBG22xjms6a+CmFHEakAZ3R0krBVLsu+P4kwtZRbrlMuPR2siUFZmUgoVJT/AAxswiic3ydllw5sAJg6progKTsoXtOtJQMPbQI24o5mwgLRyPp1ErLRdC2m8t8h0jb9ikGL4ZneTH0Cuj6DXcvmgnYY+dDI7oXRbiplNt8C1kqz4dZbdAmVPDztlCYW9gBug5FoYSGjZExyCbsECF82AvHOU+zq1FEVzVgEqqYvieUEyrHfnylUDiJrjIhUgkcWfI29DLC8YzmCUdePVUwC1c12qsNzU0TVsjJ3HYFcVErr1kVduSe4qJzlZDdCUJlUz6q48QLCmSuC4CkcuFznvoPsbgt2KbuxipEZikFBHt2TI58i2c3Ny9+5K5oUF0iqCKROc2kE29BFBoC5pbLpyojibtj/AAMIvGrmGoTA1xxBssCtlNxKrJKWko273KBcps9HF0dscUxswZCXUd02tFkLl6HFvsuLli6tl1cKhwPsXCnqp6bVwum7rGbGNoNVacKaqrZ7q04dsiIMbi5jReWdWSgbrdT2CxizW9bRGUa6VUtkTQSsZMfUKiLpvS22RjErLRdBzHr3Oh2LooUdCyOiXxFy6ooiuXLUK8rPKr0ovLZrjKYVUHWTIi5MANNrdkLXqIi4S6umRKUmwS6dKT3QTSul1yiTFFZyi8RSXKGWCj//2Q=="
+          alt=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Lớp 11T3</a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link active" aria-current="page" href="/chinh/thanhvien.html">Thành Viên Nhóm</a>
+          </li> -->
+        </ul>
+        <div class="nav-buttons d-flex align-items-center gap-2">
+          <a class="btn-nav" href="/hieu/index1.html">lớp 11T3</a>
+          <a class="btn-nav" href="/chinh/thanhvien.html">Thành Viên Nhóm</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <br>
+  <br>
+  <!-- tập san -->
+  <div class="bio-header">
+    <span class="dna">🧬</span>
+    <h2 class="bio-title">TẬP SAN SINH HỌC</h2>
+    <span class="dna">🧬</span>
+  </div>
+  <br>
+  <!-- card giới thiệu -->
+  <div class="card mb-31" style="max-width: 1000px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="/IMGI/img1.png" class="img-fluid rounded-start" alt="..."
+          style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">🌿 CẢM ỨNG Ở THỰC VẬT 🌿</h5>
+          <p class="card-text">1. Khái niệm cảm ứng
+
+            Cảm ứng ở thực vật là khả năng tiếp nhận và phản ứng lại các kích thích từ môi trường như ánh sáng, trọng
+            lực, nước, hóa chất,…
+
+            Phản ứng của thực vật thường diễn ra chậm và chủ yếu thông qua sự sinh trưởng của tế bào.</p>
+          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- hình ảnh -->
+  <button id="sss">
+    <a href="/hieu/index1.html">
+      <img src="/IMGI/img6.png" alt="bee">
+    </a>
+  </button>
+  <!-- ảnh album -->
+  <!-- phần cách làm -->
+  <!-- new section heading -->
+  <div class="section-title">
+    <h4>🌞 Các loại hướng động 🌞</h4>
+  </div>
+  <div class="card mb-32" style="max-width: 1000px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="/IMGI/img2.png" class="img-fluid rounded-start" alt="..."
+          style="width:90%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">🌱 Hướng động ở thực vật 🌱</h5>
+          <p class="card-text">
+            Hướng động là phản ứng sinh trưởng có định hướng của thực vật đối với tác nhân kích thích từ môi trường.
+            <br>
+            Có hai loại:
+            <br>
+            🔹 Hướng động dương
+            <br>
+            Sinh trưởng hướng về phía tác nhân kích thích
+            <br>
+            🔹 Hướng động âm
+            <br>
+            Sinh trưởng tránh xa tác nhân kích thích
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-34" style="max-width: 1500px; margin-left: auto; margin-right: 3%;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="/IMGI/img6.png" class="img-fluid rounded-start" alt="..."
+          style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">1.Hướng sáng (Quang hướng động)</h5>
+          <p class="card-text">Khái niệm
+            <br>
+            Hướng sáng là phản ứng sinh trưởng của thực vật đối với ánh sáng.
+            <br>
+            Đặc điểm
+            <br>
+            Thân cây: hướng về phía ánh sáng → hướng sáng dương
+            <br>
+            Rễ cây: tránh ánh sáng → hướng sáng âm
+            <br>
+            Cơ chế
+            <br>
+            Chất auxin phân bố không đều:
+            <br>
+            tập trung nhiều ở phía tối
+            <br>
+            tế bào phía tối dài ra nhanh hơn
+            <br>
+            → thân cây cong về phía ánh sáng
+            <br>
+            Ví dụ
+            <br>
+            Cây trồng trong nhà nghiêng về phía cửa sổ.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- thêm khung ảnh ý nghĩa với carousel -->
+  <div class="slider2">
+      <img src="/imgalbum/1.jpg" class="slide active">
+      <img src="/imgalbum/2.jpg" class="slide">
+      <img src="/imgalbum/3.jpg" class="slide">
+      <img src="/imgalbum/4.jpg" class="slide">
+      <img src="/imgalbum/5.jpg" class="slide">
+      <img src="/imgalbum/6.jpg" class="slide">
+      <img src="/imgalbum/7.jpg" class="slide">
+      <img src="/imgalbum/8.jpg" class="slide">
+      <img src="/imgalbum/9.jpg" class="slide">
+      <img src="/imgalbum/10.jpg" class="slide">
+      <img src="/imgalbum/11.jpg" class="slide">
+      <img src="/imgalbum/43.jpg" class="slide">
+      <img src="/imgalbum/42.jpg" class="slide">
+      <img src="/imgalbum/41.jpg" class="slide">
+      <img src="/imgalbum/40.jpg" class="slide">
+      <img src="/imgalbum/39.jpg" class="slide">
+      <img src="/imgalbum/38.jpg" class="slide">
+      <img src="/imgalbum/37.jpg" class="slide">
+      <img src="/imgalbum/36.jpg" class="slide">
+      <img src="/imgalbum/35.jpg" class="slide">
+      <img src="/imgalbum/34.jpg" class="slide">
+      <img src="/imgalbum/33.jpg" class="slide">
+
+    </div>
+
+  <div class="card mb-35" style="max-width: 1000px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="/IMGI/img5.png" class="img-fluid rounded-start" alt="..."
+          style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">2. Hướng trọng lực (Địa hướng động)</h5>
+          <p class="card-text">Khái niệm
+            <br>
+            Hướng trọng lực là phản ứng sinh trưởng của thực vật đối với trọng lực của Trái Đất.
+            <br>
+            Đặc điểm
+            <br>
+            Rễ: mọc xuống đất → hướng trọng lực dương
+            <br>
+            Thân: mọc lên trên → hướng trọng lực âm
+            <br>
+            Ví dụ
+            <br>
+            Khi gieo hạt, rễ luôn mọc xuống, thân mọc lên.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card mb-36" style="max-width: 1000px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="/IMGI/img7.png" class="img-fluid rounded-start" alt="..."
+          style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">3. Hướng nước (Thủy hướng động)</h5>
+          <p class="card-text">Khái niệm
+            <br>
+            Hướng nước là phản ứng sinh trưởng của thực vật đối với nguồn nước hoặc độ ẩm.
+            <br>
+            Đặc điểm
+            <br>
+            Rễ cây thường có hướng nước dương
+            <br>
+            Rễ mọc về phía nơi có nhiều nước hoặc độ ẩm cao
+            <br>
+            Ví dụ
+            <br>
+            Rễ cây phát triển mạnh ở vùng đất ẩm.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-37" style="max-width: 1000px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="/IMGI/img8.png" class="img-fluid rounded-start" alt="..."
+          style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">4 Hướng hóa (Hóa hướng động)</h5>
+          <p class="card-text">Khái niệm
+            <br>
+            Hướng hóa là phản ứng sinh trưởng của thực vật đối với các chất hóa học.
+            <br>
+            Đặc điểm
+            <br>
+            Hướng hóa dương: mọc về phía chất có lợi
+            <br>
+            Hướng hóa âm: tránh xa chất độc
+            <br>
+            Ví dụ
+            <br>
+            Rễ cây mọc về phía nơi có nhiều chất dinh dưỡng.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- hình ảnh -->
+  <!-- video nhóm -->
+  <div class="tv-frame">
+    <iframe src="https://drive.google.com/file/d/1GHBHa569OBZ4U2qqGaYsl9rg30pYCYJ5/preview" width="100%" height="auto"
+        allow="autoplay">
+    </iframe>
+  </div>
+
+  <div class="anhnhom">
+    <div class="slider">
+      <img src="/imgalbum/13.jpg" class="slide active">
+      <img src="/imgalbum/14.jpg" class="slide">
+      <img src="/imgalbum/15.jpg" class="slide">
+      <img src="/imgalbum/16.jpg" class="slide">
+      <img src="/imgalbum/17.jpg" class="slide">
+      <img src="/imgalbum/18.jpg" class="slide">
+      <img src="/imgalbum/19.jpg" class="slide">
+      <img src="/imgalbum/20.jpg" class="slide">
+      <img src="/imgalbum/21.jpg" class="slide">
+      <img src="/imgalbum/22.jpg" class="slide">
+      <img src="/imgalbum/23.jpg" class="slide">
+      <img src="/imgalbum/32.jpg" class="slide">
+      <img src="/imgalbum/31.jpg" class="slide">
+      <img src="/imgalbum/30.jpg" class="slide">
+      <img src="/imgalbum/29.jpg" class="slide">
+      <img src="/imgalbum/28.jpg" class="slide">
+      <img src="/imgalbum/27.jpg" class="slide">
+    </div>
+    <div class="slider">
+      <img src="/imgalbum/23.jpg" class="slide active">
+      <img src="/imgalbum/14.jpg" class="slide">
+      <img src="/imgalbum/15.jpg" class="slide">
+      <img src="/imgalbum/24.jpg" class="slide">
+      <img src="/imgalbum/25.jpg" class="slide">
+      <img src="/imgalbum/26.jpg" class="slide">
+      <img src="/imgalbum/27.jpg" class="slide">
+      <img src="/imgalbum/44.jpg" class="slide">
+      <img src="/imgalbum/45.jpg" class="slide">
+      <img src="/imgalbum/46.jpg" class="slide">
+      <img src="/imgalbum/47.jpg" class="slide">
+      <img src="/imgalbum/48.jpg" class="slide">
+      <img src="/imgalbum/49.jpg" class="slide">
+      <img src="/imgalbum/50.jpg" class="slide">
+      <img src="/imgalbum/51.jpg" class="slide">
+      <img src="/imgalbum/52.jpg" class="slide">
+      <img src="/imgalbum/53.jpg" class="slide">
+    </div>
+  </div>
+  <!-- phần kết -->
+  <div class="card mb-33" style="max-width: 1000px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="/IMGI/img9.png" class="img-fluid rounded-start" alt="..."
+          style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">🌿 Ý nghĩa của hướng động 🌿</h5>
+          <p class="card-text">Hướng động giúp thực vật:
+            <br>
+            🌞 Nhận được ánh sáng để quang hợp
+            💧 Hấp thụ nước tốt hơn
+            🧪 Tìm nguồn dinh dưỡng trong đất
+            🌱 Sinh trưởng và phát triển thuận lợi
+            🌍 Thích nghi với môi trường sống
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- lời kết -->
+  <div class="d-flex justify-content-center">
+    <div class="card text-bg-dark mx-auto" id="ket" style="width: 98%; height: 300px; margin: 20px 0;">
+      <img src="/IMGI/img4.png" class="card-img" alt="..." style="width: 100%; height: 100%; object-fit: cover;">
+      <div class="card-img-overlay text-center">
+        <h3 class="card-title"><h3 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); font-size: 2em;">Cảm ơn các bạn đã xem</h3></h3>
+        <h4 class="card-text" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); font-size: 4em;">Chúng em xin chân thành cảm ơn thầy cô và các bạn đã dành thời gian quý báu để xem và ủng
+          hộ tập san này. Sự quan tâm và theo dõi của mọi người chính là nguồn động lực lớn để chúng em cố gắng hoàn
+          thiện từng nội dung, từng hình ảnh trong từng trang viết. Hy vọng rằng tập san đã mang lại những thông tin bổ
+          ích, những phút giây thú vị và những cảm xúc đẹp. Một lần nữa, xin cảm ơn tất cả mọi người đã đồng hành và ủng
+          hộ chúng em!</h4>
+        <p class="card-text"><small style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); font-size: 2em;">Biết đăng khi nào</small></p>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="/chinh/script.js"></script>
+<link rel="stylesheet" href="/chinh/style.css">
+
+</html>
