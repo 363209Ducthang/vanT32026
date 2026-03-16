@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,27 +12,52 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #fff;
             overflow: hidden;
             background: #000;
         }
-        #container { position:relative; width:100vw; height:100vh; }
-        #canvas-container { width:100%; height:100%; position:absolute; top:0; left:0; }
-        canvas { display:block; }
+
+        #container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        canvas {
+            display: block;
+        }
 
         .ui-overlay {
-            position: absolute; inset:0;
-            pointer-events: none; z-index: 10;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
         }
-        .ui-overlay * { pointer-events: auto; }
+
+        .ui-overlay * {
+            pointer-events: auto;
+        }
 
         .loading {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(30,10,40,0.9), #000 70%);
+            background: radial-gradient(circle at 30% 70%, rgba(30, 10, 40, 0.9), #000 70%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -39,17 +65,21 @@
             z-index: 9999;
             transition: opacity 0.8s ease;
         }
-        .loading.hidden { opacity: 0; pointer-events: none; }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
 
         .loader-content {
             text-align: center;
             max-width: 380px;
             padding: 30px 20px;
-            background: rgba(15,5,25,0.75);
+            background: rgba(15, 5, 25, 0.75);
             border-radius: 24px;
-            border: 1px solid rgba(255,51,102,0.4);
-            box-shadow: 0 0 90px rgba(255,51,102,0.45),
-                        inset 0 0 40px rgba(255,153,204,0.12);
+            border: 1px solid rgba(255, 51, 102, 0.4);
+            box-shadow: 0 0 90px rgba(255, 51, 102, 0.45),
+                inset 0 0 40px rgba(255, 153, 204, 0.12);
             backdrop-filter: blur(14px);
         }
 
@@ -57,7 +87,7 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 24px;
-            border: 6px solid rgba(255,51,102,0.2);
+            border: 6px solid rgba(255, 51, 102, 0.2);
             border-top: 6px solid #ff3366;
             border-radius: 50%;
             animation: spin 1.35s cubic-bezier(0.55, 0.1, 0.68, 0.9) infinite;
@@ -65,7 +95,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .loading-title {
@@ -76,14 +108,22 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradientFlow 4s ease infinite;
-            text-shadow: 0 0 25px rgba(255,51,102,0.8);
+            text-shadow: 0 0 25px rgba(255, 51, 102, 0.8);
             margin-bottom: 16px;
         }
 
         @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .loading-subtitle {
@@ -96,10 +136,10 @@
         .progress-container {
             width: 280px;
             height: 6px;
-            background: rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 3px;
             overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
         }
 
         .progress-bar {
@@ -112,42 +152,67 @@
         }
 
         @keyframes progressShine {
-            0% { background-position: 0% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 0% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
 
         .notification {
-            position: fixed; bottom: 100px; left: 50%;
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.82);
+            background: rgba(0, 0, 0, 0.82);
             backdrop-filter: blur(12px);
             padding: 14px 32px;
             border-radius: 50px;
             border: 1px solid #ff3366;
-            color: #fff; z-index: 1000;
-            opacity: 0; transition: opacity 0.6s ease;
-            font-size: 0.94rem; text-align: center;
-            max-width: 85%; box-shadow: 0 8px 35px rgba(255,51,102,0.4);
+            color: #fff;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            font-size: 0.94rem;
+            text-align: center;
+            max-width: 85%;
+            box-shadow: 0 8px 35px rgba(255, 51, 102, 0.4);
         }
-        .notification.show { opacity: 1; }
+
+        .notification.show {
+            opacity: 1;
+        }
 
         .controls-info {
-            position: absolute; bottom: 24px; left: 50%;
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.6);
-            padding: 10px 24px; border-radius: 30px;
-            font-size: 0.84rem; color: #ddd; z-index: 10;
-            text-align: center; backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,51,102,0.3);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.84rem;
+            color: #ddd;
+            z-index: 10;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 51, 102, 0.3);
         }
 
         .stats {
-            position: absolute; top: 16px; right: 16px;
-            background: rgba(0,0,0,0.6);
-            padding: 8px 14px; border-radius: 12px;
-            font-size: 0.82rem; color: #ccc; z-index: 10;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            color: #ccc;
+            z-index: 10;
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,51,102,0.3);
+            border: 1px solid rgba(255, 51, 102, 0.3);
         }
 
         /* Nút hiệu ứng bay lên - FIX CHO ĐIỆN THOẠI */
@@ -204,7 +269,7 @@
                 border-radius: 60px;
                 border: 3px solid rgba(255, 255, 255, 0.4);
             }
-            
+
             .controls-info {
                 bottom: 200px;
                 font-size: 0.8rem;
@@ -212,7 +277,7 @@
                 width: 95%;
                 border-radius: 40px;
             }
-            
+
             .stats {
                 top: 20px;
                 right: 20px;
@@ -220,7 +285,7 @@
                 padding: 10px 15px;
                 border-radius: 20px;
             }
-            
+
             .notification {
                 bottom: 180px;
                 padding: 16px 24px;
@@ -239,13 +304,13 @@
                 width: 92%;
                 min-width: 200px;
             }
-            
+
             .controls-info {
                 bottom: 180px;
                 font-size: 0.75rem;
                 padding: 10px 16px;
             }
-            
+
             .stats {
                 top: 15px;
                 right: 15px;
@@ -255,13 +320,14 @@
         }
     </style>
 </head>
+
 <body>
     <div id="container">
         <div id="canvas-container"></div>
 
         <div class="ui-overlay">
-            <button class="float-action-btn" id="floatBtn">✨ Bấm đây ngay đi  ✨</button>
-           
+            <button class="float-action-btn" id="floatBtn">✨ Bấm đây ngay đi ✨</button>
+
         </div>
 
         <div class="loading" id="loading">
@@ -290,10 +356,10 @@
         let isFloatingMode = false;
         let floatAnimationId = null;
 
-        const RED_NEBULA_COLOR   = 0xfe003f;
-        const PINK_NEBULA_COLOR  = 0xff99cc;
-        const BRIGHT_PINK        = 0xff66aa;
-        const HOT_PINK           = 0xff33aa;
+        const RED_NEBULA_COLOR = 0xfe003f;
+        const PINK_NEBULA_COLOR = 0xff99cc;
+        const BRIGHT_PINK = 0xff66aa;
+        const HOT_PINK = 0xff33aa;
 
         const CONFIG = {
             coreRadius: 8,
@@ -359,25 +425,25 @@
             animate();
 
             window.addEventListener('resize', onWindowResize);
-            
+
             // Thêm sự kiện click cho nút bay lên - FIX CHO TOUCH
             const floatBtn = document.getElementById('floatBtn');
-            
+
             // Sự kiện cho desktop
             floatBtn.addEventListener('click', startFloatEffect);
-            
+
             // Sự kiện cho mobile/touch
-            floatBtn.addEventListener('touchstart', function(e) {
+            floatBtn.addEventListener('touchstart', function (e) {
                 e.preventDefault(); // Ngăn hành vi mặc định
                 e.stopPropagation(); // Ngăn lan truyền sự kiện
-                
+
                 // Thêm hiệu ứng visual cho touch
                 this.style.transform = 'translateX(-50%) translateY(1px)';
                 this.style.boxShadow = '0 4px 15px rgba(255, 51, 102, 0.3)';
                 this.style.background = 'linear-gradient(135deg, #ff1166, #ff4488)';
-                
+
                 startFloatEffect();
-                
+
                 // Khôi phục style sau 200ms
                 setTimeout(() => {
                     this.style.transform = 'translateX(-50%)';
@@ -385,9 +451,9 @@
                     this.style.background = 'linear-gradient(135deg, #ff3366, #ff66aa)';
                 }, 200);
             }, { passive: false });
-            
+
             // Ngăn các sự kiện touch không mong muốn trên canvas
-            renderer.domElement.addEventListener('touchstart', function(e) {
+            renderer.domElement.addEventListener('touchstart', function (e) {
                 if (e.target === this) {
                     e.stopPropagation();
                 }
@@ -411,10 +477,10 @@
             canvas.width = canvas.height = 128;
             const ctx = canvas.getContext('2d');
             const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-            gradient.addColorStop(0,   'rgba(255,255,255,1)');
-            gradient.addColorStop(0.25,'rgba(255,255,255,0.85)');
+            gradient.addColorStop(0, 'rgba(255,255,255,1)');
+            gradient.addColorStop(0.25, 'rgba(255,255,255,0.85)');
             gradient.addColorStop(0.7, 'rgba(255,255,255,0.4)');
-            gradient.addColorStop(1,   'rgba(255,255,255,0)');
+            gradient.addColorStop(1, 'rgba(255,255,255,0)');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, 128, 128);
             return new THREE.CanvasTexture(canvas);
@@ -423,28 +489,28 @@
         function createRedNebulaCore() {
             const count = 4800;
             const geo = new THREE.BufferGeometry();
-            const pos = new Float32Array(count*3);
-            const col = new Float32Array(count*3);
+            const pos = new Float32Array(count * 3);
+            const col = new Float32Array(count * 3);
             const siz = new Float32Array(count);
 
             for (let i = 0; i < count; i++) {
-                const i3 = i*3;
-                const r = CONFIG.coreRadius * (0.7 + Math.random()*0.3);
-                const theta = Math.random()*Math.PI*2;
-                const phi = Math.acos(2*Math.random()-1);
-                pos[i3  ] = r * Math.sin(phi) * Math.cos(theta);
-                pos[i3+1] = r * Math.sin(phi) * Math.sin(theta);
-                pos[i3+2] = r * Math.cos(phi);
+                const i3 = i * 3;
+                const r = CONFIG.coreRadius * (0.7 + Math.random() * 0.3);
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                pos[i3] = r * Math.sin(phi) * Math.cos(theta);
+                pos[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                pos[i3 + 2] = r * Math.cos(phi);
 
-                const br = 0.85 + Math.random()*0.5;
+                const br = 0.85 + Math.random() * 0.5;
                 const color = new THREE.Color(RED_NEBULA_COLOR).multiplyScalar(br);
-                col[i3] = color.r; col[i3+1] = color.g; col[i3+2] = color.b;
-                siz[i] = 0.12 + Math.random()*0.14;
+                col[i3] = color.r; col[i3 + 1] = color.g; col[i3 + 2] = color.b;
+                siz[i] = 0.12 + Math.random() * 0.14;
             }
 
-            geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
-            geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
-            geo.setAttribute('size',     new THREE.BufferAttribute(siz,1));
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            geo.setAttribute('size', new THREE.BufferAttribute(siz, 1));
 
             const mat = new THREE.PointsMaterial({
                 map: generateCircleTexture(),
@@ -466,32 +532,32 @@
 
             const count = CONFIG.nebulaParticleCount;
             const geo = new THREE.BufferGeometry();
-            const pos = new Float32Array(count*3);
-            const col = new Float32Array(count*3);
+            const pos = new Float32Array(count * 3);
+            const col = new Float32Array(count * 3);
             const siz = new Float32Array(count);
 
             for (let i = 0; i < count; i++) {
-                const i3 = i*3;
+                const i3 = i * 3;
                 const r = CONFIG.diskInnerRadius + Math.random() * (CONFIG.diskOuterRadius - CONFIG.diskInnerRadius);
-                const a = Math.random()*Math.PI*2;
-                const h = (Math.random()-0.5) * CONFIG.diskHeight;
+                const a = Math.random() * Math.PI * 2;
+                const h = (Math.random() - 0.5) * CONFIG.diskHeight;
 
-                pos[i3  ] = Math.cos(a) * r;
-                pos[i3+1] = h;
-                pos[i3+2] = Math.sin(a) * r;
+                pos[i3] = Math.cos(a) * r;
+                pos[i3 + 1] = h;
+                pos[i3 + 2] = Math.sin(a) * r;
 
-                const br = 0.8 + Math.random()*0.6;
+                const br = 0.8 + Math.random() * 0.6;
                 const colors = [0xff3366];
-                const c = new THREE.Color(colors[Math.floor(Math.random()*colors.length)]).multiplyScalar(br);
-                col[i3] = c.r; col[i3+1] = c.g; col[i3+2] = c.b;
+                const c = new THREE.Color(colors[Math.floor(Math.random() * colors.length)]).multiplyScalar(br);
+                col[i3] = c.r; col[i3 + 1] = c.g; col[i3 + 2] = c.b;
 
-                const sf = 1 - (r - CONFIG.diskInnerRadius)/(CONFIG.diskOuterRadius - CONFIG.diskInnerRadius);
+                const sf = 1 - (r - CONFIG.diskInnerRadius) / (CONFIG.diskOuterRadius - CONFIG.diskInnerRadius);
                 siz[i] = 0.14 + Math.random() * 0.18 * sf;
             }
 
-            geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
-            geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
-            geo.setAttribute('size',     new THREE.BufferAttribute(siz,1));
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            geo.setAttribute('size', new THREE.BufferAttribute(siz, 1));
 
             const mat = new THREE.PointsMaterial({
                 map: generateCircleTexture(),
@@ -511,31 +577,31 @@
         function createStars() {
             const count = CONFIG.starCount;
             const geo = new THREE.BufferGeometry();
-            const pos = new Float32Array(count*3);
-            const col = new Float32Array(count*3);
+            const pos = new Float32Array(count * 3);
+            const col = new Float32Array(count * 3);
             const siz = new Float32Array(count);
 
             for (let i = 0; i < count; i++) {
-                const i3 = i*3;
-                pos[i3  ] = (Math.random()-0.5)*1200;
-                pos[i3+1] = (Math.random()-0.5)*1200;
-                pos[i3+2] = (Math.random()-0.5)*1200;
+                const i3 = i * 3;
+                pos[i3] = (Math.random() - 0.5) * 1200;
+                pos[i3 + 1] = (Math.random() - 0.5) * 1200;
+                pos[i3 + 2] = (Math.random() - 0.5) * 1200;
 
                 const rand = Math.random();
                 if (rand < 0.12) {
-                    col[i3  ] = 0.95; col[i3+1] = 0.6 + rand*0.3; col[i3+2] = 0.8 + rand*0.15;
+                    col[i3] = 0.95; col[i3 + 1] = 0.6 + rand * 0.3; col[i3 + 2] = 0.8 + rand * 0.15;
                 } else {
-                    col[i3  ] = 0.7 + Math.random()*0.15;
-                    col[i3+1] = 0.75 + Math.random()*0.15;
-                    col[i3+2] = 0.9 + Math.random()*0.1;
+                    col[i3] = 0.7 + Math.random() * 0.15;
+                    col[i3 + 1] = 0.75 + Math.random() * 0.15;
+                    col[i3 + 2] = 0.9 + Math.random() * 0.1;
                 }
 
                 siz[i] = 0.04 + Math.random() * 0.10;
             }
 
-            geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
-            geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
-            geo.setAttribute('size',     new THREE.BufferAttribute(siz,1));
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            geo.setAttribute('size', new THREE.BufferAttribute(siz, 1));
 
             const mat = new THREE.PointsMaterial({
                 size: 0.08,
@@ -555,7 +621,7 @@
         // ────────────────────────────────────────────────
         async function discoverImagesInDirectory() {
             return [
-                'img/photo1.jpg','img/photo2.jpg','img/photo3.jpg','img/photo4.jpg','img/photo5.jpg','img/photo6.jpg','img/photo7.jpg','img/photo8.jpg','img/photo9.jpg','img/photo10.jpg','img/photo11.jpg','img/photo12.jpg'
+                'img/photo1.jpg', 'img/photo2.jpg', 'img/photo3.jpg', 'img/photo4.jpg', 'img/photo5.jpg', 'img/photo6.jpg', 'img/photo7.jpg', 'img/photo8.jpg', 'img/photo9.jpg', 'img/photo10.jpg', 'img/photo11.jpg', 'img/photo12.jpg', 'img/photo13.jpg', 'img/photo14.jpg', 'img/photo15.jpg', 'img/photo16.jpg', 'img/photo17.jpg', 'img/photo18.jpg', 'img/photo19.jpg', 'img/photo20.jpg', 'img/photo21.jpg', 'img/photo22.jpg', 'img/photo23.jpg', 'img/photo24.jpg', 'img/photo25.jpg', 'img/photo26.jpg', 'img/photo27.jpg', 'img/photo28.jpg', 'img/photo29.jpg', 'img/photo30.jpg', 'img/photo31.jpg', 'img/photo32.jpg', 'img/photo33.jpg', 'img/photo34.jpg', 'img/photo35.jpg', 'img/photo36.jpg', 'img/photo37.jpg', 'img/photo38.jpg', 'img/photo39.jpg', 'img/photo40.jpg', 'img/photo41.jpg','img/photo42.jpg','img/photo43.jpg','img/photo44.jpg','img/photo45.jpg','img/photo46.jpg','img/photo47.jpg','img/photo48.jpg','img/photo49.jpg','img/photo50.jpg'
             ];
         }
 
@@ -576,7 +642,7 @@
                 updateLoading('Vũ trụ đã sẵn sàng!', 100);
                 setTimeout(() => {
                     document.getElementById('loading').classList.add('hidden');
-                   // showNotification(`Đã tạo ${imageMeshes.length} ngôi sao tình yêu`);
+                    // showNotification(`Đã tạo ${imageMeshes.length} ngôi sao tình yêu`);
                 }, 800);
             } catch (err) {
                 console.error(err);
@@ -589,7 +655,7 @@
         async function loadAndCreateTextures(list) {
             const loader = new THREE.TextureLoader();
             for (let i = 0; i < list.length; i++) {
-                updateLoading(`Đang tải ảnh ${i+1}/${list.length}`, 20 + (i/list.length)*65);
+                updateLoading(`Đang tải ảnh ${i + 1}/${list.length}`, 20 + (i / list.length) * 65);
 
                 try {
                     const tex = await loader.loadAsync(list[i]);
@@ -613,11 +679,11 @@
             canvas.width = 1024; canvas.height = 768;
             const ctx = canvas.getContext('2d');
             const hue = (idx * 137.5) % 360;
-            const grad = ctx.createLinearGradient(0,0,1024,768);
+            const grad = ctx.createLinearGradient(0, 0, 1024, 768);
             grad.addColorStop(0, `hsl(${hue}, 85%, 38%)`);
-            grad.addColorStop(1, `hsl(${(hue+55)%360}, 85%, 58%)`);
+            grad.addColorStop(1, `hsl(${(hue + 55) % 360}, 85%, 58%)`);
             ctx.fillStyle = grad;
-            ctx.fillRect(0,0,1024,768);
+            ctx.fillRect(0, 0, 1024, 768);
 
             ctx.fillStyle = '#ffffff';
             ctx.font = 'bold 220px Arial';
@@ -626,10 +692,10 @@
             ctx.fillText('❤', 512, 384);
 
             ctx.font = 'bold 80px Arial';
-            ctx.fillText(`${idx+1}`, 512, 520);
+            ctx.fillText(`${idx + 1}`, 512, 520);
 
             const tex = new THREE.CanvasTexture(canvas);
-            tex.userData = { width:1024, height:768, aspectRatio:1024/768 };
+            tex.userData = { width: 1024, height: 768, aspectRatio: 1024 / 768 };
             return tex;
         }
 
@@ -646,9 +712,9 @@
 
             if (texture.userData?.aspectRatio) {
                 const ar = texture.userData.aspectRatio;
-                if (ar > 1.25)      { w *= 1.22; h *= 0.78; }
-                else if (ar < 0.8)  { w *= 0.78; h *= 1.22; }
-                else                { w = h = CONFIG.baseImageScale; }
+                if (ar > 1.25) { w *= 1.22; h *= 0.78; }
+                else if (ar < 0.8) { w *= 0.78; h *= 1.22; }
+                else { w = h = CONFIG.baseImageScale; }
             }
 
             const geo = new THREE.PlaneGeometry(w, h, 32, 32);
@@ -661,12 +727,12 @@
             });
             const mesh = new THREE.Mesh(geo, mat);
             mesh.position.copy(position);
-            
+
             // Giữ ảnh luôn thẳng đứng và hướng về tâm
             mesh.lookAt(new THREE.Vector3(0, position.y, 0));
             mesh.rotation.y += Math.PI;
 
-            const glowGeo = new THREE.PlaneGeometry(w*1.18, h*1.18, 32, 32);
+            const glowGeo = new THREE.PlaneGeometry(w * 1.18, h * 1.18, 32, 32);
             const glowMat = new THREE.MeshBasicMaterial({
                 color: 0xffffff,
                 transparent: true,
@@ -686,7 +752,7 @@
             group.userData = {
                 originalPosition: position.clone(),
                 originalRotation: mesh.rotation.clone(),
-                radius: Math.sqrt(position.x**2 + position.z**2),
+                radius: Math.sqrt(position.x ** 2 + position.z ** 2),
                 angle: Math.atan2(position.z, position.x),
                 targetHeight: position.y,
                 floating: false,
@@ -736,14 +802,14 @@
                     const x = Math.cos(ang) * r;
                     const z = Math.sin(ang) * r;
 
-                    if (Math.sqrt(x*x + z*z) < CONFIG.safeDistanceFromCore) continue;
+                    if (Math.sqrt(x * x + z * z) < CONFIG.safeDistanceFromCore) continue;
 
                     let tooClose = false;
                     for (const p of positions) {
                         const dx = x - p.x;
                         const dy = y - p.y;
                         const dz = z - p.z;
-                        if (Math.sqrt(dx*dx + dy*dy + dz*dz) < minDist) {
+                        if (Math.sqrt(dx * dx + dy * dy + dz * dz) < minDist) {
                             tooClose = true;
                             break;
                         }
@@ -772,33 +838,33 @@
         // ────────────────────────────────────────────────
         function startFloatEffect() {
             if (isFloatingMode) return;
-            
+
             isFloatingMode = true;
             const btn = document.getElementById('floatBtn');
             btn.disabled = true;
             btn.textContent = '✨ Chúc mọi người vui vẻ nhé ✨';
-            
+
             // Lưu tốc độ ban đầu
             const originalCoreSpeed = CONFIG.coreRotationSpeed;
             const originalDiskSpeed = CONFIG.diskRotationSpeed;
-            
+
             // Tăng tốc độ quay của tinh cầu lên gấp 5 lần
             CONFIG.coreRotationSpeed *= FLOAT_CONFIG.coreRotationSpeedBoost;
-            
+
             // DỪNG quay đĩa tinh vân
             CONFIG.diskRotationSpeed = FLOAT_CONFIG.diskRotationSpeed;
-            
+
             // Cấu hình hiệu ứng cho từng ảnh
             imageMeshes.forEach(mesh => {
                 mesh.userData.floating = true;
                 mesh.userData.floatProgress = 0;
-                
+
                 // Chiều cao bay lên
-                const floatAmount = FLOAT_CONFIG.floatHeight.min + 
+                const floatAmount = FLOAT_CONFIG.floatHeight.min +
                     Math.random() * (FLOAT_CONFIG.floatHeight.max - FLOAT_CONFIG.floatHeight.min);
-                
+
                 mesh.userData.targetHeight = mesh.position.y + floatAmount;
-                
+
                 // Tăng độ sáng
                 if (mesh.children[1] && mesh.children[1].material) {
                     mesh.children[1].material.opacity = Math.min(1, CONFIG.imageOpacity + 0.2);
@@ -807,38 +873,38 @@
                     mesh.children[0].material.opacity = 0.25;
                 }
             });
-            
+
             // Zoom camera ra xa để xem rõ hiệu ứng
             const startPos = camera.position.clone();
             const targetPos = camera.position.clone().normalize().multiplyScalar(FLOAT_CONFIG.cameraZoomDistance);
             targetPos.y = Math.max(targetPos.y, 60);
-            
+
             let cameraProgress = 0;
             const cameraAnimation = () => {
                 cameraProgress += 0.008;
                 camera.position.lerpVectors(startPos, targetPos, cameraProgress);
-                
+
                 if (cameraProgress < 1) {
                     requestAnimationFrame(cameraAnimation);
                 }
             };
             cameraAnimation();
-            
+
             // Cập nhật animation loop
             if (floatAnimationId) cancelAnimationFrame(floatAnimationId);
             animateFloatEffect();
-            
+
             // Hiển thị thông báo
             //showNotification(`🔼 ${imageMeshes.length} ảnh đang bay lên thẳng đứng...`);
-            
+
             // Sau khi hiệu ứng hoàn thành
             setTimeout(() => {
                 // Giữ tốc độ tinh cầu nhanh hơn ban đầu
                 CONFIG.coreRotationSpeed = originalCoreSpeed * 2.5;
-                
+
                 // Đĩa vẫn dừng quay
                 CONFIG.diskRotationSpeed = 0;
-                
+
                 // Cập nhật nút
                 btn.textContent = '✨Yêu Cô lắm luôn✨';
                 showNotification(`🌟 Yêu Cô nhất `);
@@ -847,9 +913,9 @@
 
         function animateFloatEffect() {
             floatAnimationId = requestAnimationFrame(animateFloatEffect);
-            
+
             let allFloated = true;
-            
+
             // Cập nhật từng ảnh
             imageMeshes.forEach(mesh => {
                 if (mesh.userData.floating) {
@@ -857,28 +923,28 @@
                     if (mesh.userData.floatProgress < 1) {
                         mesh.userData.floatProgress += 0.005 * mesh.userData.floatSpeed;
                         allFloated = false;
-                        
+
                         // Bay lên cao với easing
                         const startY = mesh.userData.originalPosition.y;
                         const targetY = mesh.userData.targetHeight;
                         const t = mesh.userData.floatProgress;
                         const easeT = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-                        
+
                         // Chỉ thay đổi position Y - bay lên thẳng đứng
                         mesh.position.y = startY + (targetY - startY) * easeT;
-                        
+
                         // KHÔNG XOAY ẢNH - Giữ nguyên rotation ban đầu
                         if (mesh.children[1]) {
                             // Giữ nguyên rotation ban đầu
                             mesh.children[1].rotation.copy(mesh.userData.initialRotation);
-                            
+
                             // Cập nhật glow để giống nhau
                             if (mesh.children[0]) {
                                 mesh.children[0].rotation.copy(mesh.children[1].rotation);
                             }
                         }
                     }
-                    
+
                     // Hiệu ứng phát sáng khi bay lên
                     const glow = mesh.children[0];
                     if (glow && glow.material) {
@@ -887,23 +953,23 @@
                     }
                 }
             });
-            
+
             // Cập nhật các hiệu ứng khác
             if (planetCore) {
                 // TINH CẦU QUAY RẤT NHANH
                 planetCore.rotation.y += CONFIG.coreRotationSpeed;
                 planetCore.rotation.x += CONFIG.coreRotationSpeed * 0.5; // Quay nhanh hơn trên trục X
             }
-            
+
             if (pinkNebulaDisk) {
                 // ĐĨA TINH VÂN DỪNG QUAY
                 pinkNebulaDisk.rotation.y += CONFIG.diskRotationSpeed;
             }
-            
+
             if (stars) {
                 stars.rotation.y += CONFIG.starRotationSpeed;
             }
-            
+
             controls.update();
             renderer.render(scene, camera);
         }
@@ -924,7 +990,7 @@
         }
 
         function updateStats() {
-           
+
         }
 
         function animate() {
@@ -949,7 +1015,7 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-            
+
             // Cập nhật vị trí nút khi resize
             const floatBtn = document.getElementById('floatBtn');
             if (floatBtn && !floatBtn.disabled) {
@@ -970,4 +1036,5 @@
         });
     </script>
 </body>
+
 </html>
