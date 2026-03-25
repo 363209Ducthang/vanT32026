@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thành Viên Nhóm</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,7 +12,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 40px 20px;
@@ -25,49 +24,69 @@
             margin: 0 auto;
         }
 
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.28);
+            transition: 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.28);
+            transform: translateX(-4px);
+        }
+
         .header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             animation: slideDown 0.8s ease;
         }
 
         .header h1 {
-            color: white;
+            color: #fff;
             font-size: 3rem;
             margin-bottom: 10px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
         }
 
         .header p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 1.08rem;
         }
 
         .members-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            padding: 20px;
+            gap: 34px;
         }
 
         .member-card {
-            background: white;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 22px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
+            box-shadow: 0 14px 45px rgba(0, 0, 0, 0.16);
+            transition: 0.35s ease;
             animation: fadeInUp 0.8s ease backwards;
-            cursor: pointer;
         }
 
-        .member-card:nth-child(1) { animation-delay: 0.2s; }
-        .member-card:nth-child(2) { animation-delay: 0.4s; }
-        .member-card:nth-child(3) { animation-delay: 0.6s; }
-        .member-card:nth-child(4) { animation-delay: 0.8s; }
+        .member-card:nth-child(1) { animation-delay: 0.1s; }
+        .member-card:nth-child(2) { animation-delay: 0.2s; }
+        .member-card:nth-child(3) { animation-delay: 0.3s; }
+        .member-card:nth-child(4) { animation-delay: 0.4s; }
+        .member-card:nth-child(5) { animation-delay: 0.5s; }
+        .member-card:nth-child(6) { animation-delay: 0.6s; }
 
         .member-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            transform: translateY(-12px);
+            box-shadow: 0 22px 60px rgba(102, 126, 234, 0.28);
         }
 
         .image-container {
@@ -75,29 +94,27 @@
             width: 100%;
             height: 320px;
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #7f8cff, #8d5cc7);
         }
 
         .member-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.45s ease;
+            display: block;
         }
 
         .member-card:hover .member-image {
-            transform: scale(1.1) rotate(2deg);
+            transform: scale(1.08);
         }
 
         .image-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.5), rgba(118, 75, 162, 0.5));
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(102,126,234,0.22));
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: 0.35s ease;
         }
 
         .member-card:hover .image-overlay {
@@ -105,14 +122,13 @@
         }
 
         .member-info {
-            padding: 30px 25px;
+            padding: 26px 22px 24px;
             text-align: center;
         }
 
         .member-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #333;
+            font-size: 1.42rem;
+            font-weight: 800;
             margin-bottom: 8px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
@@ -121,30 +137,34 @@
         }
 
         .member-position {
-            color: #888;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            font-weight: 500;
+            color: #7b7b7b;
+            font-size: 0.96rem;
+            font-weight: 600;
+            margin-bottom: 14px;
         }
 
         .member-description {
-            color: #666;
-            font-size: 0.9rem;
+            color: #555;
+            font-size: 0.95rem;
             line-height: 1.6;
-            margin-bottom: 20px;
-            min-height: 60px;
+            margin-bottom: 16px;
+            min-height: 58px;
         }
 
-        .member-tiktok {
+        .member-threads {
+            font-size: 0.95rem;
             color: #333;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            word-break: break-word;
         }
-        .member-tiktok a {
+
+        .member-threads a {
             color: #667eea;
             text-decoration: none;
+            font-weight: 600;
         }
-        .member-tiktok a:hover {
+
+        .member-threads a:hover {
             text-decoration: underline;
         }
 
@@ -155,29 +175,40 @@
         }
 
         .social-icon {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            display: flex;
+            color: #fff;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
             text-decoration: none;
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icon svg {
+            width: 19px;
+            height: 19px;
+            fill: currentColor;
+            display: block;
         }
 
         .social-icon:hover {
-            transform: translateY(-5px) rotate(10deg);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-5px) rotate(8deg);
+            box-shadow: 0 10px 22px rgba(102, 126, 234, 0.35);
         }
 
-        /* Animations */
+        .social-icon.disabled {
+            opacity: 0.55;
+        }
+
         @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-28px);
             }
             to {
                 opacity: 1;
@@ -188,50 +219,12 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(26px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .members-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .image-container {
-                height: 250px;
-            }
-        }
-
-        /* Nút quay lại */
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-bottom: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .back-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateX(-5px);
-            border-color: white;
         }
 
         @keyframes ripple {
@@ -240,35 +233,69 @@
                 opacity: 0;
             }
         }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .image-container {
+                height: 250px;
+            }
+
+            .members-grid {
+                gap: 24px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="../index.html" class="back-button">
-            <i class="fas fa-arrow-left"></i> Quay lại
-        </a>
+        <a href="../index.html" class="back-button">← Quay lại</a>
 
         <div class="header">
             <h1>🌟 Thành Viên Nhóm</h1>
-            <p>Giới thiệu các thành viên tại gia nhân tập san Sinh Học</p>
+            <p>Giới thiệu các thành viên tham gia làm Tập San Văn Học</p>
         </div>
 
         <div class="members-grid">
+
             <!-- Thành viên 1 -->
             <div class="member-card">
                 <div class="image-container">
-                    <img src="../IMGI/img10.png" alt="Thành viên 1" class="member-image">
+                    <img src="../IMGI/img10.png" alt="Bùi Nguyễn Như Ý" class="member-image">
                     <div class="image-overlay"></div>
                 </div>
                 <div class="member-info">
-                    <h2 class="member-name">Hà Thị Minh Thư</h2>
+                    <h2 class="member-name">Bùi Nguyễn Như Ý</h2>
                     <p class="member-position">Trưởng nhóm</p>
                     <p class="member-description">Chuyên trách quản lý dự án, phối hợp các hoạt động của nhóm</p>
-                    <p class="member-tiktok">TikTok: <a href="#" target="_blank">@nguyenvana</a></p>
+                    <p class="member-threads">
+                        TikTok:
+                        <a href="https://www.tiktok.com/@ten_tiktok_1" target="_blank" rel="noopener noreferrer">@ten_tiktok_1</a>
+                    </p>
                     <div class="member-social">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/nhw.yeii.25.28?" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg viewBox="0 0 320 512">
+                                <path d="M279.14 288l14.22-92.66h-88.91V135.97c0-25.35 12.42-50.06 52.24-50.06H297V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://www.threads.com/@_nhw.yeii_20?xmt=AQF0VJi40X7ZFBpPhQlenfGRtJA-F-JZUf1mGg_2TkuSvrw" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16.3 11.1c-.1 0-.2-.1-.3-.1-.2-1.4-.8-2.6-1.7-3.4-.9-.8-2.1-1.2-3.6-1.2-2.9 0-5 1.7-5 4.2 0 2.1 1.4 3.5 4.1 4l2.2.4c1.7.3 2.5.8 2.5 1.8 0 1.1-1.1 1.9-2.9 1.9-1.9 0-3-.7-3.5-2.2l-2.3.6c.7 2.3 2.7 3.5 5.8 3.5 3.3 0 5.5-1.6 5.5-4.1 0-.6-.1-1.1-.4-1.6.5-.2.9-.3 1.4-.3 1.5 0 2.4.9 2.4 2.3 0 2.3-2.3 4-5.8 4-4.4 0-7.2-2.4-7.2-6.6 0-4.1 2.7-6.9 6.8-6.9 2.7 0 4.8 1.3 5.8 3.7.8.1 1.5.3 2.1.7-.7-3.9-3.8-6.3-7.9-6.3-5.6 0-9.4 3.8-9.4 9.1 0 5.5 3.7 8.9 9.7 8.9 4.8 0 8.3-2.6 8.3-6.4 0-2.8-1.8-4.7-4.5-4.8z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2F_nhw.yeii_20%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExY3lTZnlVYlIzR2NaUnZwUHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR66YuWqD-FFGHxqO7vD8cDMr99-i4y_YTF6KVf2_RC2ibaGouUoVruANq9lCw_aem_PZbht1xc3JyPBnm78cAcKg&h=AT4Im9oVIRvyQrqPxlJ1sSRWe51v9PHGD4A_Yn6CLZBz_CB9QcnN5MkpFQtcW2j5RiH9iljaqxDR_Ziao3KdoGv8SpBTIk_G_X8smrQ_w6n_APM0_WhVZbF9uB9bsGzESMAimS_Nkup5qIVXKq9P" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg viewBox="0 0 448 512">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9s12-26.9 26.9-26.9 26.9 12 26.9 26.9zM398.8 80C365.5 46.7 321.7 32 256 32H192C126.3 32 82.5 46.7 49.2 80 15.9 113.3 1.2 157.1 1.2 222.8v66.4c0 65.7 14.7 109.5 48 142.8 33.3 33.3 77.1 48 142.8 48h64c65.7 0 109.5-14.7 142.8-48 33.3-33.3 48-77.1 48-142.8v-66.4c0-65.7-14.7-109.5-48-142.8zM357 388.9c-7.3 18.4-21.5 32.6-39.9 39.9-27.6 11-93.1 8.5-123.1 8.5s-95.6 2.4-123.1-8.5c-18.4-7.3-32.6-21.5-39.9-39.9-11-27.6-8.5-93.1-8.5-123.1s-2.4-95.6 8.5-123.1c7.3-18.4 21.5-32.6 39.9-39.9 27.6-11 93.1-8.5 123.1-8.5s95.6-2.4 123.1 8.5c18.4 7.3 32.6 21.5 39.9 39.9 11 27.6 8.5 93.1 8.5 123.1s2.5 95.5-8.5 123.1z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -276,18 +303,35 @@
             <!-- Thành viên 2 -->
             <div class="member-card">
                 <div class="image-container">
-                    <img src="../IMGI/14.png" alt="Thành viên 2" class="member-image">
+                    <img src="../IMGI/14.png" alt="Nguyễn Văn Đức" class="member-image">
                     <div class="image-overlay"></div>
                 </div>
                 <div class="member-info">
                     <h2 class="member-name">Nguyễn Văn Đức</h2>
                     <p class="member-position">Phó trưởng nhóm</p>
                     <p class="member-description">Đảm nhiệm việc tổng hợp nội dung và thiết kế hình ảnh</p>
-                    <p class="member-tiktok">TikTok: <a href="#" target="_blank">@tranthib</a></p>
+                    <p class="member-threads">
+                        TikTok:
+                        <a href="https://www.tiktok.com/@nvanduc363?_r=1&_t=ZS-94yhupkSU5v" target="_blank" rel="noopener noreferrer">@nvanduc363</a>
+                    </p>
                     <div class="member-social">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61565876523190" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg viewBox="0 0 320 512">
+                                <path d="M279.14 288l14.22-92.66h-88.91V135.97c0-25.35 12.42-50.06 52.24-50.06H297V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16.3 11.1c-.1 0-.2-.1-.3-.1-.2-1.4-.8-2.6-1.7-3.4-.9-.8-2.1-1.2-3.6-1.2-2.9 0-5 1.7-5 4.2 0 2.1 1.4 3.5 4.1 4l2.2.4c1.7.3 2.5.8 2.5 1.8 0 1.1-1.1 1.9-2.9 1.9-1.9 0-3-.7-3.5-2.2l-2.3.6c.7 2.3 2.7 3.5 5.8 3.5 3.3 0 5.5-1.6 5.5-4.1 0-.6-.1-1.1-.4-1.6.5-.2.9-.3 1.4-.3 1.5 0 2.4.9 2.4 2.3 0 2.3-2.3 4-5.8 4-4.4 0-7.2-2.4-7.2-6.6 0-4.1 2.7-6.9 6.8-6.9 2.7 0 4.8 1.3 5.8 3.7.8.1 1.5.3 2.1.7-.7-3.9-3.8-6.3-7.9-6.3-5.6 0-9.4 3.8-9.4 9.1 0 5.5 3.7 8.9 9.7 8.9 4.8 0 8.3-2.6 8.3-6.4 0-2.8-1.8-4.7-4.5-4.8z"/>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg viewBox="0 0 448 512">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9s12-26.9 26.9-26.9 26.9 12 26.9 26.9zM398.8 80C365.5 46.7 321.7 32 256 32H192C126.3 32 82.5 46.7 49.2 80 15.9 113.3 1.2 157.1 1.2 222.8v66.4c0 65.7 14.7 109.5 48 142.8 33.3 33.3 77.1 48 142.8 48h64c65.7 0 109.5-14.7 142.8-48 33.3-33.3 48-77.1 48-142.8v-66.4c0-65.7-14.7-109.5-48-142.8zM357 388.9c-7.3 18.4-21.5 32.6-39.9 39.9-27.6 11-93.1 8.5-123.1 8.5s-95.6 2.4-123.1-8.5c-18.4-7.3-32.6-21.5-39.9-39.9-11-27.6-8.5-93.1-8.5-123.1s-2.4-95.6 8.5-123.1c7.3-18.4 21.5-32.6 39.9-39.9 27.6-11 93.1-8.5 123.1-8.5s95.6-2.4 123.1 8.5c18.4 7.3 32.6 21.5 39.9 39.9 11 27.6 8.5 93.1 8.5 123.1s2.5 95.5-8.5 123.1z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -295,18 +339,35 @@
             <!-- Thành viên 3 -->
             <div class="member-card">
                 <div class="image-container">
-                    <img src="../IMGI/11.png" alt="Thành viên 3" class="member-image">
+                    <img src="../IMGI/11.png" alt="Lê Thị Thúy Hằng" class="member-image">
                     <div class="image-overlay"></div>
                 </div>
                 <div class="member-info">
                     <h2 class="member-name">Lê Thị Thúy Hằng</h2>
                     <p class="member-position">Thành viên</p>
                     <p class="member-description">Phụ trách nghiên cứu tài liệu và viết bài cho tập san</p>
-                    <p class="member-tiktok">TikTok: <a href="#" target="_blank">@leminhc</a></p>
+                    <p class="member-threads">
+                        TikTok:
+                        <a href="https://www.tiktok.com/@le.thuy.hang45?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">@le.thuy.hang45</a>
+                    </p>
                     <div class="member-social">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/le.thuy.hang.643093?" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg viewBox="0 0 320 512">
+                                <path d="M279.14 288l14.22-92.66h-88.91V135.97c0-25.35 12.42-50.06 52.24-50.06H297V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://www.threads.com/@than_g0405?xmt=AQF0YU9nWAL8XnHuyDKdqv4ZDHFrlygvd2Xkl4X_mMcEiT0" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16.3 11.1c-.1 0-.2-.1-.3-.1-.2-1.4-.8-2.6-1.7-3.4-.9-.8-2.1-1.2-3.6-1.2-2.9 0-5 1.7-5 4.2 0 2.1 1.4 3.5 4.1 4l2.2.4c1.7.3 2.5.8 2.5 1.8 0 1.1-1.1 1.9-2.9 1.9-1.9 0-3-.7-3.5-2.2l-2.3.6c.7 2.3 2.7 3.5 5.8 3.5 3.3 0 5.5-1.6 5.5-4.1 0-.6-.1-1.1-.4-1.6.5-.2.9-.3 1.4-.3 1.5 0 2.4.9 2.4 2.3 0 2.3-2.3 4-5.8 4-4.4 0-7.2-2.4-7.2-6.6 0-4.1 2.7-6.9 6.8-6.9 2.7 0 4.8 1.3 5.8 3.7.8.1 1.5.3 2.1.7-.7-3.9-3.8-6.3-7.9-6.3-5.6 0-9.4 3.8-9.4 9.1 0 5.5 3.7 8.9 9.7 8.9 4.8 0 8.3-2.6 8.3-6.4 0-2.8-1.8-4.7-4.5-4.8z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fthan_g0405%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExcnZRZDRESzVsQUJVQ1RjZ3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR4FYjQJwXYrmeafubOsuHWV5qHx5yym87DonBIPgPtP9jjNmH37qBESrLM0dg_aem_qsSMZOyxLbOzTVXtOeZcIg&h=AT404sXCLsPX_sy2eyP38xFTRj0xh7QxgTCDe4IVo9S6LrPdcCvtB3IVhwwvT-67ipV6wDXz9Y0BsjX5SiYpIEDf3kZZXw2JAQAFU3kkqZTqKKWe4CpsKi5NEEVtmK1p2i_rFWE2R77esmr75RslMg" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg viewBox="0 0 448 512">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9s12-26.9 26.9-26.9 26.9 12 26.9 26.9zM398.8 80C365.5 46.7 321.7 32 256 32H192C126.3 32 82.5 46.7 49.2 80 15.9 113.3 1.2 157.1 1.2 222.8v66.4c0 65.7 14.7 109.5 48 142.8 33.3 33.3 77.1 48 142.8 48h64c65.7 0 109.5-14.7 142.8-48 33.3-33.3 48-77.1 48-142.8v-66.4c0-65.7-14.7-109.5-48-142.8zM357 388.9c-7.3 18.4-21.5 32.6-39.9 39.9-27.6 11-93.1 8.5-123.1 8.5s-95.6 2.4-123.1-8.5c-18.4-7.3-32.6-21.5-39.9-39.9-11-27.6-8.5-93.1-8.5-123.1s-2.4-95.6 8.5-123.1c7.3-18.4 21.5-32.6 39.9-39.9 27.6-11 93.1-8.5 123.1-8.5s95.6-2.4 123.1 8.5c18.4 7.3 32.6 21.5 39.9 39.9 11 27.6 8.5 93.1 8.5 123.1s2.5 95.5-8.5 123.1z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -314,75 +375,166 @@
             <!-- Thành viên 4 -->
             <div class="member-card">
                 <div class="image-container">
-                    <img src="../IMGI/imag12.jpg" alt="Thành viên 4" class="member-image">
+                    <img src="../IMGI/imag12.jpg" alt="Phan Văn Chuẩn" class="member-image">
                     <div class="image-overlay"></div>
                 </div>
                 <div class="member-info">
-                    <h2 class="member-name">Nguyễn Ngọc Đạt</h2>
+                    <h2 class="member-name">Phan Văn Chuẩn</h2>
                     <p class="member-position">Thành viên</p>
                     <p class="member-description">Chịu trách nhiệm quay video và hỗ trợ kỹ thuật</p>
-                    <p class="member-tiktok">TikTok: <a href="#" target="_blank">@phamhuud</a></p>
+                    <p class="member-threads">
+                        TikTok:
+                        <a href="https://www.tiktok.com/@phan.van.chuan?_r=1&_t=ZS-94yhupkSU5v" target="_blank" rel="noopener noreferrer">@phan.van.chuan</a>
+                    </p>
                     <div class="member-social">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/phan.van.chuan.660203?" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg viewBox="0 0 320 512">
+                                <path d="M279.14 288l14.22-92.66h-88.91V135.97c0-25.35 12.42-50.06 52.24-50.06H297V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16.3 11.1c-.1 0-.2-.1-.3-.1-.2-1.4-.8-2.6-1.7-3.4-.9-.8-2.1-1.2-3.6-1.2-2.9 0-5 1.7-5 4.2 0 2.1 1.4 3.5 4.1 4l2.2.4c1.7.3 2.5.8 2.5 1.8 0 1.1-1.1 1.9-2.9 1.9-1.9 0-3-.7-3.5-2.2l-2.3.6c.7 2.3 2.7 3.5 5.8 3.5 3.3 0 5.5-1.6 5.5-4.1 0-.6-.1-1.1-.4-1.6.5-.2.9-.3 1.4-.3 1.5 0 2.4.9 2.4 2.3 0 2.3-2.3 4-5.8 4-4.4 0-7.2-2.4-7.2-6.6 0-4.1 2.7-6.9 6.8-6.9 2.7 0 4.8 1.3 5.8 3.7.8.1 1.5.3 2.1.7-.7-3.9-3.8-6.3-7.9-6.3-5.6 0-9.4 3.8-9.4 9.1 0 5.5 3.7 8.9 9.7 8.9 4.8 0 8.3-2.6 8.3-6.4 0-2.8-1.8-4.7-4.5-4.8z"/>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg viewBox="0 0 448 512">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9s12-26.9 26.9-26.9 26.9 12 26.9 26.9zM398.8 80C365.5 46.7 321.7 32 256 32H192C126.3 32 82.5 46.7 49.2 80 15.9 113.3 1.2 157.1 1.2 222.8v66.4c0 65.7 14.7 109.5 48 142.8 33.3 33.3 77.1 48 142.8 48h64c65.7 0 109.5-14.7 142.8-48 33.3-33.3 48-77.1 48-142.8v-66.4c0-65.7-14.7-109.5-48-142.8zM357 388.9c-7.3 18.4-21.5 32.6-39.9 39.9-27.6 11-93.1 8.5-123.1 8.5s-95.6 2.4-123.1-8.5c-18.4-7.3-32.6-21.5-39.9-39.9-11-27.6-8.5-93.1-8.5-123.1s-2.4-95.6 8.5-123.1c7.3-18.4 21.5-32.6 39.9-39.9 27.6-11 93.1-8.5 123.1-8.5s95.6-2.4 123.1 8.5c18.4 7.3 32.6 21.5 39.9 39.9 11 27.6 8.5 93.1 8.5 123.1s2.5 95.5-8.5 123.1z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
+
+            <!-- Thành viên 5 -->
+            <div class="member-card">
+                <div class="image-container">
+                    <img src="../IMGI/imag12.jpg" alt="Thành viên 5" class="member-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="member-info">
+                    <h2 class="member-name">Nguyễn Cẩm Ly</h2>
+                    <p class="member-position">Thành viên</p>
+                    <p class="member-description">Phụ trách nghiên cứu tài liệu và viết bài cho tập san</p>
+                    <p class="member-threads">
+                        TikTok:
+                        <a href="https://www.tiktok.com/@nguyencaml?_r=1&_t=ZS-94yhupkSU5v" target="_blank" rel="noopener noreferrer">@nguyencamly</a>
+                    </p>
+                    <div class="member-social">
+                        <a href="https://www.facebook.com/yl.caamie01?" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg viewBox="0 0 320 512">
+                                <path d="M279.14 288l14.22-92.66h-88.91V135.97c0-25.35 12.42-50.06 52.24-50.06H297V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://www.threads.com/@nguyencamly?xmt=AQF0YU9nWAL8XnHuyDKdqv4ZDHFrlygvd2Xkl4X_mMcEiT0" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16.3 11.1c-.1 0-.2-.1-.3-.1-.2-1.4-.8-2.6-1.7-3.4-.9-.8-2.1-1.2-3.6-1.2-2.9 0-5 1.7-5 4.2 0 2.1 1.4 3.5 4.1 4l2.2.4c1.7.3 2.5.8 2.5 1.8 0 1.1-1.1 1.9-2.9 1.9-1.9 0-3-.7-3.5-2.2l-2.3.6c.7 2.3 2.7 3.5 5.8 3.5 3.3 0 5.5-1.6 5.5-4.1 0-.6-.1-1.1-.4-1.6.5-.2.9-.3 1.4-.3 1.5 0 2.4.9 2.4 2.3 0 2.3-2.3 4-5.8 4-4.4 0-7.2-2.4-7.2-6.6 0-4.1 2.7-6.9 6.8-6.9 2.7 0 4.8 1.3 5.8 3.7.8.1 1.5.3 2.1.7-.7-3.9-3.8-6.3-7.9-6.3-5.6 0-9.4 3.8-9.4 9.1 0 5.5 3.7 8.9 9.7 8.9 4.8 0 8.3-2.6 8.3-6.4 0-2.8-1.8-4.7-4.5-4.8z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fyl.caamie01%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExcnZRZDRESzVsQUJVQ1RjZ3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6H2Yk5lzE-O4oLOdme65LtA7eqWNzQFFzHcx9so8sLAS2-HxmP2sBwU1OnuQ_aem_6KDW_iHIRli8mUv7rtr4bg&h=AT5Z8NN5psOwYDOBLjF8BOFp0sVBGD_eogVu7_fbNjSif4_NFMy6TRAfhFmBXdOOg-9Hle-m7u5yx1pMKB4vebHeWcbvkjy-F9er7yTb0utZbfR_AMZI73wPMxJzgvdBOF22MkDTGSRF6KLEeeEf" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg viewBox="0 0 448 512">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9s12-26.9 26.9-26.9 26.9 12 26.9 26.9zM398.8 80C365.5 46.7 321.7 32 256 32H192C126.3 32 82.5 46.7 49.2 80 15.9 113.3 1.2 157.1 1.2 222.8v66.4c0 65.7 14.7 109.5 48 142.8 33.3 33.3 77.1 48 142.8 48h64c65.7 0 109.5-14.7 142.8-48 33.3-33.3 48-77.1 48-142.8v-66.4c0-65.7-14.7-109.5-48-142.8zM357 388.9c-7.3 18.4-21.5 32.6-39.9 39.9-27.6 11-93.1 8.5-123.1 8.5s-95.6 2.4-123.1-8.5c-18.4-7.3-32.6-21.5-39.9-39.9-11-27.6-8.5-93.1-8.5-123.1s-2.4-95.6 8.5-123.1c7.3-18.4 21.5-32.6 39.9-39.9 27.6-11 93.1-8.5 123.1-8.5s95.6-2.4 123.1 8.5c18.4 7.3 32.6 21.5 39.9 39.9 11 27.6 8.5 93.1 8.5 123.1s2.5 95.5-8.5 123.1z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thành viên 6 -->
+            <div class="member-card">
+                <div class="image-container">
+                    <img src="../IMGI/imag12.jpg" alt="Thành viên 6" class="member-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="member-info">
+                    <h2 class="member-name">Đậu Lê Quân</h2>
+                    <p class="member-position">Thành viên</p>
+                    <p class="member-description">Phụ trách nghiên cứu tài liệu và viết bài cho tập san</p>
+                    <p class="member-threads">
+                        TikTok:
+                        <a href="#" target="_blank" rel="noopener noreferrer">@lequan_29</a>
+                    </p>
+                    <div class="member-social">
+                        <a href="https://www.facebook.com/le.quan.533634?" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg viewBox="0 0 320 512">
+                                <path d="M279.14 288l14.22-92.66h-88.91V135.97c0-25.35 12.42-50.06 52.24-50.06H297V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16.3 11.1c-.1 0-.2-.1-.3-.1-.2-1.4-.8-2.6-1.7-3.4-.9-.8-2.1-1.2-3.6-1.2-2.9 0-5 1.7-5 4.2 0 2.1 1.4 3.5 4.1 4l2.2.4c1.7.3 2.5.8 2.5 1.8 0 1.1-1.1 1.9-2.9 1.9-1.9 0-3-.7-3.5-2.2l-2.3.6c.7 2.3 2.7 3.5 5.8 3.5 3.3 0 5.5-1.6 5.5-4.1 0-.6-.1-1.1-.4-1.6.5-.2.9-.3 1.4-.3 1.5 0 2.4.9 2.4 2.3 0 2.3-2.3 4-5.8 4-4.4 0-7.2-2.4-7.2-6.6 0-4.1 2.7-6.9 6.8-6.9 2.7 0 4.8 1.3 5.8 3.7.8.1 1.5.3 2.1.7-.7-3.9-3.8-6.3-7.9-6.3-5.6 0-9.4 3.8-9.4 9.1 0 5.5 3.7 8.9 9.7 8.9 4.8 0 8.3-2.6 8.3-6.4 0-2.8-1.8-4.7-4.5-4.8z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Flequan_29%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExcnZRZDRESzVsQUJVQ1RjZ3NydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR75PukiAXudUuWpFj3qRD0UBEmWUl0NIttdRo-nR9VrlDM1Xzj9ESZVh57_wQ_aem_BX7JekmbrkANVTkkRHPTYw&h=AT4y7a_rLPOY0yTvxZMCMcfyWWZLhnJx2YXK5UVaNoiwTeAsdYaCKCvZbNq0rUFH4guPQwgxiC2SMWo0NL2V3Mg4gwXqqE4D8cB1R-QNuAZQbVc-WsPgakuoGpUM3yBaNLseSLZAEmeIGbsGCP9q" class="social-icon disabled" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <svg viewBox="0 0 448 512">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.2 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.9-26.9 26.9-14.9 0-26.9-12-26.9-26.9s12-26.9 26.9-26.9 26.9 12 26.9 26.9zM398.8 80C365.5 46.7 321.7 32 256 32H192C126.3 32 82.5 46.7 49.2 80 15.9 113.3 1.2 157.1 1.2 222.8v66.4c0 65.7 14.7 109.5 48 142.8 33.3 33.3 77.1 48 142.8 48h64c65.7 0 109.5-14.7 142.8-48 33.3-33.3 48-77.1 48-142.8v-66.4c0-65.7-14.7-109.5-48-142.8zM357 388.9c-7.3 18.4-21.5 32.6-39.9 39.9-27.6 11-93.1 8.5-123.1 8.5s-95.6 2.4-123.1-8.5c-18.4-7.3-32.6-21.5-39.9-39.9-11-27.6-8.5-93.1-8.5-123.1s-2.4-95.6 8.5-123.1c7.3-18.4 21.5-32.6 39.9-39.9 27.6-11 93.1-8.5 123.1-8.5s95.6-2.4 123.1 8.5c18.4 7.3 32.6 21.5 39.9 39.9 11 27.6 8.5 93.1 8.5 123.1s2.5 95.5-8.5 123.1z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <script>
-        // Thêm hiệu ứng mouse parallax cho ảnh
-        document.querySelectorAll('.member-card').forEach(card => {
-            const image = card.querySelector('.member-image');
-            
-            card.addEventListener('mousemove', (e) => {
+        document.querySelectorAll(".member-card").forEach(card => {
+            const image = card.querySelector(".member-image");
+
+            card.addEventListener("mousemove", (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                image.style.transform = `scale(1.1) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+                const rotateX = (y - centerY) / 22;
+                const rotateY = (centerX - x) / 22;
+
+                image.style.transform = `scale(1.06) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
-            
-            card.addEventListener('mouseleave', () => {
-                image.style.transform = 'scale(1.1) rotateX(0deg) rotateY(0deg)';
+
+            card.addEventListener("mouseleave", () => {
+                image.style.transform = "";
             });
         });
 
-        // Hiệu ứng ripple khi click
-        document.querySelectorAll('.social-icon').forEach(icon => {
-            icon.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                const ripple = document.createElement('span');
+        document.querySelectorAll(".social-icon").forEach(icon => {
+            icon.addEventListener("click", (e) => {
+                const href = icon.getAttribute("href");
+
+                if (!href || href === "#") {
+                    e.preventDefault();
+                    alert("Bạn chưa thêm liên kết cho biểu tượng này");
+                    return;
+                }
+
+                const ripple = document.createElement("span");
                 const rect = icon.getBoundingClientRect();
                 const size = Math.max(rect.width, rect.height);
                 const x = e.clientX - rect.left - size / 2;
                 const y = e.clientY - rect.top - size / 2;
-                
+
                 ripple.style.cssText = `
                     position: absolute;
                     width: ${size}px;
                     height: ${size}px;
-                    background: rgba(255, 255, 255, 0.5);
-                    border-radius: 50%;
                     left: ${x}px;
                     top: ${y}px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.45);
                     pointer-events: none;
                     animation: ripple 0.6s ease-out;
                 `;
-                
-                icon.style.position = 'relative';
-                icon.style.overflow = 'hidden';
+
                 icon.appendChild(ripple);
-                
                 setTimeout(() => ripple.remove(), 600);
             });
         });

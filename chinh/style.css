@@ -1,22 +1,30 @@
-/* tập san */
+/* =========================
+   TẬP SAN - CHỦ ĐỀ VĂN HỌC
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
 body {
-    background-color: #c8f6d9;
-    background: linear-gradient(120deg, #c8f6d9 0%, #7fe0a9 40%, #bffbe0 70%, #ffffff 100%);
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(-45deg, #f7fff9, #edf9f1, #f4fff8, #ffffff);
+    background-size: 400% 400%;
+    animation: gradientMove 14s ease infinite;
     min-height: 100vh;
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
-}
-
-/* Nền gradient chuyển động */
-body {
-    background: linear-gradient(-45deg, #e6fff2, #ccf5e1, #d9fbe8, #f0fff4);
-    background-size: 400% 400%;
-    animation: gradientMove 12s ease infinite;
     position: relative;
     overflow-x: hidden;
+    color: #1f2937;
 }
 
-/* Animation nền */
+/* nền gradient chuyển động */
 @keyframes gradientMove {
     0% {
         background-position: 0% 50%;
@@ -31,47 +39,96 @@ body {
     }
 }
 
-/* DNA lớn mờ phía sau */
+/* dải chữ văn học mờ phía trên */
 body::before {
-    content: "🧬";
+    content: "VĂN HỌC • THƠ • TRUYỆN • NGÔN TỪ • CẢM XÚC • NHÂN VẬT • TÁC PHẨM • BIỂU TƯỢNG •";
     position: fixed;
-    font-size: 250px;
-    opacity: 0.05;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-20deg);
+    top: 20%;
+    left: -12%;
+    width: 140%;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 6px;
+    color: rgba(21, 128, 61, 0.08);
+    white-space: nowrap;
+    transform: rotate(-16deg);
+    filter: blur(2px);
     pointer-events: none;
+    z-index: 0;
+    text-shadow: 0 0 10px rgba(21, 128, 61, 0.05);
+    animation: literaryFloat1 18s ease-in-out infinite alternate;
 }
 
-/* Họa tiết chấm sinh học */
+/* dải chữ văn học mờ phía dưới */
 body::after {
-    content: "";
+    content: "TRUYỆN KIỀU • CHÍ PHÈO • VỢ NHẶT • TÂY TIẾN • VIỆT BẮC • SÓNG • ĐẤT NƯỚC • ÁNH TRĂNG •";
     position: fixed;
-    inset: 0;
-    background-image: radial-gradient(#16a34a 1px, transparent 1px);
-    background-size: 40px 40px;
-    opacity: 0.05;
+    bottom: 18%;
+    left: -10%;
+    width: 140%;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: rgba(34, 94, 60, 0.07);
+    white-space: nowrap;
+    transform: rotate(12deg);
+    filter: blur(2px);
     pointer-events: none;
+    z-index: 0;
+    text-shadow: 0 0 10px rgba(34, 94, 60, 0.04);
+    animation: literaryFloat2 22s ease-in-out infinite alternate;
 }
+
+@keyframes literaryFloat1 {
+    0% {
+        transform: translateX(0) translateY(0) rotate(-16deg);
+    }
+
+    100% {
+        transform: translateX(30px) translateY(-12px) rotate(-13deg);
+    }
+}
+
+@keyframes literaryFloat2 {
+    0% {
+        transform: translateX(0) translateY(0) rotate(12deg);
+    }
+
+    100% {
+        transform: translateX(-28px) translateY(10px) rotate(15deg);
+    }
+}
+
+/* đảm bảo nội dung nằm trên nền mờ */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================
+   HEADER / TITLE
+   ========================= */
 
 .bio-header {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background: white;
+    background: rgba(255, 255, 255, 0.92);
     padding: 50px 60px;
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .bio-title {
     font-size: 60px;
     font-weight: 900;
     letter-spacing: 3px;
-    background: linear-gradient(90deg, #15803d, #22c55e);
+    background: linear-gradient(90deg, #166534, #22c55e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0;
@@ -82,7 +139,7 @@ body::after {
     color: #16a34a;
 }
 
-/* Viền Canva style */
+/* viền */
 .bio-header::before {
     content: "";
     position: absolute;
@@ -97,7 +154,10 @@ body::after {
     mask-composite: exclude;
 }
 
-/*  */
+/* =========================
+   BUTTON / IMAGE BUTTON
+   ========================= */
+
 button {
     border: none;
     background: none;
@@ -121,14 +181,33 @@ button img {
     }
 }
 
-/* ảnh home */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.35);
+    }
+
+    70% {
+        transform: scale(1.03);
+        box-shadow: 0 0 0 18px rgba(34, 197, 94, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+}
+
+/* =========================
+   NAVBAR
+   ========================= */
+
 .navbar-brand img {
     width: 105px;
     height: 105px;
     border-radius: 50%;
 }
 
-/* make navbar roughly twice as large */
 .navbar {
     padding: 0.7rem 1.4rem;
 }
@@ -138,7 +217,6 @@ button img {
     padding: 0.5rem 1.05rem;
 }
 
-/* toggle button bigger */
 .navbar-toggler {
     padding: 0.35rem 0.7rem;
 }
@@ -148,7 +226,6 @@ button img {
     height: 1.4rem;
 }
 
-/* Themed navbar for the project */
 .navbar-custom {
     background: linear-gradient(90deg, rgba(34, 197, 94, 0.95), rgba(16, 185, 129, 0.95));
     color: #fff;
@@ -212,23 +289,10 @@ button img {
     border-radius: 8px;
 }
 
-@media (max-width: 767px) {
-    .brand-img {
-        width: 78px;
-        height: 78px;
-    }
+/* =========================
+   SECTION TITLE
+   ========================= */
 
-    .brand-title {
-        font-size: 0.95rem;
-    }
-
-    .navbar-custom {
-        margin: 12px;
-        padding: 0.45rem 0.8rem;
-    }
-}
-
-/* section heading style */
 .section-title {
     width: 98%;
     margin: 40px auto;
@@ -238,7 +302,6 @@ button img {
     border-radius: 12px;
     text-align: center;
     font-size: 1.5rem;
-    /* roughly h4 size */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -246,15 +309,11 @@ button img {
     margin: 0;
 }
 
-
-/* ensure consistent 10px spacing between two buttons/links */
+/* navbar buttons */
 .nav-buttons {
     gap: 10px !important;
-    /* override bootstrap gap-2 */
 }
 
-
-/* Link-styled buttons in navbar: light green -> dark green on hover */
 .btn-nav {
     display: inline-block;
     padding: 0.45rem 0.9rem;
@@ -262,9 +321,7 @@ button img {
     text-decoration: none;
     font-weight: 700;
     color: #064e3b;
-    /* dark text on light bg */
     background: #bbf7d0;
-    /* light green */
     transition: background 180ms ease, color 180ms ease, transform 140ms ease;
     border: 1px solid rgba(6, 78, 59, 0.06);
 }
@@ -272,25 +329,15 @@ button img {
 .btn-nav:hover,
 .btn-nav:focus {
     background: #047857;
-    /* dark green */
     color: #ffffff;
     transform: translateY(-2px);
     text-decoration: none;
 }
 
-@media (max-width: 576px) {
-    .nav-buttons {
-        gap: 8px;
-        margin-top: 8px;
-    }
+/* =========================
+   IMAGE / VIDEO
+   ========================= */
 
-    .btn-nav {
-        padding: 0.4rem 0.7rem;
-        font-size: 0.9rem;
-    }
-}
-
-/* ảnh sss */
 .sss {
     display: block;
     margin: 30px auto;
@@ -301,28 +348,15 @@ button img {
     margin-left: 10%;
 }
 
-/* video nhóm */
 .tv-frame {
     width: 90%;
-    /* max-width: 2000px; */
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     margin: 30px auto;
-}
-
-.anhnhom {
-    display: flex;
-    justify-content: center;
-}
-
-/* TV frame for video */
-.tv-frame {
     position: relative;
-    width: 90%;
-    height: auto;
     background: #000;
     padding: 20px;
     border: 12px solid #333;
@@ -338,7 +372,6 @@ button img {
     border-radius: 5px;
 }
 
-/* optional antenna effect */
 .tv-frame::before,
 .tv-frame::after {
     content: '';
@@ -354,7 +387,6 @@ button img {
     left: 40px;
 }
 
-/* generic image frame */
 .image-frame {
     width: 700px;
     max-width: 90vw;
@@ -373,38 +405,77 @@ button img {
     border-radius: 4px;
 }
 
-/*ảnh trượt lên xuống  */
-.slider {
+/* =========================
+   ALBUM / SLIDER
+   ========================= */
+
+.anhnhom {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: stretch;
+    width: min(95%, 1400px);
+    margin: 0 auto;
+}
+
+.slider,
+.slider2 {
     position: relative;
-    width: 80%;
+    width: 100%;
+    overflow: hidden;
+    border: 5px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    background: rgba(255, 255, 255, 0.85);
+    flex: 1 1 320px;
+}
+
+.slider {
     max-width: 650px;
     aspect-ratio: 16 / 10;
-    overflow: hidden;
     margin: 40px auto 20px;
-    border: 5px solid #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.slider2 {
+    max-width: 1000px;
+    aspect-ratio: 16 / 10;
+    margin: 20px auto 40px;
 }
 
 .slide {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
-    box-sizing: border-box;
     border: 2px solid #fff;
-    /* keep all slides in document flow so transition works */
 }
 
 .slide.active {
     opacity: 1;
 }
 
-/* card noi dung */
+/* =========================
+   CARD
+   ========================= */
+
+.card {
+    border: none !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.94) !important;
+    box-shadow: 0 10px 28px rgba(16, 24, 40, 0.12);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.card img {
+    display: block;
+}
+
 .card.mb-31 {
     margin-bottom: 31px;
     display: flex;
@@ -458,6 +529,7 @@ button img {
     margin-top: 2%;
     margin-right: auto;
 }
+
 .card.mb-36 {
     margin-bottom: 36px;
     display: flex;
@@ -466,6 +538,7 @@ button img {
     margin-top: 2%;
     margin-right: 15%;
 }
+
 .card.mb-37 {
     margin-bottom: 37px;
     display: flex;
@@ -474,18 +547,7 @@ button img {
     margin-top: 2%;
     margin-right: auto;
 }
-.slider2 {
-    position: relative;
-    width: 80%;
-    max-width: 1000px;
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    margin: 20px auto 40px;
-    border: 5px solid #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-/* layout for cards with icon */
+
 .card-row {
     display: flex;
     align-items: flex-start;
@@ -501,21 +563,142 @@ button img {
     padding-left: 12px;
 }
 
-/* Tăng kích thước text trong card */
 .card-title {
     font-size: 24px !important;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 15px;
+    color: #14532d;
 }
 
 .card-text {
     font-size: 16px !important;
     line-height: 1.8;
     margin-bottom: 12px;
+    color: #1f2937;
 }
 
 .card-body {
     padding: 25px !important;
 }
 
-/* ảnh album */
+/* =========================
+   LISTS
+   ========================= */
+
+ul {
+    padding-left: 1.2rem;
+}
+
+li {
+    margin-bottom: 4px;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 767px) {
+    .brand-img {
+        width: 78px;
+        height: 78px;
+    }
+
+    .brand-title {
+        font-size: 0.95rem;
+    }
+
+    .navbar-custom {
+        margin: 12px;
+        padding: 0.45rem 0.8rem;
+    }
+
+    .bio-header {
+        padding: 30px 20px;
+        gap: 12px;
+        border-radius: 16px;
+    }
+
+    .bio-title {
+        font-size: 34px;
+        text-align: center;
+    }
+
+    .dna {
+        font-size: 32px;
+    }
+
+    .section-title {
+        width: 94%;
+        font-size: 1.15rem;
+        padding: 16px 18px;
+    }
+
+    .sss {
+        width: 280px;
+        height: 280px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .slider,
+    .slider2 {
+        flex: 1 1 100%;
+    }
+
+    .card.mb-31,
+    .card.mb-32,
+    .card.mb-33,
+    .card.mb-34,
+    .card.mb-35,
+    .card.mb-36,
+    .card.mb-37 {
+        margin-left: 12px !important;
+        margin-right: 12px !important;
+        margin-top: 16px !important;
+    }
+
+    .card-title {
+        font-size: 20px !important;
+    }
+
+    .card-text {
+        font-size: 15px !important;
+        line-height: 1.7;
+    }
+
+    body::before {
+        font-size: 24px;
+        letter-spacing: 4px;
+        top: 18%;
+    }
+
+    body::after {
+        font-size: 20px;
+        letter-spacing: 3px;
+        bottom: 14%;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-buttons {
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .btn-nav {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 1rem;
+    }
+
+    .card-body {
+        padding: 18px !important;
+    }
+
+    .anhnhom {
+        gap: 14px;
+    }
+}
