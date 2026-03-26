@@ -123,3 +123,62 @@ document.querySelectorAll(".slider, .slider2").forEach((slider) => {
     slides[index].classList.add("active");
   }, 2000);
 });
+
+// sách
+/* =========================================
+   HIỆU ỨNG 3D CHO QUYỂN SÁCH
+   ========================================= */
+(function () {
+  const scene = document.getElementById("readingBookScene");
+  const book = document.getElementById("readingBook");
+  const rows = Array.from(document.querySelectorAll(".book-site-row"));
+
+  if (!scene || !book) return;
+
+  let rafId = null;
+  let activeRowIndex = 0;
+
+  function resetBook() {
+    book.style.transform = window.innerWidth > 992
+      ? "rotateX(8deg) rotateY(-12deg)"
+      : "none";
+
+    scene.style.setProperty("--glow-x", "50%");
+    scene.style.setProperty("--glow-y", "32%");
+  }
+
+  resetBook();
+
+  function moveBook(event) {
+    if (window.innerWidth <= 992) return;
+
+    const rect = scene.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+
+    const rotateY = -12 + (px - 0.5) * 16;
+    const rotateX = 8 - (py - 0.5) * 12;
+
+    scene.style.setProperty("--glow-x", `${px * 100}%`);
+    scene.style.setProperty("--glow-y", `${py * 100}%`);
+
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      book.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+  }
+
+  scene.addEventListener("mousemove", moveBook);
+  scene.addEventListener("mouseleave", resetBook);
+  window.addEventListener("resize", resetBook);
+
+  if (rows.length) {
+    rows[0].classList.add("is-highlighted");
+
+    setInterval(() => {
+      rows[activeRowIndex].classList.remove("is-highlighted");
+      activeRowIndex = (activeRowIndex + 1) % rows.length;
+      rows[activeRowIndex].classList.add("is-highlighted");
+    }, 2200);
+  }
+})();
