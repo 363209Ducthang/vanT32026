@@ -24,9 +24,9 @@
       --ink: #1d2734;
       --muted: #556274;
 
-      --cover-1: #1659d6;
-      --cover-2: #0a327c;
-      --cover-3: #06214d;
+      --cover-1: #36d616;
+      --cover-2: #36d616;
+      --cover-3: #36d616;
 
       --shadow: 0 40px 90px rgba(0, 0, 0, .35);
       --turn-time: 1.1s;
@@ -100,19 +100,20 @@
 
     .app {
       min-height: 100%;
-      display: grid;
-      grid-template-rows: 1fr auto;
+      display: flex;
+      flex-direction: column;
       padding: calc(var(--nav-h) + 18px) clamp(10px, 2vw, 26px) 12px;
-      gap: 10px;
+      gap: 18px;
     }
 
     .stage {
       position: relative;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       perspective: 4600px;
-      overflow: hidden;
+      overflow: visible;
+      padding: 8px 0 34px;
     }
 
     .floor-shadow {
@@ -186,7 +187,7 @@
       width: calc(50% - var(--page-gap));
       height: calc(100% - clamp(28px, 2vw, 48px));
       border-radius: 18px;
-      overflow-y: auto;
+      overflow: hidden;
       background: linear-gradient(180deg, var(--paper) 0%, #fbf7ee 55%, #f8f1e4 100%);
       border: 1px solid rgba(0, 0, 0, .07);
       box-shadow: 0 10px 26px rgba(0, 0, 0, .12), inset 0 0 40px rgba(255, 255, 255, .4);
@@ -208,6 +209,42 @@
       left: var(--page-gap);
       transform-origin: right center;
       z-index: 5;
+    }
+
+    .static-right-final {
+      right: var(--page-gap);
+      left: auto;
+      transform-origin: left center;
+      z-index: 5;
+      visibility: hidden;
+    }
+
+    .measure-root {
+      position: absolute;
+      left: -100000px;
+      top: 0;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .measure-page {
+      position: relative !important;
+      inset: auto !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      height: auto !important;
+      margin-bottom: 12px;
+      overflow: visible !important;
+      transform: none !important;
+    }
+
+    .measure-page .page-content,
+    .measure-page .cover-layout {
+      min-height: 0 !important;
+      height: auto !important;
+      overflow: visible !important;
     }
 
     .front {
@@ -236,16 +273,18 @@
     .page-content {
       position: relative;
       z-index: 1;
-      height: 100%;
+      min-height: 100%;
+      height: auto;
       padding: clamp(18px, 1.5vw, 34px) clamp(18px, 1.6vw, 36px) clamp(14px, 1vw, 24px);
       display: flex;
       flex-direction: column;
       gap: clamp(10px, 1vw, 16px);
-      overflow-y: auto;
+      overflow: visible;
     }
 
     .cover-layout {
-      height: 100%;
+      min-height: 100%;
+      height: auto;
       border-radius: inherit;
       display: flex;
       flex-direction: column;
@@ -461,7 +500,14 @@
       }
 
       .book {
-        transform: rotateX(3deg);
+        width: min(95vw, 1400px);
+        min-height: min(88vh, 900px);
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .book-wrapper {
+        overflow: visible;
       }
 
       .controls {
@@ -482,6 +528,870 @@
         font-size: 18px;
       }
     }
+
+    /* dna */
+    .bio-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 50px 60px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .bio-title {
+      font-size: 60px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, #166534, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+    }
+
+    .dna {
+      font-size: 50px;
+      color: #16a34a;
+    }
+
+    /* video */
+    .tv-frame {
+      width: 90%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 30px auto;
+      position: relative;
+      background: #000;
+      padding: 20px;
+      border: 12px solid #333;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      margin-top: 40px;
+    }
+
+    .tv-frame video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+
+    .tv-frame::before,
+    .tv-frame::after {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      width: 2px;
+      height: 30px;
+      background: #333;
+    }
+
+    .tv-frame::after {
+      left: 40px;
+    }
+
+    /* =========================================
+   QUYỂN SÁCH 3D - GIỚI THIỆU WEB ĐỌC SÁCH
+   RỘNG 95% - CAO AUTO
+   ========================================= */
+
+    .reading-book-section {
+      width: 100%;
+      max-width: none;
+      margin: 70px auto 40px;
+      position: relative;
+      z-index: 2;
+      padding: 0;
+    }
+
+    .reading-book-heading {
+      width: 95%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .reading-book-heading-text h2 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 56px);
+      font-weight: 900;
+      color: #114b32;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 18px rgba(255, 255, 255, 0.6);
+    }
+
+    .reading-book-kicker {
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: 5px;
+      font-weight: 800;
+      color: #2f7d56;
+    }
+
+    .reading-book-icon {
+      font-size: clamp(28px, 4vw, 52px);
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.15));
+    }
+
+    .reading-book-scene {
+      --glow-x: 50%;
+      --glow-y: 32%;
+      position: relative;
+      perspective: 2400px;
+      min-height: auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0 30px;
+    }
+
+    .reading-book-scene::before {
+      content: "";
+      position: absolute;
+      inset: 8% 4% 12%;
+      background:
+        radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255, 239, 184, 0.48), transparent 28%),
+        radial-gradient(circle at 50% 70%, rgba(255, 255, 255, 0.28), transparent 45%);
+      filter: blur(24px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .reading-book-shadow {
+      position: absolute;
+      width: 95%;
+      max-width: none;
+      height: 85px;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse at center, rgba(39, 24, 8, 0.35) 0%, rgba(39, 24, 8, 0.15) 40%, rgba(39, 24, 8, 0) 75%);
+      filter: blur(18px);
+      z-index: 0;
+    }
+
+    .reading-book {
+      position: relative;
+      width: 95%;
+      max-width: none;
+      min-height: auto;
+      height: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transform-style: preserve-3d;
+      transform: rotateX(8deg) rotateY(-12deg);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      z-index: 2;
+      filter: drop-shadow(0 28px 55px rgba(43, 28, 12, 0.34));
+      margin: 0 auto;
+    }
+
+    .reading-book::before {
+      content: "";
+      position: absolute;
+      inset: -14px -10px -18px -10px;
+      border-radius: 26px;
+      background:
+        linear-gradient(180deg, rgba(104, 68, 34, 0.95), rgba(61, 39, 19, 0.98)),
+        repeating-linear-gradient(to bottom,
+          rgba(255, 255, 255, 0.03) 0px,
+          rgba(255, 255, 255, 0.03) 2px,
+          transparent 2px,
+          transparent 8px);
+      z-index: -2;
+      box-shadow:
+        0 10px 24px rgba(46, 27, 8, 0.45),
+        inset 0 2px 2px rgba(255, 233, 203, 0.18),
+        inset 0 -8px 16px rgba(0, 0, 0, 0.22);
+    }
+
+    .reading-book::after {
+      content: "";
+      position: absolute;
+      inset: 8px 12px;
+      border-radius: 18px;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .reading-book-ribbon {
+      position: absolute;
+      top: 44px;
+      left: -54px;
+      transform: rotate(-90deg);
+      padding: 10px 18px;
+      background: linear-gradient(180deg, #aa2f3e, #7c1f2b);
+      color: #fff8ef;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 10px 18px rgba(124, 31, 43, 0.36);
+      z-index: 5;
+    }
+
+    .reading-book-spine {
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%) translateZ(18px);
+      width: 54px;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #4a2d16 0%, #7a4b24 18%, #9b6737 50%, #6c401d 82%, #3a2411 100%);
+      box-shadow:
+        inset 4px 0 10px rgba(255, 222, 180, 0.18),
+        inset -5px 0 12px rgba(0, 0, 0, 0.35),
+        0 0 18px rgba(53, 31, 13, 0.4);
+      z-index: 3;
+    }
+
+    .reading-book-page {
+      position: relative;
+      min-height: auto;
+      height: auto;
+      padding: 42px 32px 54px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.12)),
+        repeating-linear-gradient(to bottom,
+          rgba(119, 87, 49, 0.06) 0px,
+          rgba(119, 87, 49, 0.06) 1px,
+          transparent 1px,
+          transparent 34px),
+        linear-gradient(180deg, #f8f0de 0%, #f1e4ca 100%);
+      border: 1px solid rgba(128, 90, 52, 0.18);
+    }
+
+    .reading-book-page-left,
+    .reading-book-page-right {
+      min-height: auto;
+      height: auto;
+    }
+
+    .reading-book-page-left {
+      border-radius: 18px 0 0 18px;
+      box-shadow:
+        inset -24px 0 26px rgba(125, 92, 52, 0.18),
+        inset 0 16px 14px rgba(255, 255, 255, 0.28);
+    }
+
+    .reading-book-page-right {
+      border-radius: 0 18px 18px 0;
+      box-shadow:
+        inset 24px 0 26px rgba(125, 92, 52, 0.18),
+        inset 0 16px 14px rgba(255, 255, 255, 0.28);
+    }
+
+    .reading-book-page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.48), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(141, 102, 55, 0.12), transparent 26%);
+      pointer-events: none;
+    }
+
+    .page-corner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 78px;
+      height: 78px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 52%);
+      clip-path: polygon(100% 0, 0 0, 100% 100%);
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .page-kicker {
+      margin: 0 0 10px;
+      color: #8a572d;
+      font-size: 13px;
+      letter-spacing: 4px;
+      font-weight: 800;
+    }
+
+    .page-title {
+      margin: 0 0 18px;
+      font-size: clamp(26px, 3vw, 42px);
+      line-height: 1.15;
+      color: #472612;
+      font-weight: 900;
+    }
+
+    .page-desc {
+      margin: 0 0 18px;
+      color: #533724;
+      line-height: 1.9;
+      font-size: 17px;
+      text-align: justify;
+    }
+
+    .reading-book-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 22px;
+    }
+
+    .reading-book-features span {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fffdf6, #efe3c9);
+      border: 1px solid rgba(122, 82, 44, 0.18);
+      color: #664221;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(94, 66, 37, 0.08);
+    }
+
+    .reading-book-note,
+    .reading-book-mini-note,
+    .reading-book-footer-note {
+      position: relative;
+      background: rgba(255, 250, 240, 0.74);
+      border: 1px solid rgba(127, 90, 50, 0.16);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 20px rgba(86, 58, 28, 0.08);
+    }
+
+    .reading-book-note {
+      margin-bottom: 22px;
+    }
+
+    .reading-book-note h4 {
+      margin: 0 0 12px;
+      color: #5d3519;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .reading-book-note ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .reading-book-note li {
+      margin-bottom: 8px;
+      color: #4d3322;
+      line-height: 1.7;
+    }
+
+    .reading-book-quote {
+      margin: 0 0 22px;
+      padding: 20px 22px;
+      border-left: 6px solid #9b6737;
+      border-radius: 0 18px 18px 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(246, 236, 214, 0.82));
+      color: #5a371e;
+      font-size: 18px;
+      line-height: 1.9;
+      font-style: italic;
+      box-shadow: 0 10px 20px rgba(86, 58, 28, 0.08);
+    }
+
+    .reading-book-mini-note .mini-label {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #7d4b28;
+      color: #fff7ef;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .reading-book-mini-note p,
+    .reading-book-footer-note {
+      margin: 0;
+      color: #4f3524;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .page-table-title {
+      margin: 4px 0 20px;
+      font-size: 30px;
+      font-weight: 900;
+      color: #472612;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .reading-book-table-wrap {
+      width: 100%;
+      border-radius: 18px;
+      overflow-x: auto;
+      border: 1px solid rgba(120, 81, 42, 0.18);
+      box-shadow: 0 16px 24px rgba(88, 57, 25, 0.1);
+      background: rgba(255, 251, 242, 0.8);
+      margin-bottom: 20px;
+    }
+
+    .reading-book-table {
+      width: 100%;
+      min-width: 0;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .reading-book-table th,
+    .reading-book-table td {
+      padding: 14px 12px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(124, 86, 48, 0.14);
+      line-height: 1.7;
+      color: #4e3523;
+      font-size: 15px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .reading-book-table th {
+      background: linear-gradient(180deg, #9d6a3d, #7a4b24);
+      color: #fff8ef;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .reading-book-table tbody tr {
+      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .reading-book-table tbody tr:nth-child(even) {
+      background: rgba(245, 236, 219, 0.62);
+    }
+
+    .reading-book-table tbody tr:hover,
+    .reading-book-table tbody tr.is-highlighted {
+      background: linear-gradient(90deg, rgba(255, 246, 224, 0.96), rgba(255, 252, 243, 0.96));
+      transform: translateX(4px);
+      box-shadow: inset 4px 0 0 #9d6a3d;
+    }
+
+    .reading-book-table a {
+      color: #7b2d12;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .reading-book-table a:hover {
+      text-decoration: underline;
+    }
+
+    .reading-page-number {
+      position: absolute;
+      bottom: 16px;
+      font-size: 18px;
+      font-weight: 800;
+      color: rgba(113, 74, 37, 0.6);
+    }
+
+    .left-page-number {
+      left: 28px;
+    }
+
+    .right-page-number {
+      right: 28px;
+    }
+
+    .book-spark {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 184, 0.75) 35%, rgba(255, 255, 255, 0) 75%);
+      box-shadow: 0 0 18px rgba(255, 242, 188, 0.8);
+      animation: bookSparkFloat 4.2s ease-in-out infinite;
+      z-index: 1;
+      opacity: 0.75;
+    }
+
+    .spark-1 {
+      top: 12%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .spark-2 {
+      top: 22%;
+      right: 12%;
+      animation-delay: 1s;
+    }
+
+    .spark-3 {
+      bottom: 18%;
+      left: 16%;
+      animation-delay: 2s;
+    }
+
+    .spark-4 {
+      bottom: 12%;
+      right: 18%;
+      animation-delay: 3s;
+    }
+
+    @keyframes bookSparkFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(0.9);
+        opacity: 0.45;
+      }
+
+      50% {
+        transform: translateY(-10px) scale(1.15);
+        opacity: 0.95;
+      }
+    }
+
+    /* =========================
+   RESPONSIVE RIÊNG CHO SÁCH
+   ========================= */
+
+    @media (max-width: 992px) {
+      .reading-book-section {
+        width: 100%;
+        margin: 50px auto 30px;
+      }
+
+      .reading-book-heading {
+        width: 95%;
+        gap: 14px;
+        margin: 0 auto 24px;
+      }
+
+      .reading-book {
+        width: 95%;
+        max-width: none;
+        grid-template-columns: 1fr;
+        min-height: auto;
+        height: auto;
+        transform: none !important;
+      }
+
+      .reading-book-spine {
+        display: none;
+      }
+
+      .reading-book-ribbon {
+        left: auto;
+        right: 18px;
+        top: -12px;
+        transform: none;
+        border-radius: 0 0 12px 12px;
+      }
+
+      .reading-book-page {
+        min-height: auto;
+        height: auto;
+        padding: 34px 22px 46px;
+      }
+
+      .reading-book-page-left {
+        border-radius: 18px 18px 0 0;
+        box-shadow: inset 0 -14px 22px rgba(125, 92, 52, 0.15);
+      }
+
+      .reading-book-page-right {
+        border-radius: 0 0 18px 18px;
+        box-shadow: inset 0 14px 22px rgba(125, 92, 52, 0.15);
+      }
+
+      .reading-book-scene {
+        min-height: auto;
+        padding: 12px 0 24px;
+      }
+
+      .reading-book-shadow {
+        width: 95%;
+        bottom: 10px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .reading-book-section {
+        width: 100%;
+        margin: 40px auto 24px;
+      }
+
+      .reading-book-heading {
+        width: 95%;
+        gap: 10px;
+        margin: 0 auto 18px;
+      }
+
+      .reading-book-kicker {
+        letter-spacing: 3px;
+        font-size: 12px;
+      }
+
+      .reading-book-heading-text h2 {
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      .reading-book {
+        width: 95%;
+      }
+
+      .reading-book-page {
+        padding: 24px 14px 42px;
+      }
+
+      .page-title {
+        font-size: 24px;
+        line-height: 1.2;
+      }
+
+      .page-desc,
+      .reading-book-note li,
+      .reading-book-mini-note p,
+      .reading-book-footer-note {
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .reading-book-quote {
+        font-size: 16px;
+        line-height: 1.7;
+        padding: 16px 16px 16px 18px;
+      }
+
+      .page-table-title {
+        font-size: 22px;
+      }
+
+      .reading-book-table {
+        min-width: 680px;
+      }
+
+      .reading-book-table th,
+      .reading-book-table td {
+        font-size: 14px;
+        padding: 12px 10px;
+      }
+    }
+
+    /* ảnh chuyển */
+    .anhnhom {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: stretch;
+      width: min(95%, 1400px);
+      margin: 0 auto;
+    }
+
+    .slider,
+    .slider2 {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border: 5px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      background: rgba(255, 255, 255, 0.85);
+      flex: 1 1 320px;
+    }
+
+    .slider {
+      max-width: 650px;
+      aspect-ratio: 16 / 10;
+      margin: 40px auto 20px;
+    }
+
+    .slider2 {
+      max-width: 1000px;
+      aspect-ratio: 16 / 10;
+      margin: 20px auto 40px;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      border: 2px solid #fff;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    /* ===== TRÁI ĐẤT QUAY - CLICK MỞ LINK ===== */
+.earth-link {
+  position: absolute;
+  top: 24px;
+  right: 3.5%;
+  width: 130px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  text-decoration: none;
+  z-index: 8;
+  animation: earthFloat 4.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.earth-link:hover {
+  transform: translateY(-4px) scale(1.04);
+}
+
+.earth-link:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.earth-orbit {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 28px rgba(88, 180, 255, 0.28);
+  animation: orbitPulse 2.8s ease-in-out infinite;
+}
+
+.earth-sphere {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.95) 0 8%, rgba(255,255,255,0.18) 9%, transparent 25%),
+    radial-gradient(circle at 35% 30%, #67d8ff 0%, #2fa4ff 32%, #1260cb 66%, #08285f 100%);
+  box-shadow:
+    inset -18px -16px 26px rgba(0,0,0,0.36),
+    inset 12px 10px 20px rgba(255,255,255,0.22),
+    0 0 30px rgba(71,160,255,0.42),
+    0 12px 24px rgba(0,0,0,0.22);
+}
+
+.earth-map {
+  position: absolute;
+  top: -2%;
+  left: -150%;
+  width: 300%;
+  height: 104%;
+  opacity: 0.95;
+  background:
+    radial-gradient(circle at 8% 50%, #58c56e 0 4%, transparent 4.5%),
+    radial-gradient(circle at 12% 38%, #58c56e 0 7%, transparent 7.5%),
+    radial-gradient(circle at 18% 56%, #58c56e 0 6%, transparent 6.5%),
+    radial-gradient(circle at 27% 42%, #4cad61 0 9%, transparent 9.6%),
+    radial-gradient(circle at 33% 60%, #4cad61 0 7%, transparent 7.5%),
+    radial-gradient(circle at 44% 36%, #63d377 0 8%, transparent 8.5%),
+    radial-gradient(circle at 51% 50%, #63d377 0 11%, transparent 11.5%),
+    radial-gradient(circle at 60% 62%, #58c56e 0 8%, transparent 8.5%),
+    radial-gradient(circle at 71% 40%, #58c56e 0 7%, transparent 7.5%),
+    radial-gradient(circle at 79% 55%, #4cad61 0 10%, transparent 10.5%),
+    radial-gradient(circle at 90% 44%, #63d377 0 8%, transparent 8.5%);
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.12));
+  animation: earthSpin 9s linear infinite;
+}
+
+.earth-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 24% 24%, rgba(255,255,255,0.9), transparent 22%),
+    radial-gradient(circle at 70% 75%, rgba(255,255,255,0.08), transparent 26%);
+  pointer-events: none;
+}
+
+.earth-label {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.86);
+  color: #0f3f75;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  white-space: nowrap;
+}
+
+@keyframes earthSpin {
+  from { transform: translateX(0); }
+  to   { transform: translateX(66.666%); }
+}
+
+@keyframes earthFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes orbitPulse {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.08);
+    opacity: 0.95;
+  }
+}
+
+@media (max-width: 992px) {
+  .earth-link {
+    top: -6px;
+    right: 10px;
+    width: 92px;
+    height: 108px;
+  }
+
+  .earth-orbit {
+    width: 86px;
+    height: 86px;
+  }
+
+  .earth-sphere {
+    width: 72px;
+    height: 72px;
+    margin-top: 6px;
+  }
+
+  .earth-label {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}
   </style>
 </head>
 
@@ -538,23 +1448,84 @@
     <div class="page-content-static">
       <div class="chapter-kicker">GIỚI THIỆU</div>
       <h3 class="chapter-title">Đôi Nét Về Tác Giả</h3>
-      <p class="lead">Nhà văn, nhà cách mạng Sơn Tùng: "Năm 1941, ở tuổi 16, tràn đầy nhiệt huyết, Sơn Tùng đeo ba lô hoà vào dòng chảy của cơn lốc cách mạng. Ban đầu ông hoạt động trong phong trào thanh niên, sinh viên thủ đô. Sau khi Hà Nội giải phóng, Sơn Tùng vào học tại trường Đại học nhân dân và sau đó trở thành cán bộ tuyên truyền của Đảng. Năm 1961 ông về viết cho báo Nông nghiệp và từ cuối năm 1962 là phóng viên của báo Tiền phong. Năm 1967 ông được điều vào Nam thành lập và phụ trách tờ Thanh niên giải phóng. Năm 1971 ông bị thương nặng và rời chiến trường miền Nam mang trên mình 14 vết thương, 3 mảnh đạn còn găm trong sọ não. Nửa người bên phải hầu như bị liệt... Sau đó ông xin về nhà và luyện khí công. Với nghị lực phi thường, ông khổ luyện từ 2h sáng tới 8h tối, sức khoẻ ông dần dần bình phục...<br><br>“Trong đầm gì đẹp bằng sen, lá xanh bông trắng lại chen nhị vàng. Nhị vàng bông trắng lá xanh, gần bùn mà chẳng hôi tanh mùi bùn”. Loài hoa sen tinh khiết ví như tâm hồn Bác vậy... "</p>
+      <p class="lead">"Trong tâm thức của người Việt, hoa sen là biểu tượng của sự thuần khiết, "gần bùn mà chẳng hôi
+        tanh mùi bùn". Có lẽ chính vì vậy mà nhà văn Sơn Tùng đã chọn hình ảnh "Búp sen xanh" để đặt tên cho cuốn tiểu
+        thuyết tâm huyết nhất cuộc đời mình. Tác phẩm không chỉ là một cuốn tiểu sử về Chủ tịch Hồ Chí Minh, mà còn là
+        một bức tranh nghệ thuật đầy xúc động về quá trình hình thành nhân cách của một vĩ nhân từ thuở ấu thơ cho đến
+        khi bước chân xuống con tàu Amiral Latouche-Tréville ra đi tìm đường cứu nước."</p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/13.jpg" class="slide active">
+          <img src="/imgalbum/14.jpg" class="slide">
+          <img src="/imgalbum/15.jpg" class="slide">
+          <img src="/imgalbum/16.jpg" class="slide">
+          <img src="/imgalbum/17.jpg" class="slide">
+          <img src="/imgalbum/18.jpg" class="slide">
+          <img src="/imgalbum/19.jpg" class="slide">
+          <img src="/imgalbum/20.jpg" class="slide">
+          <img src="/imgalbum/21.jpg" class="slide">
+          <img src="/imgalbum/22.jpg" class="slide">
+          <img src="/imgalbum/23.jpg" class="slide">
+          <img src="/imgalbum/32.jpg" class="slide">
+          <img src="/imgalbum/31.jpg" class="slide">
+          <img src="/imgalbum/30.jpg" class="slide">
+          <img src="/imgalbum/29.jpg" class="slide">
+          <img src="/imgalbum/28.jpg" class="slide">
+          <img src="/imgalbum/27.jpg" class="slide">
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+          <img src="/imgalbum/14.jpg" class="slide">
+          <img src="/imgalbum/15.jpg" class="slide">
+          <img src="/imgalbum/24.jpg" class="slide">
+          <img src="/imgalbum/25.jpg" class="slide">
+          <img src="/imgalbum/26.jpg" class="slide">
+          <img src="/imgalbum/27.jpg" class="slide">
+          <img src="/imgalbum/44.jpg" class="slide">
+          <img src="/imgalbum/45.jpg" class="slide">
+          <img src="/imgalbum/46.jpg" class="slide">
+          <img src="/imgalbum/47.jpg" class="slide">
+          <img src="/imgalbum/48.jpg" class="slide">
+          <img src="/imgalbum/49.jpg" class="slide">
+          <img src="/imgalbum/50.jpg" class="slide">
+          <img src="/imgalbum/51.jpg" class="slide">
+          <img src="/imgalbum/52.jpg" class="slide">
+          <img src="/imgalbum/53.jpg" class="slide">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 3: Chương I - Phần 1 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 1</h3>
-      <p class="lead">Cơn dông mùa hạ dấy lên ở phía nam. Mây đen từng khối ùn ùn như nấm từ dưới chân trời đùn lên. Thoáng chốc, các ngọn núi của dãy Dăng Màn, Thiên Nhẫn… đã ngập chìm vào mây đen đục. Mảng nắng hẹp dần. Cảnh sắc hai bờ sông Lam đã ngả màu sẫm. Bên gốc cây đa đầu làng Chùa có mấy con bò đứng ngủ, mồm nhai uể oải. Một tốp người đi làm đồng về ngồi nghỉ chân bên gốc đa đang gạ ông Xẩm hát cho nghe một bài mới. Ông Xẩm ngước đôi mắt mù lòa về phía có tiếng sấm xa xa... Ông Xẩm cất tiếng đàn bầu: "Trời có thấu chăng trời! Nước Nam cơ khổ nhiều đời đắng cay..." Bé Thanh chạy về khi mẹ chuyển dạ sinh em trai. Đêm đó, ông đồ Hoàng Xuân Đường đặt tên cho đứa trẻ là Nguyễn Sinh Côn, tự Tất Thành.</p>
+      <div class="chapter-kicker">Tác Phẩm Gồm Có 3 Chương</div>
+      <h3 class="chapter-title">Tác Phẩm Gồm Có 3 Chương</h3>
+      <p class="lead">
+      <h4>Chương I</h4>Thời Thơ Ấu <br>
+      <h4>Chương II</h4>Thời Trẻ Trung <br>
+      <h4>Chương III</h4>Thời Trung Niên</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 4: Chương I - Phần 2 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 2</h3>
-      <p class="lead">Dưới bóng tre đầu làng, bà đồ cùng mấy người đứng tuổi chạy ra phía đầm sen. Về tới đầu sân, cơn đau chuyển sinh lại thốn thoáy, mệt quá chị nho Sắc phải ngồi thụp xuống bên gốc cây thị. Bà đồ giục cô An: "An, con vô quạt than lên! Mau!" Bé Thanh bước qua dãy chè mạn hảo sang nhà ông bà ngoại. Tiếng khóc chào đời của đứa trẻ vang lên. Ông đồ ngồi xếp bằng trên phản gụ, anh nho Sắc ngồi đối diện. Ông đồ nói: "Tôi muốn đặt cho cháu tên là Côn, tự là Tất Thành. Côn ấy là tích loài cá hóa chim bằng. Thằng bé sẽ có chí vùng vẫy bốn bể, dù gặp truân chuyên chìm nổi, nhưng ắt thành công." Anh nho Sắc nắn nót dòng chữ Nguyễn Sinh Côn, tự Tất Thành.</p>
+      <h3 class="chapter-title">Nội Dung Chính</h3>
+      <p class="lead">Nội dung chính của "Búp sen xanh" có thể tóm gọn qua 3 giai đoạn cuộc đời của nhân vật chính
+        Nguyễn Sinh Cung (Bác Hồ):
+
+        Thời niên thiếu tại quê nhà: Khắc họa sự hình thành nhân cách của cậu bé Cung trong truyền thống hiếu học của
+        gia đình và nghĩa tình của làng Sen, làng Chùa (Nghệ An).
+
+        Nỗi đau và sự trưởng thành: Giai đoạn sống tại Huế với biến cố đau thương nhất là sự ra đi của người mẹ (bà
+        Hoàng Thị Loan). Những bất công của xã hội thực dân phong kiến đã nhen nhóm trong anh thanh niên Tất Thành ý chí
+        cứu nước.
+
+        Quyết định lịch sử: Sau thời gian dạy học tại trường Dục Thanh (Phan Thiết), Nguyễn Tất Thành vào Sài Gòn và
+        quyết định rời bến Nhà Rồng năm 1911 trên con tàu Đô đốc Latouche-Tréville để tìm con đường giải phóng dân tộc.
+
+        Điểm đặc biệt: Tác phẩm không thần thánh hóa vĩ nhân mà miêu tả Bác như một con người bình dị, có tình yêu gia
+        đình, tình yêu đôi lứa (nhân vật Út Huệ) và trên hết là lòng yêu nước nồng nàn.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -562,87 +1533,109 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
       <h3 class="chapter-title">Phần 3</h3>
-      <p class="lead">Không ai còn nhớ được người đầu tiên của dòng họ Nguyễn Sinh đến làng Sen khai cơ lập nghiệp. Người ta chỉ còn nhớ rằng, từ buổi làng Sen còn là trang trại đã có người họ Nguyễn ở sinh sống. Hồi bấy giờ còn gọi là Trại Sen, vì có nhiều đầm sen rộng bát ngát. Hà Thị Hy là con gái một nghệ nhân nổi tiếng về ngón đàn đáy, đàn bầu. Cô có biệt tài về múa đèn, được gọi là cô Đèn. Cô Hy về làm bạn với ông Nguyễn Sinh Nhậm, năm Quý Hợi (1863) sinh con trai đặt tên là Nguyễn Sinh Sắc. Cha mất sớm, mẹ cũng mất khi Sắc mới lên bốn, Sắc về ở với người anh cùng cha khác mẹ.</p>
+      <p class="lead">Không ai còn nhớ được người đầu tiên của dòng họ Nguyễn Sinh đến làng Sen khai cơ lập nghiệp.
+        Người ta chỉ còn nhớ rằng, từ buổi làng Sen còn là trang trại đã có người họ Nguyễn ở sinh sống. Hồi bấy giờ còn
+        gọi là Trại Sen, vì có nhiều đầm sen rộng bát ngát. Hà Thị Hy là con gái một nghệ nhân nổi tiếng về ngón đàn
+        đáy, đàn bầu. Cô có biệt tài về múa đèn, được gọi là cô Đèn. Cô Hy về làm bạn với ông Nguyễn Sinh Nhậm, năm Quý
+        Hợi (1863) sinh con trai đặt tên là Nguyễn Sinh Sắc. Cha mất sớm, mẹ cũng mất khi Sắc mới lên bốn, Sắc về ở với
+        người anh cùng cha khác mẹ.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 6: Chương I - Phần 4 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 4</h3>
-      <p class="lead">Từ ngày ông đồ Hoàng Xuân Đường tạ thế, nhà bà đồ trở nên eo hẹp tiền tiêu. Cả nhà bảy miệng ăn chỉ trông vào hoa lợi của hơn hai mẫu ruộng. Chị nho Sắc và cô An phải kéo sợi dệt vải luôn tay mới có tiền bút nghiên cho anh Sắc học ôn thi. Vừa qua giỗ đầu ông Hoàng Xuân Đường, anh nho Sắc đi thi Hương khoa Giáp Ngọ (1894) trường Nghệ. Ông Xẩm hát tích Cúc Hoa nuôi chồng ăn học. Tin vui: anh nho Sắc đỗ cử nhân. Cả làng ra đón quan tân khoa. Anh Sắc nói: "Tôi sinh từ làng Sen. Tôi lớn lên trên đất làng Chùa. Tôi là dân và bao giờ cũng vẫn là người dân của làng ta, của xứ sở ta."</p>
+      <h3 class="chapter-title"> Nhân vật trung tâm: Nguyễn Sinh Cung (Nguyễn Tất Thành)</h3>
+      <p class="lead"></p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 7: Chương I - Phần 5 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 5</h3>
-      <p class="lead">Sương sớm ám mái nhà. Tiếng chim cu gáy trên khóm tre làng xa văng vẳng. Nắng trải vàng rộm đồng quê. Bà con hàng xóm và bạn hát phường vải lần lượt đến tiễn đưa gia đình quan cử vào kinh. Bé Côn chạy từ ngoài hè nhà sà vào lòng bà. Bà đồ ôm choàng lấy cháu, nước mắt ướt mèm. Đoàn người tiễn đưa ra tới con đường quan. Ông Xẩm cất tiếng đàn bầu: "Chòm xóm náu lặng mà nghe, tôi xin ca một bài vè Đức ông. Bao giờ đầu nhọn như chông, xương đeo trước ngực, Đức ông sẽ về..." Thành phố Vinh hiện ra trước mắt cậu bé Côn. Lần đầu tiên Côn thấy có nhiều đường tỏa ra như bàn cờ và nhà cửa san sát.</p>
+      <div class="chapter-kicker">Gia đình – Những người thầy đầu tiên </div>
+      <h3 class="chapter-title">Cụ Phó bảng Nguyễn Sinh Sắc (Cha)</h3>
+      <p class="lead"></p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 8: Chương I - Phần 6 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 6</h3>
-      <p class="lead">Sau một tháng đi bộ ròng rã, gia đình anh cử nhân Nguyễn Sinh Sắc vào tới kinh đô Huế. Anh Sắc đưa vợ con đến ở đậu tại ngôi nhà tranh ba gian gần Viện Đô Sát. Anh vào học Quốc tử giám, đổi tên là Nguyễn Sinh Huy. Lần đầu tiên đến kinh thành Huế, Côn ngơ ngác như chú nai con lạc. Côn và anh cả Khiêm được cha dẫn đi xem phong cảnh đất thần kinh. Côn hỏi về sông Hương, về Ngọ Môn. Đi trên đường về chợ Xép, Côn thấy nhiều người nghèo khổ, ăn xin. Anh Sắc nói: "Các con cứ hình dung cái nón chóp úp sấp thì sự sắp xếp kẻ giàu, người nghèo ở trên thế gian này cũng thế."</p>
+      <div class="chapter-kicker">Gia đình – Những người thầy đầu tiên</div>
+      <h3 class="chapter-title">Bà Hoàng Thị Loan (Mẹ)</h3>
+      <p class="lead"></p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 9: Chương I - Phần 7 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 7</h3>
-      <p class="lead">Anh cử nhân Nguyễn Sinh Sắc lại rớt khoa thi Hội Mậu Tuất (1898). Quan thượng thư Bộ Hình Đào Tấn thông cảm cảnh nhà túng thiếu, bàn với ông Nguyễn Viết Chuyên đón cử nhân Nguyễn Sinh Sắc về dạy học. Anh Sắc nhận đến ở nhà ông Nguyễn Độ tại Dương Nổ. Côn lên tám tuổi có trí nhớ khác thường. Một hôm anh Sắc kiểm tra bài, Côn đã thuộc cả mười lăm trang sách. Anh Sắc nói: "Con đã thuộc bài, các bạn chưa thuộc mà con rủ bạn đi câu cá là phạm lỗi ích kỷ." Mặt trời đã đứng bóng, ba cậu học trò bước theo sau thầy trên con đường làng man mát bóng tre.</p>
+      <div class="chapter-kicker">Gia đình – Những người thầy đầu tiên</div>
+      <h3 class="chapter-title">Chị Thanh và Anh Khiêm</h3>
+      <p class="lead"></p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 10: Chương I - Phần 8 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 8</h3>
-      <p class="lead">Chị Sắc sống thui thủi một mình trong thành nội, nhớ chồng con da diết. Chị bàn với chồng đưa bé Côn về ở cùng. Cậu bé Nguyễn Sinh Côn lại sống bên cạnh mẹ trong những ngày mẹ đau yếu sắp sinh em. Côn xin theo Huệ Minh xem lễ Vạn Thọ (sinh nhật vua). Côn được nhìn thấy vua Thành Thái. Sau đó Côn bị cảm. Mùa hè năm cuối thế kỷ 19, Côn đang nhặt lá thì mẹ đau bụng chuyển sinh. Côn chạy sang Dương Nổ gọi cha về. Chị Sắc sinh con trai, anh đặt tên là Nguyễn Sinh Nhuận. Chị Sắc bị bệnh hậu sản. Anh Sắc phải đi Thanh Hóa coi thi Hương.</p>
+      <div class="chapter-kicker">Những bóng hồng và tình bạn</div>
+      <h3 class="chapter-title">Út Huệ (Lê Thị Huệ)</h3>
+      <p class="lead"></p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 11: Chương I - Phần 9 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 9</h3>
-      <p class="lead">Ngày 22 tháng chạp năm Canh Tý (10-2-1901), kinh thành Huế nhuộm màu ảm đạm. Côn xách cơm về thì nghe tiếng Huệ Minh gọi: "Côn ơi! Mệ chết!" Côn chạy về, mẹ đã tắt thở. Côn phủ phục bên mẹ khóc. Huệ Minh bế bé Xin ra. Hàng xóm đến giúp đưa đám. Ngôi mộ bà cử Sắc được vun cao bên bãi tha ma Nam Giao. Chôn cất mẹ xong, Côn bế em về nhà. Đêm giao thừa, Côn ru em: "À ơi. Bồng bồng bế bế bồng bồng… Cò con theo mẹ sang sông đắm đò…" Bé Xin gào khóc đòi sữa rồi đuối dần.</p>
+      <div class="chapter-kicker">Những bóng hồng và tình bạn</div>
+      <h3 class="chapter-title">Các bạn đồng môn và thầy giáo</h3>
+      <p class="lead"></p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 12: Chương I - Phần 10 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 10</h3>
-      <p class="lead">Nguyễn Sinh Sắc về tới Thành Nội, vợ đã mất, đứa con út hấp hối trên tay bé Côn. Ông đưa hai con trai trở về Nghệ. Bà đồ An ôm cháu khóc. Phan Bội Châu và Vương Thúc Quý phúng viếng đôi câu đối. Bà đồ An bán ruộng lần thứ ba cho chàng rể vào kinh ứng thí. Côn kể cho bà nghe việc được nhìn thấy mặt vua. Côn hỏi về người tai mắt. Bà đáp: "Người tai mắt là người có nhiều chữ, có chí lớn, lo nghĩ những công việc ích nước lợi dân." Trong lớp học, Côn làm câu đối: "Chung Sơn vượng khí thành kiên cố, Trắc Lĩnh đa vân thị lão niên." Tin vui: ông Nguyễn Sinh Sắc đậu Hội thí, Phó bảng.</p>
+      <div class="chapter-kicker">Nhân vật phụ và quần chúng</div>
+      <h3 class="chapter-title">nvf</h3>
+      <p class="lead"></p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 13: Chương I - Phần 11 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 11</h3>
-      <p class="lead">Cụ đồ An ốm nặng. Côn chăm sóc bà, nhai trầu cho bà. Bà nói: "Cháu sáng ý, lanh tay, nhạy miệng. Bà rất áy náy về cha cháu ở cái tuổi trẻ chưa qua già chưa tới mà đã thất nội trợ!" Tiếng chim cuốc kêu đêm, bà kể chuyện vua Đỗ Vũ hóa thành chim cuốc. Một buổi sáng, Côn được cha giao đi Vinh cân thuốc cho bà. Trên đường về, Côn gặp anh Khiêm báo tin: "Bà chết rồi!" Côn khóc nấc: "Bà ơi! Ông ngoại cháu chết! Mệ cháu chết! Em cháu chết! Giờ lại đến lượt bà chết! Bà ơi!"</p>
+      <div class="chapter-kicker">Tư tưởng của tác phẩm "Búp sen xanh" mà nhà văn Sơn Tùng muốn gửi gắm</div>
+      <h3 class="chapter-title">Nguồn cội tạo nên vĩ nhân</h3>
+      <p class="lead">Tác phẩm khẳng định vĩ nhân không tự nhiên mà có. Tư tưởng của Người được bồi đắp từ:
+
+        Gia giáo: Sự kết hợp giữa trí tuệ của người cha (cụ Phó bảng) và đức hy sinh của người mẹ.
+
+        Nghĩa tình: Tình làng nghĩa xóm, nỗi đau trước cảnh nước mất nhà tan của những người lao động nghèo khổ.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 14: Chương I - Phần 12 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 12</h3>
-      <p class="lead">Chôn cất bà ngoại xong, Phan Bội Châu lập Duy Tân Hội (5-1904). Quan Phó bảng Sắc không tham gia nhưng thường trao đổi với Phan Bội Châu. Côn thường làm liên lạc. Một hôm Côn chiết tự: "Rút ruột vua, tam dân bình đẳng. Chém đầu Tây, tứ chủng giai huynh." Trên đường tiễn Phan Bội Châu lên đường Đông du, Phan Bội Châu nói với Côn: "Chim bằng tung cánh xuyên trời thẳm, thử sức đại đương thuở cá côn. Chú tin cháu sẽ là người xoay chuyển cuộc thế." Hai cha con quan Phó bảng Sắc lặng lẽ bước trên con đường mưa bụi.</p>
+      <div class="chapter-kicker">Tư tưởng của tác phẩm "Búp sen xanh" mà nhà văn Sơn Tùng muốn gửi gắm</div>
+      <h3 class="chapter-title">Sự lựa chọn khác biệt và độc lập</h3>
+      <p class="lead">Trong khi các bậc tiền bối chọn con đường dựa vào ngoại bang hoặc bạo động tức thời, tư tưởng của
+        chàng thanh niên Nguyễn Tất Thành trong truyện thể hiện sự tự lực và thực tiễn:
+
+        Muốn cứu nước phải hiểu rõ kẻ thù.
+
+        Sẵn sàng dấn thân vào những công việc lao động chân tay thấp kém nhất để tìm ra chân lý.
+
+        Đây là tư tưởng về sự đổi mới, không rập khuôn theo lối mòn.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 15: Chương II - Phần 1 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 1</h3>
-      <p class="lead">Những ngày sửa soạn theo cha vào Huế lần thứ hai, Côn theo cha đi thắp hương mộ ông bà. Hai anh em đến chào thầy Vương Thúc Quý. Thầy tặng sách "Nhất nhật tam tỉnh ngô thân" và nói: "Con đã để lại trong trí thầy một vế câu đối: Cưỡi ngựa dong thẳng Tấn lên Đường. Hôm nay con lên đường, thầy chúc con thẳng tấn đến đích lớn." Gió sớm đưa hương sen vào cửa sổ. Quan Phó bảng Sắc ngồi trước án thư uống trà mạn sen, nhìn con gái Thanh đã hai mươi tuổi, lòng băn khoăn. Ba cha con từ giã quê nhà, dân làng tiễn ra tận đầu làng.</p>
+      <div class="chapter-kicker">Tư tưởng của tác phẩm "Búp sen xanh" mà nhà văn Sơn Tùng muốn gửi gắm</div>
+      <h3 class="chapter-title">Triết lý "Gần bùn mà chẳng hôi tanh mùi bùn</h3>
+      <p class="lead">Dù sống trong thời kỳ xã hội thuộc địa đầy cám dỗ và nhiễu nhương, nhân vật vẫn giữ trọn đạo đức,
+        sự khiêm nhường và lòng yêu đồng bào sắt son.
+
+        Hình ảnh búp sen chính là biểu tượng cho tâm hồn tinh khiết, luôn hướng về phía ánh sáng.
+
+        Tư tưởng tác phẩm là lời khẳng định rằng: Lòng yêu nước nồng nàn kết hợp với một nhân cách đạo đức sáng ngời và
+        ý chí học hỏi không ngừng chính là chìa khóa để thay đổi vận mệnh dân tộc.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -650,7 +1643,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 2</h3>
-      <p class="lead">Ba cha con ông Sắc trở lại Huế: quan Phó bảng Nguyễn Sinh Huy, Nguyễn Tất Đạt, Nguyễn Tất Thành. Hai anh em trồng cây đại trên mộ mẹ. Những ngày đầu ở nhờ nhà ông Phạm Khắc Doãn. Tất Thành được quan biên tu chú ý vì đôi mắt sáng. Thành thể hiện sự khéo léo, nội trợ, được Phạm Gia Cần quý mến. Quan Phó bảng Huy nhận chức thừa biện Bộ Lễ. Phan Chu Trinh diễn thuyết đòi dân quyền. Tất Thành vào trường Đông Ba học chữ quốc ngữ và tiếng Pháp. Thầy hiệu trưởng khen Thành học giỏi, dịch thơ Pháp thành ca dao Việt Nam.</p>
+      <p class="lead">Ba cha con ông Sắc trở lại Huế: quan Phó bảng Nguyễn Sinh Huy, Nguyễn Tất Đạt, Nguyễn Tất Thành.
+        Hai anh em trồng cây đại trên mộ mẹ. Những ngày đầu ở nhờ nhà ông Phạm Khắc Doãn. Tất Thành được quan biên tu
+        chú ý vì đôi mắt sáng. Thành thể hiện sự khéo léo, nội trợ, được Phạm Gia Cần quý mến. Quan Phó bảng Huy nhận
+        chức thừa biện Bộ Lễ. Phan Chu Trinh diễn thuyết đòi dân quyền. Tất Thành vào trường Đông Ba học chữ quốc ngữ và
+        tiếng Pháp. Thầy hiệu trưởng khen Thành học giỏi, dịch thơ Pháp thành ca dao Việt Nam.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -658,7 +1655,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 3</h3>
-      <p class="lead">Thu sang, Thành kết thúc tiểu học, hồi hộp chờ vào trường Quốc học. Chị Thanh gửi thư: "Chị sống một thân, giữ nếp thanh bần mà không dốt nát. Chị đã học được chữ mới như em. Nghe lời giải San, chị vô Hội kín..." Thầy Lê Văn Miến đến báo tin hai anh em được nhận vào trường Quốc học. Thầy nói: "Nước mất mà không biết là bất trí, biết mà không chiến đấu là bất trung." Cầu Tràng Tiền được dựng lại. Nguyễn Tất Thành bước vào "Thiên đường trường học" với bao ngờ vực. Trên cổng trường gắn biển: "Pháp tự quốc học trường môn".</p>
+      <p class="lead">Thu sang, Thành kết thúc tiểu học, hồi hộp chờ vào trường Quốc học. Chị Thanh gửi thư: "Chị sống
+        một thân, giữ nếp thanh bần mà không dốt nát. Chị đã học được chữ mới như em. Nghe lời giải San, chị vô Hội
+        kín..." Thầy Lê Văn Miến đến báo tin hai anh em được nhận vào trường Quốc học. Thầy nói: "Nước mất mà không biết
+        là bất trí, biết mà không chiến đấu là bất trung." Cầu Tràng Tiền được dựng lại. Nguyễn Tất Thành bước vào
+        "Thiên đường trường học" với bao ngờ vực. Trên cổng trường gắn biển: "Pháp tự quốc học trường môn".</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -666,7 +1667,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 4</h3>
-      <p class="lead">Đêm giỗ mẹ, ba cha con quây quần. Ông Đặng Thái Thân đến thăm, bàn việc đưa Nguyễn Tất Thành xuất dương sang Nhật theo Phan Bội Châu. Thành bày tỏ quan điểm: "Đuổi hổ cửa trước, rước beo cửa sau. Muốn đánh đuổi kẻ địch thì phải biết rõ chúng. Cháu muốn sang Pháp để tìm hiểu." Đặng Thái Thân xúc động: "Dù không cùng đường đi, nhưng vẫn tìm thấy ở cháu một đồng chí đồng tâm. Chú cháu mình cùng một trái tim: Yêu nước." Ông lặn vào đêm tối.</p>
+      <p class="lead">Đêm giỗ mẹ, ba cha con quây quần. Ông Đặng Thái Thân đến thăm, bàn việc đưa Nguyễn Tất Thành xuất
+        dương sang Nhật theo Phan Bội Châu. Thành bày tỏ quan điểm: "Đuổi hổ cửa trước, rước beo cửa sau. Muốn đánh đuổi
+        kẻ địch thì phải biết rõ chúng. Cháu muốn sang Pháp để tìm hiểu." Đặng Thái Thân xúc động: "Dù không cùng đường
+        đi, nhưng vẫn tìm thấy ở cháu một đồng chí đồng tâm. Chú cháu mình cùng một trái tim: Yêu nước." Ông lặn vào đêm
+        tối.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -674,7 +1679,12 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 5</h3>
-      <p class="lead">Mùa hè, Thành cùng bạn thăm lăng tẩm, chùa Thiên Mụ. Bỗng tiếng trống ngũ liên, vọi đồng: "Hoàng triều có biến!" Vua Thành Thái mưu đánh Tây bị lộ, bị hạ ngục. Quan thừa biện Huy kể: "Đức vua giả vờ lơ đễnh, giấu kín chí lớn bằng cách ham đọc sách Pháp, tập lái ô tô. Người Tây sợ lý tưởng cấp tiến của ngài." Sáng 21 tháng 6 năm Đinh Mùi (30-7-1907), vua Thành Thái bị đày. Dân chúng lập bàn thờ tiễn biệt. Vua ném tờ tuyên cáo xuống đất: "Muôn dân nô lệ từng đàn, vui chi bệ ngọc ngai vàng riêng ta? Hỡi ôi mất nước tan nhà, cừu thù quốc sỉ ấy là nợ chung."</p>
+      <p class="lead">Mùa hè, Thành cùng bạn thăm lăng tẩm, chùa Thiên Mụ. Bỗng tiếng trống ngũ liên, vọi đồng: "Hoàng
+        triều có biến!" Vua Thành Thái mưu đánh Tây bị lộ, bị hạ ngục. Quan thừa biện Huy kể: "Đức vua giả vờ lơ đễnh,
+        giấu kín chí lớn bằng cách ham đọc sách Pháp, tập lái ô tô. Người Tây sợ lý tưởng cấp tiến của ngài." Sáng 21
+        tháng 6 năm Đinh Mùi (30-7-1907), vua Thành Thái bị đày. Dân chúng lập bàn thờ tiễn biệt. Vua ném tờ tuyên cáo
+        xuống đất: "Muôn dân nô lệ từng đàn, vui chi bệ ngọc ngai vàng riêng ta? Hỡi ôi mất nước tan nhà, cừu thù quốc
+        sỉ ấy là nợ chung."</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -682,7 +1692,10 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 6</h3>
-      <p class="lead">Nguyễn Sinh Huy bị buộc thôi chức, bổ nhiệm tri huyện Bình Khê. Vương Thúc Quý từ trần trên đường xuất dương. Tất Thành tiễn cha đi Bình Khê. Bến đò sông Hương, ông Huy nói: "Cha đã kính thư vào ông Hồ Tá Bang. Nếu lập được trường Dục Thanh tại Phan Thiết, cha tới dạy chữ nho, con nhận dạy chữ mới." Ông đặt tay lên vai con: "Với con, cha mong đợi rất nhiều. Cha đi nhá!" Thành đứng nhìn theo, cái ô của cha nhòa vào nắng quáng.</p>
+      <p class="lead">Nguyễn Sinh Huy bị buộc thôi chức, bổ nhiệm tri huyện Bình Khê. Vương Thúc Quý từ trần trên đường
+        xuất dương. Tất Thành tiễn cha đi Bình Khê. Bến đò sông Hương, ông Huy nói: "Cha đã kính thư vào ông Hồ Tá Bang.
+        Nếu lập được trường Dục Thanh tại Phan Thiết, cha tới dạy chữ nho, con nhận dạy chữ mới." Ông đặt tay lên vai
+        con: "Với con, cha mong đợi rất nhiều. Cha đi nhá!" Thành đứng nhìn theo, cái ô của cha nhòa vào nắng quáng.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -690,7 +1703,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 7</h3>
-      <p class="lead">Nguyễn Tất Đạt từ Nghệ về, Thành bị cảm sốt. Thầy Lê Văn Miến đến thăm, mời hai anh em về ở nhưng Thành từ chối vì muốn sống tự lập. Trong giờ học lịch sử cách mạng Pháp, Thành suy tư: nước Pháp có những nhà tư tưởng như Montesquieu, Rousseau đề xướng Tự do, Bình đẳng, Bác ái, sao lại xâm lược nước Nam? Thầy giáo Pháp khen những học trò thuộc lòng sử Pháp. Thành nói: "Biết nhiều càng quý, tiếc là hai anh ấy lại quên mất lịch sử nước nhà, chẳng nhớ nổi tên các con sông, trái núi ở quê hương mình!"</p>
+      <p class="lead">Nguyễn Tất Đạt từ Nghệ về, Thành bị cảm sốt. Thầy Lê Văn Miến đến thăm, mời hai anh em về ở nhưng
+        Thành từ chối vì muốn sống tự lập. Trong giờ học lịch sử cách mạng Pháp, Thành suy tư: nước Pháp có những nhà tư
+        tưởng như Montesquieu, Rousseau đề xướng Tự do, Bình đẳng, Bác ái, sao lại xâm lược nước Nam? Thầy giáo Pháp
+        khen những học trò thuộc lòng sử Pháp. Thành nói: "Biết nhiều càng quý, tiếc là hai anh ấy lại quên mất lịch sử
+        nước nhà, chẳng nhớ nổi tên các con sông, trái núi ở quê hương mình!"</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -698,7 +1715,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 8</h3>
-      <p class="lead">Cuộc nổi dậy của nông dân Thừa Thiên – Huế bị dập tắt. Nguyễn Tất Thành bị cảnh sát săn đuổi. Tòa khâm sứ yêu cầu học sinh tham gia biểu tình làm giấy đầu thú. Thầy Lê Văn Miến khuyên Thành nhẫn nhục để học. Thành đáp: "Con cam chịu bị đuổi ra khỏi trường chứ không thể tự trói mình nộp mạng cho tòa khâm! Vua ung dung đi đày, không quay trở lại ngồi trên ngai vàng nô lệ. Con yêu cái ghế học trò, nhưng không thể chịu nhục để có mảnh bằng thành chung." Thầy Miến nghẹn ngào: "Con hãy đi theo tiếng gọi của lòng con."</p>
+      <p class="lead">Cuộc nổi dậy của nông dân Thừa Thiên – Huế bị dập tắt. Nguyễn Tất Thành bị cảnh sát săn đuổi. Tòa
+        khâm sứ yêu cầu học sinh tham gia biểu tình làm giấy đầu thú. Thầy Lê Văn Miến khuyên Thành nhẫn nhục để học.
+        Thành đáp: "Con cam chịu bị đuổi ra khỏi trường chứ không thể tự trói mình nộp mạng cho tòa khâm! Vua ung dung
+        đi đày, không quay trở lại ngồi trên ngai vàng nô lệ. Con yêu cái ghế học trò, nhưng không thể chịu nhục để có
+        mảnh bằng thành chung." Thầy Miến nghẹn ngào: "Con hãy đi theo tiếng gọi của lòng con."</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -706,7 +1727,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 9</h3>
-      <p class="lead">Nắng nóng như lửa đốt Huế. Nguyễn Tất Thành rời Huế, đi theo nhóm lái kẹo mạch nha vào Quảng Ngãi. Qua đèo Hải Vân, hổ vồ ngựa. Mọi người đào huyệt chôn ngựa. Ông xà ích khấn: "Con trâu là đầu cơ nghiệp, con ngựa là vựa tiền." Thành cùng đẩy xe vượt đèo. Đến Quảng Ngãi, anh nghe dân kể về quan Trần Văn Phổ (cha Trần Phú) thắt cổ tự tử vì không chịu hợp tác với thực dân. Thành vào Bình Định, gặp phường tuồng Vinh Thanh, nhận xét về vai Hoàng Phi Hổ. Ông trùm phường ngạc nhiên: "Cậu là thầy tuồng rồi!"</p>
+      <p class="lead">Nắng nóng như lửa đốt Huế. Nguyễn Tất Thành rời Huế, đi theo nhóm lái kẹo mạch nha vào Quảng Ngãi.
+        Qua đèo Hải Vân, hổ vồ ngựa. Mọi người đào huyệt chôn ngựa. Ông xà ích khấn: "Con trâu là đầu cơ nghiệp, con
+        ngựa là vựa tiền." Thành cùng đẩy xe vượt đèo. Đến Quảng Ngãi, anh nghe dân kể về quan Trần Văn Phổ (cha Trần
+        Phú) thắt cổ tự tử vì không chịu hợp tác với thực dân. Thành vào Bình Định, gặp phường tuồng Vinh Thanh, nhận
+        xét về vai Hoàng Phi Hổ. Ông trùm phường ngạc nhiên: "Cậu là thầy tuồng rồi!"</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -714,7 +1739,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 10</h3>
-      <p class="lead">Thành vào Bình Khê gặp cha. Quan huyện Sắc hỏi lạnh lùng: "Anh đến với tôi để làm gì?" Thành đáp: "Con đến thăm cha để rồi con đi." Ông nói: "Được. Cha tưởng con đi theo cha thì đáng buồn. Con phải tự tìm ra cho mình một hướng đi." Ông kể chuyện thử lính hầu để nghiệm ra việc xử án. Ông nói: "Làm quan dẫu có giữ mình trong sạch cũng không tránh được hết lỗi lầm. Chỉ một lần gieo oan thì cũng phải ba đời mình chịu oán. Thôi đi đi con! Nước mất con đi tìm nước."</p>
+      <p class="lead">Thành vào Bình Khê gặp cha. Quan huyện Sắc hỏi lạnh lùng: "Anh đến với tôi để làm gì?" Thành đáp:
+        "Con đến thăm cha để rồi con đi." Ông nói: "Được. Cha tưởng con đi theo cha thì đáng buồn. Con phải tự tìm ra
+        cho mình một hướng đi." Ông kể chuyện thử lính hầu để nghiệm ra việc xử án. Ông nói: "Làm quan dẫu có giữ mình
+        trong sạch cũng không tránh được hết lỗi lầm. Chỉ một lần gieo oan thì cũng phải ba đời mình chịu oán. Thôi đi
+        đi con! Nước mất con đi tìm nước."</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -722,7 +1751,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 11</h3>
-      <p class="lead">Nguyễn Tất Thành vào Phan Thiết, nhận dạy học tại trường Dục Thanh. Anh dạy chữ Tây, sử ký, địa dư. Trong giờ học sử: "Truyện Con Rồng cháu Tiên là niềm tự hào về giống nòi. Cái bọc 100 trứng là lòng mẹ. Chung một lòng mẹ là cùng một nòi giống, đó là hai tiếng Đồng Bào." Thầy dạy học trò, giúp đỡ người nghèo, tắm cho trẻ em xóm chài. Thầy gặp Tư Lê - người được anh cứu trong cuộc biểu tình ở Huế. Họ kết bạn, Tư Lê gọi anh là anh Ba. Anh Ba quyết định vào Sài Gòn.</p>
+      <p class="lead">Nguyễn Tất Thành vào Phan Thiết, nhận dạy học tại trường Dục Thanh. Anh dạy chữ Tây, sử ký, địa
+        dư. Trong giờ học sử: "Truyện Con Rồng cháu Tiên là niềm tự hào về giống nòi. Cái bọc 100 trứng là lòng mẹ.
+        Chung một lòng mẹ là cùng một nòi giống, đó là hai tiếng Đồng Bào." Thầy dạy học trò, giúp đỡ người nghèo, tắm
+        cho trẻ em xóm chài. Thầy gặp Tư Lê - người được anh cứu trong cuộc biểu tình ở Huế. Họ kết bạn, Tư Lê gọi anh
+        là anh Ba. Anh Ba quyết định vào Sài Gòn.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -730,7 +1763,12 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
       <h3 class="chapter-title">Phần 12</h3>
-      <p class="lead">Một buổi sáng, thầy Thành vắng mặt ở trường. Ông Hồ Tá Bang đọc thư thầy để lại: "Các trò thân yêu! Thầy không thể ở lại trường Dục Thanh dài hơn nữa. Thầy phải đi, đi rất xa. Ước mơ một ngày mai nước nhà độc lập tự do kêu gọi thầy dấn bước ra đi... Hồn nước gọi chúng ta lên phía trước! Ngày… tháng 10 năm 1910. Nguyễn Tất Thành." Ông Hồ Tá Bang nói: "Chiếc lồng son nuôi chim họa mi không thể nuôi được chim đại bàng. Trường Dục Thanh không thể là nơi luyện chí anh hùng của thầy Nguyễn Tất Thành." Những áng mây nhuộm nắng ban mai bay ra biển xa xăm.</p>
+      <p class="lead">Một buổi sáng, thầy Thành vắng mặt ở trường. Ông Hồ Tá Bang đọc thư thầy để lại: "Các trò thân
+        yêu! Thầy không thể ở lại trường Dục Thanh dài hơn nữa. Thầy phải đi, đi rất xa. Ước mơ một ngày mai nước nhà
+        độc lập tự do kêu gọi thầy dấn bước ra đi... Hồn nước gọi chúng ta lên phía trước! Ngày… tháng 10 năm 1910.
+        Nguyễn Tất Thành." Ông Hồ Tá Bang nói: "Chiếc lồng son nuôi chim họa mi không thể nuôi được chim đại bàng.
+        Trường Dục Thanh không thể là nơi luyện chí anh hùng của thầy Nguyễn Tất Thành." Những áng mây nhuộm nắng ban
+        mai bay ra biển xa xăm.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -738,7 +1776,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương III - Tuổi Hai Mươi</div>
       <h3 class="chapter-title">Phần 1</h3>
-      <p class="lead">Thuyền chở hàng của Tư Lê từ Phan Thiết về Sài Gòn lúc đêm khuya. Anh Ba ngỡ ngàng trước đèn điện sáng trưng. Tư Lê đưa anh Ba qua bến cảng Nhà Rồng. Anh thấy những con tàu viễn dương sừng sững, những người thợ khuân vác vất vả. Họ giúp một ông lão bị đổ gạo. Tư Lê đưa anh Ba về xóm thợ gần Bến Nhà Rồng, gặp ông già Đờn và cô Út Huệ. Ông già Đờn đờn hay, được anh em thợ quý mến. Ông tiếp đón anh Ba niềm nở: "Thầy Ba là người tai mắt, dám xả thân cứu người khổ đau, là hạng người Lục Vân Tiên rồi."</p>
+      <p class="lead">Thuyền chở hàng của Tư Lê từ Phan Thiết về Sài Gòn lúc đêm khuya. Anh Ba ngỡ ngàng trước đèn điện
+        sáng trưng. Tư Lê đưa anh Ba qua bến cảng Nhà Rồng. Anh thấy những con tàu viễn dương sừng sững, những người thợ
+        khuân vác vất vả. Họ giúp một ông lão bị đổ gạo. Tư Lê đưa anh Ba về xóm thợ gần Bến Nhà Rồng, gặp ông già Đờn
+        và cô Út Huệ. Ông già Đờn đờn hay, được anh em thợ quý mến. Ông tiếp đón anh Ba niềm nở: "Thầy Ba là người tai
+        mắt, dám xả thân cứu người khổ đau, là hạng người Lục Vân Tiên rồi."</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -746,7 +1788,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương III - Tuổi Hai Mươi</div>
       <h3 class="chapter-title">Phần 2</h3>
-      <p class="lead">Anh Ba tìm gặp Diệp Văn Kỳ - bạn cũ ở Huế. Kỳ ngạc nhiên khi thấy anh làm thợ khuân vác. Anh Ba nói: "Ở đời nghề nào cũng tốt, không có nghề xấu mà có người xấu." Anh nhờ Kỳ đưa đi tìm cha. Ông Phó bảng Huy đang xem mạch tại hiệu thuốc Tam Thiên Đường. Hai cha con gặp nhau. Ông nói: "Nước mất, con lo tìm đường cứu nước. Con tìm cha lúc này chẳng có nghĩa lý gì." Một ông già cảm ơn vì được chữa khỏi bệnh, muốn tặng lễ. Ông Huy từ chối: "Nước mất, tôi đâu còn nhà nữa! Cha con tôi sống nay đây mai đó."</p>
+      <p class="lead">Anh Ba tìm gặp Diệp Văn Kỳ - bạn cũ ở Huế. Kỳ ngạc nhiên khi thấy anh làm thợ khuân vác. Anh Ba
+        nói: "Ở đời nghề nào cũng tốt, không có nghề xấu mà có người xấu." Anh nhờ Kỳ đưa đi tìm cha. Ông Phó bảng Huy
+        đang xem mạch tại hiệu thuốc Tam Thiên Đường. Hai cha con gặp nhau. Ông nói: "Nước mất, con lo tìm đường cứu
+        nước. Con tìm cha lúc này chẳng có nghĩa lý gì." Một ông già cảm ơn vì được chữa khỏi bệnh, muốn tặng lễ. Ông
+        Huy từ chối: "Nước mất, tôi đâu còn nhà nữa! Cha con tôi sống nay đây mai đó."</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -754,7 +1800,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương III - Tuổi Hai Mươi</div>
       <h3 class="chapter-title">Phần 3</h3>
-      <p class="lead">Ngày Tết, anh Ba cùng ông già Đờn và Út Huệ đi xem chợ hoa Sài Gòn. Anh thấy cảnh thợ thuyền nghèo khổ, ăn Tết xa hoa rồi nợ nần. Anh Ba tìm thấy mục quảng cáo: hãng tàu Nhà Rồng chạy đường Sài Gòn - Mác-xây. Anh ấp ủ ý định sang Pháp. Tại bến cảng, anh Ba tập làm phu khuân vác, lao động nặng nhọc. Anh bị ngã kiệt sức, được Út Huệ chăm sóc. Anh Ba mua quà biếu ông già Đờn và mua rượu đãi anh em thợ. Anh khuyên anh em bỏ cờ bạc, mở lớp học dạy chữ.</p>
+      <p class="lead">Ngày Tết, anh Ba cùng ông già Đờn và Út Huệ đi xem chợ hoa Sài Gòn. Anh thấy cảnh thợ thuyền nghèo
+        khổ, ăn Tết xa hoa rồi nợ nần. Anh Ba tìm thấy mục quảng cáo: hãng tàu Nhà Rồng chạy đường Sài Gòn - Mác-xây.
+        Anh ấp ủ ý định sang Pháp. Tại bến cảng, anh Ba tập làm phu khuân vác, lao động nặng nhọc. Anh bị ngã kiệt sức,
+        được Út Huệ chăm sóc. Anh Ba mua quà biếu ông già Đờn và mua rượu đãi anh em thợ. Anh khuyên anh em bỏ cờ bạc,
+        mở lớp học dạy chữ.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -762,7 +1812,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương III - Tuổi Hai Mươi</div>
       <h3 class="chapter-title">Phần 4</h3>
-      <p class="lead">Anh Ba mở lớp học dạy chữ cho anh em thợ thuyền ngay trong nhà ông già Đờn. Anh dạy họ đọc, viết, phát âm đúng. Anh nói: "Bọn cai trị muốn dân ngu dễ trị. Hễ ai quan tâm đến việc dân no cơm ấm áo, dân có chữ là chúng triệt ngay. Chúng ta là người thợ phải rõ điều ấy để có chí học, có chí làm việc ích nước lợi nhà." Lớp học ngày càng đông. Ông già Đờn học đọc qua sách Lục Vân Tiên. Ông tâm sự: "Có chữ, nhìn kẻ có quyền thế mình đỡ sợ hãi." Chữ anh Ba thắp sáng trong trái tim những người thợ.</p>
+      <p class="lead">Anh Ba mở lớp học dạy chữ cho anh em thợ thuyền ngay trong nhà ông già Đờn. Anh dạy họ đọc, viết,
+        phát âm đúng. Anh nói: "Bọn cai trị muốn dân ngu dễ trị. Hễ ai quan tâm đến việc dân no cơm ấm áo, dân có chữ là
+        chúng triệt ngay. Chúng ta là người thợ phải rõ điều ấy để có chí học, có chí làm việc ích nước lợi nhà." Lớp
+        học ngày càng đông. Ông già Đờn học đọc qua sách Lục Vân Tiên. Ông tâm sự: "Có chữ, nhìn kẻ có quyền thế mình đỡ
+        sợ hãi." Chữ anh Ba thắp sáng trong trái tim những người thợ.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -770,7 +1824,12 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương III - Tuổi Hai Mươi</div>
       <h3 class="chapter-title">Phần 5</h3>
-      <p class="lead">Tháng sáu 1911, anh Ba nghe tin tàu Đô đốc La-tu-sơ Tơ-rê-vin sắp cập bến. Anh đến lữ quán gặp cha lần cuối. Ông Phó bảng Huy nói: "Con đi xa nước, xa cha. Sinh ly có khác gì tử biệt... Con phải gạt bỏ những tính toán bé nhỏ. Cha rất vui về mục đích con đi tìm độc lập cho nước, tự do cho dân. Con đi sang Pháp coi thực sự có nhân quyền không. Dân Nam ta sống nặng với nghĩa nước tình nhà. Khi đi xa, con hãy nhớ về những điều bình thường ấy, con sẽ thấy trong tâm hồn mình cả một quê hương, cả một dân tộc. Đi đi con!" Anh Ba lau nước mắt, nhận ít tiền từ cha.</p>
+      <p class="lead">Tháng sáu 1911, anh Ba nghe tin tàu Đô đốc La-tu-sơ Tơ-rê-vin sắp cập bến. Anh đến lữ quán gặp cha
+        lần cuối. Ông Phó bảng Huy nói: "Con đi xa nước, xa cha. Sinh ly có khác gì tử biệt... Con phải gạt bỏ những
+        tính toán bé nhỏ. Cha rất vui về mục đích con đi tìm độc lập cho nước, tự do cho dân. Con đi sang Pháp coi thực
+        sự có nhân quyền không. Dân Nam ta sống nặng với nghĩa nước tình nhà. Khi đi xa, con hãy nhớ về những điều bình
+        thường ấy, con sẽ thấy trong tâm hồn mình cả một quê hương, cả một dân tộc. Đi đi con!" Anh Ba lau nước mắt,
+        nhận ít tiền từ cha.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -778,7 +1837,11 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương III - Tuổi Hai Mươi</div>
       <h3 class="chapter-title">Phần 6</h3>
-      <p class="lead">Anh Ba ngồi bên bờ sông với Tư Lê, tâm sự: "Tôi muốn sang Pháp để được nhìn tận mắt người dân Pháp sống thế nào, đằng sau những chữ tự do, bình đẳng, bác ái ẩn náu những gì." Tư Lê không thể đi cùng. Ngày 2 tháng 6 năm 1911, anh Ba xuống tàu Đô đốc La-tu-sơ Tơ-rê-vin. Ông thuyền trưởng Mai-sen nhận anh vào làm phụ bếp với lương 45 phơ-răng/tháng. Anh Ba nhận thẻ tàu và tập sách giới thiệu. Anh mỉm cười: mình sẽ được làm bạn với Táo quân.</p>
+      <p class="lead">Anh Ba ngồi bên bờ sông với Tư Lê, tâm sự: "Tôi muốn sang Pháp để được nhìn tận mắt người dân Pháp
+        sống thế nào, đằng sau những chữ tự do, bình đẳng, bác ái ẩn náu những gì." Tư Lê không thể đi cùng. Ngày 2
+        tháng 6 năm 1911, anh Ba xuống tàu Đô đốc La-tu-sơ Tơ-rê-vin. Ông thuyền trưởng Mai-sen nhận anh vào làm phụ bếp
+        với lương 45 phơ-răng/tháng. Anh Ba nhận thẻ tàu và tập sách giới thiệu. Anh mỉm cười: mình sẽ được làm bạn với
+        Táo quân.</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -786,7 +1849,12 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Chương III - Tuổi Hai Mươi</div>
       <h3 class="chapter-title">Phần 7</h3>
-      <p class="lead">Út Huệ vá áo cho anh Ba, lòng thẫn thờ. Anh Ba báo tin sẽ đi xa. Út Huệ nghẹn ngào: "Sao anh không ở lại đây?" Anh đáp: "Tình cảnh nước mình, tôi không thể ngồi yên một chỗ xây dựng tổ ấm được." Đêm cuối, anh em thợ quây quần tiễn anh Ba. Ông già Đờn đàn hát: "Kéo neo, kéo neo tàu chạy, gạt nước mắt tiễn đưa..." Sáng ngày 5 tháng 6 năm 1911, anh Ba từ biệt mọi người. Út Huệ chạy theo trao nắm cơm: "Anh! Cơm nắm. Em nấu cho anh bữa cơm cuối cùng này. Cầm lấy anh! Đi đi anh!" Con tàu rời bến. Út Huệ khấn: "Anh đi thuận gió xuôi buồm, hỡi những phương trời xa lạ, hãy đón lấy anh, một chàng trai nước Việt. Anh là của Nước của Dân, tất cả đợi Anh về."</p>
+      <p class="lead">Út Huệ vá áo cho anh Ba, lòng thẫn thờ. Anh Ba báo tin sẽ đi xa. Út Huệ nghẹn ngào: "Sao anh không
+        ở lại đây?" Anh đáp: "Tình cảnh nước mình, tôi không thể ngồi yên một chỗ xây dựng tổ ấm được." Đêm cuối, anh em
+        thợ quây quần tiễn anh Ba. Ông già Đờn đàn hát: "Kéo neo, kéo neo tàu chạy, gạt nước mắt tiễn đưa..." Sáng ngày
+        5 tháng 6 năm 1911, anh Ba từ biệt mọi người. Út Huệ chạy theo trao nắm cơm: "Anh! Cơm nắm. Em nấu cho anh bữa
+        cơm cuối cùng này. Cầm lấy anh! Đi đi anh!" Con tàu rời bến. Út Huệ khấn: "Anh đi thuận gió xuôi buồm, hỡi những
+        phương trời xa lạ, hãy đón lấy anh, một chàng trai nước Việt. Anh là của Nước của Dân, tất cả đợi Anh về."</p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -801,62 +1869,244 @@
     </div>
   </div>
 
-  <script>
-    // Lấy tất cả các trang từ container (các div có class "page-content-static")
-    const sourceContainer = document.getElementById('pages-container');
-    const rawPages = Array.from(sourceContainer.children).filter(child => child.classList.contains('page-content-static'));
 
-    // Chuyển đổi cấu trúc trang để phù hợp với render (giữ nguyên nội dung HTML)
-    // Mỗi trang sẽ được lưu dưới dạng object với type và contentHtml
-    const PAGES = rawPages.map((el, idx) => {
-      const isCover = el.classList.contains('cover');
-      // Clone nội dung để tránh ảnh hưởng khi di chuyển
+  <!-- ===== QUYỂN SÁCH GIỚI THIỆU WEB ĐỌC SÁCH ===== -->
+  <section class="reading-book-section" id="web-doc-sach">
+    <div class="reading-book-heading">
+      <span class="reading-book-icon">📚</span>
+      <div class="reading-book-heading-text">
+        <p class="reading-book-kicker">CẨM NANG ĐỌC SÁCH TRỰC TUYẾN</p>
+        <h2>Quyển sách giới thiệu các web đọc sách</h2>
+      </div>
+      <span class="reading-book-icon">✒️</span>
+    </div>
+
+    <div class="reading-book-scene" id="readingBookScene">
+      <span class="book-spark spark-1"></span>
+      <span class="book-spark spark-2"></span>
+      <span class="book-spark spark-3"></span>
+      <span class="book-spark spark-4"></span>
+
+<!-- trái đất quay -->
+      <a class="earth-link"
+   href="https://ten-web-ban-muon-mo.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Mở web đọc sách">
+  <span class="earth-orbit"></span>
+  <span class="earth-sphere">
+    <span class="earth-map"></span>
+    <span class="earth-shine"></span>
+  </span>
+  <span class="earth-label">Vào web đọc sách</span>
+</a>
+<!-- hết trái đất quay -->
+      <div class="reading-book-shadow"></div>
+
+      <article class="reading-book" id="readingBook">
+        <div class="reading-book-ribbon">BOOK GUIDE</div>
+        <div class="reading-book-spine"></div>
+
+        <div class="reading-book-page reading-book-page-left">
+          <div class="page-corner"></div>
+
+          <p class="page-kicker">BỘ SƯU TẬP WEBSITE</p>
+          <h3 class="page-title">Những nơi đọc sách hay và tiện lợi</h3>
+
+          <p class="page-desc">
+            Trong thời đại số, việc đọc sách đã trở nên dễ dàng hơn rất nhiều. Chỉ với điện thoại
+            hoặc máy tính, người đọc có thể tiếp cận hàng nghìn đầu sách thuộc nhiều lĩnh vực khác nhau
+            như văn học, khoa học, kỹ năng, ngoại ngữ và truyện tranh.
+          </p>
+
+          <div class="reading-book-features">
+            <span>Miễn phí</span>
+            <span>Bản quyền</span>
+            <span>Đọc online</span>
+            <span>Tải ebook</span>
+            <span>Đồng bộ thiết bị</span>
+          </div>
+
+          <div class="reading-book-note">
+            <h4>Lợi ích nổi bật</h4>
+            <ul>
+              <li>Tiết kiệm chi phí mua sách giấy</li>
+              <li>Đọc mọi lúc mọi nơi trên nhiều thiết bị</li>
+              <li>Dễ tìm kiếm, lưu lại và tra cứu nhanh</li>
+              <li>Phù hợp cho học tập, giải trí và tự học</li>
+            </ul>
+          </div>
+
+          <blockquote class="reading-book-quote">
+            “Một cuốn sách hay mở ra tri thức, còn một website đọc sách tốt giúp ta chạm đến tri thức ấy nhanh hơn.”
+          </blockquote>
+
+          <div class="reading-book-mini-note">
+            <span class="mini-label">Gợi ý</span>
+            <p>
+              Nếu thích sách kinh điển và miễn phí, hãy ưu tiên Project Gutenberg và Open Library.
+              Nếu muốn đọc sách bản quyền, giao diện đẹp và đồng bộ tốt, hãy chọn Google Play Books,
+              Kindle, Kobo hoặc Waka.
+            </p>
+          </div>
+
+          <span class="reading-page-number left-page-number">01</span>
+        </div>
+
+        <div class="reading-book-page reading-book-page-right">
+          <div class="page-corner"></div>
+
+          <h4 class="page-table-title">Bảng giới thiệu các web đọc sách</h4>
+
+          <div class="reading-book-table-wrap">
+            <table class="reading-book-table">
+              <thead>
+                <tr>
+                  <th>Tên web</th>
+                  <th>Mô tả nhanh</th>
+                  <th>Ưu điểm</th>
+                  <th>Phù hợp với</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="book-site-row">
+                  <td><a href="https://www.gutenberg.org/" target="_blank" rel="noopener noreferrer">Project
+                      Gutenberg</a></td>
+                  <td>Thư viện ebook miễn phí với nhiều tác phẩm kinh điển</td>
+                  <td>Miễn phí hoàn toàn, dễ tải về, hợp luyện tiếng Anh</td>
+                  <td>Người thích văn học cổ điển</td>
+                </tr>
+
+                <tr class="book-site-row">
+                  <td><a href="https://openlibrary.org/" target="_blank" rel="noopener noreferrer">Open Library</a></td>
+                  <td>Thư viện số mở cho phép đọc và mượn sách online</td>
+                  <td>Nhiều đầu sách, tra cứu nhanh, có thể mượn sách</td>
+                  <td>Học sinh, sinh viên</td>
+                </tr>
+
+                <tr class="book-site-row">
+                  <td><a href="https://play.google.com/books" target="_blank" rel="noopener noreferrer">Google Play
+                      Books</a></td>
+                  <td>Nền tảng đọc ebook và audiobook của Google</td>
+                  <td>Đồng bộ nhiều thiết bị, tải được PDF và EPUB cá nhân</td>
+                  <td>Người thích đọc trên điện thoại</td>
+                </tr>
+
+                <tr class="book-site-row">
+                  <td><a href="https://read.amazon.com/" target="_blank" rel="noopener noreferrer">Amazon Kindle</a>
+                  </td>
+                  <td>Kho ebook lớn, phổ biến trên toàn thế giới</td>
+                  <td>Kho sách phong phú, đọc mượt, đồng bộ tài khoản tốt</td>
+                  <td>Người đọc sách quốc tế</td>
+                </tr>
+
+                <tr class="book-site-row">
+                  <td><a href="https://www.kobo.com/" target="_blank" rel="noopener noreferrer">Kobo</a></td>
+                  <td>Nền tảng đọc sách trực tuyến với giao diện hiện đại</td>
+                  <td>Quản lý thư viện cá nhân tốt, đọc web gọn gàng</td>
+                  <td>Người thích trải nghiệm tối giản</td>
+                </tr>
+
+                <tr class="book-site-row">
+                  <td><a href="https://waka.vn/" target="_blank" rel="noopener noreferrer">Waka</a></td>
+                  <td>Website đọc sách bản quyền phổ biến tại Việt Nam</td>
+                  <td>Nhiều sách tiếng Việt, dễ dùng, hợp người dùng trong nước</td>
+                  <td>Người muốn đọc sách tiếng Việt</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="reading-book-footer-note">
+            <strong>Kết luận:</strong> Mỗi website có thế mạnh riêng. Chọn đúng nền tảng sẽ giúp trải nghiệm
+            đọc sách tiện hơn, đẹp hơn và hiệu quả hơn.
+          </div>
+
+          <span class="reading-page-number right-page-number">02</span>
+        </div>
+      </article>
+    </div>
+  </section>
+  <!-- ===== HẾT QUYỂN SÁCH ===== -->
+
+  <!-- Tên  -->
+  <div class="bio-header">
+    <span class="dna">🧬</span>
+    <h2 class="bio-title">Video nhóm</h2>
+    <span class="dna">🧬</span>
+  </div>
+  <br>
+  <!-- video nhóm -->
+  <div class="tv-frame">
+    <video width="600" controls>
+      <source src="/chinh/YTSave.com_YouTube_nhom6-T3-k47_Media_P_e15MkeX0Q_002_720p.mp4" type="video/mp4">
+      Trình duyệt của bạn không hỗ trợ video.
+    </video>
+    </iframe>
+  </div>
+
+  <div class="anhnhom">
+    <div class="slider">
+      <img src="/imgalbum/13.jpg" class="slide active">
+      <img src="/imgalbum/14.jpg" class="slide">
+      <img src="/imgalbum/15.jpg" class="slide">
+      <img src="/imgalbum/16.jpg" class="slide">
+      <img src="/imgalbum/17.jpg" class="slide">
+      <img src="/imgalbum/18.jpg" class="slide">
+      <img src="/imgalbum/19.jpg" class="slide">
+      <img src="/imgalbum/20.jpg" class="slide">
+      <img src="/imgalbum/21.jpg" class="slide">
+      <img src="/imgalbum/22.jpg" class="slide">
+      <img src="/imgalbum/23.jpg" class="slide">
+      <img src="/imgalbum/32.jpg" class="slide">
+      <img src="/imgalbum/31.jpg" class="slide">
+      <img src="/imgalbum/30.jpg" class="slide">
+      <img src="/imgalbum/29.jpg" class="slide">
+      <img src="/imgalbum/28.jpg" class="slide">
+      <img src="/imgalbum/27.jpg" class="slide">
+    </div>
+    <div class="slider">
+      <img src="/imgalbum/23.jpg" class="slide active">
+      <img src="/imgalbum/14.jpg" class="slide">
+      <img src="/imgalbum/15.jpg" class="slide">
+      <img src="/imgalbum/24.jpg" class="slide">
+      <img src="/imgalbum/25.jpg" class="slide">
+      <img src="/imgalbum/26.jpg" class="slide">
+      <img src="/imgalbum/27.jpg" class="slide">
+      <img src="/imgalbum/44.jpg" class="slide">
+      <img src="/imgalbum/45.jpg" class="slide">
+      <img src="/imgalbum/46.jpg" class="slide">
+      <img src="/imgalbum/47.jpg" class="slide">
+      <img src="/imgalbum/48.jpg" class="slide">
+      <img src="/imgalbum/49.jpg" class="slide">
+      <img src="/imgalbum/50.jpg" class="slide">
+      <img src="/imgalbum/51.jpg" class="slide">
+      <img src="/imgalbum/52.jpg" class="slide">
+      <img src="/imgalbum/53.jpg" class="slide">
+    </div>
+  </div>
+  <br>
+
+  <script>
+    const sourceContainer = document.getElementById("pages-container");
+    const rawPages = Array.from(sourceContainer.children).filter((child) =>
+      child.classList.contains("page-content-static")
+    );
+
+    const PAGES = rawPages.map((el) => {
+      const isCover = el.classList.contains("cover");
       const clone = el.cloneNode(true);
-      // Loại bỏ class cover khỏi clone vì sẽ được xử lý riêng trong render
-      if (isCover) {
-        // Nội dung cover đã có sẵn trong clone, chỉ cần lấy innerHTML
-        return { type: "cover", html: clone.innerHTML };
-      } else {
-        // Lấy nội dung bên trong và thêm phần footer (số trang sẽ được thêm sau)
-        return { type: "content", html: clone.innerHTML };
-      }
+      return {
+        type: isCover ? "cover" : "content",
+        html: clone.innerHTML
+      };
     });
 
-    // Hàm render nội dung trang, thêm số trang vào footer nếu cần
-    function renderPageContent(page, index) {
-      const pageNumber = index + 1;
-      if (page.type === "cover") {
-        // Bìa: giữ nguyên nội dung (đã có cấu trúc cover-layout bên trong)
-        return `<div class="page-content">${page.html}</div>`;
-      } else {
-        // Trang nội dung: thêm số trang vào .page-no (nếu có)
-        let html = page.html;
-        // Chèn số trang vào element có class .page-no (nếu không có thì thêm mới)
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-        const pageNoSpan = tempDiv.querySelector('.page-no');
-        if (pageNoSpan) {
-          pageNoSpan.textContent = pageNumber;
-        } else {
-          // Nếu không có, thêm footer mới
-          const footer = tempDiv.querySelector('.page-footer');
-          if (footer) {
-            const span = document.createElement('span');
-            span.className = 'page-no';
-            span.textContent = pageNumber;
-            footer.appendChild(span);
-          }
-        }
-        // Thêm class page-content cho wrapper
-        return `<div class="page-content">${tempDiv.innerHTML}</div>`;
-      }
-    }
-
-    // ==================== PHẦN JAVASCRIPT CHỨC NĂNG (giữ nguyên) ====================
     const brandLink = document.getElementById("brandLink");
     const brandLogo = document.getElementById("brandLogo");
     const navButtons = document.getElementById("navButtons");
     const book = document.getElementById("book");
+    const stage = document.querySelector(".stage");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const pageInfo = document.getElementById("pageInfo");
@@ -865,98 +2115,465 @@
     let currentSpread = 0;
     const totalPages = PAGES.length;
     const totalSpreads = Math.ceil(totalPages / 2);
+    const sheetCount = Math.floor((totalPages - 1) / 2);
+    let pageHeights = new Array(totalPages).fill(0);
+    let measureRoot = null;
+    let resizeTimer = null;
 
     function renderNavbar() {
       brandLink.href = "/index.html";
-      brandLogo.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231659d6'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-family='monospace'%3E🌾%3C/text%3E%3C/svg%3E";
-      navButtons.innerHTML = `<a class="btn-nav" href="/chinh/lop.html">Lớp 11T3</a><a class="btn-nav" href="/chinh/thanhvien.html">Thành Viên Nhóm</a>`;
+      brandLogo.src =
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231659d6'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-family='monospace'%3E🌾%3C/text%3E%3C/svg%3E";
+      navButtons.innerHTML =
+        `<a class="btn-nav" href="/chinh/lop.html">Lớp 11T3</a><a class="btn-nav" href="/chinh/thanhvien.html">Thành Viên Nhóm</a>`;
     }
 
-    function createStaticLeftPage(page, index) {
+    function renderPageContent(page, zeroBasedIndex) {
+      if (!page) {
+        return `<div class="page-content"></div>`;
+      }
+
+      const pageNumber = zeroBasedIndex + 1;
+
+      if (page.type === "cover") {
+        return `<div class="page-content">${page.html}</div>`;
+      }
+
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = page.html;
+
+      const pageNoSpan = tempDiv.querySelector(".page-no");
+      if (pageNoSpan) {
+        pageNoSpan.textContent = pageNumber;
+      } else {
+        let footer = tempDiv.querySelector(".page-footer");
+        if (!footer) {
+          footer = document.createElement("div");
+          footer.className = "page-footer";
+          footer.innerHTML = `<span>Búp Sen Xanh</span>`;
+          tempDiv.appendChild(footer);
+        }
+        const span = document.createElement("span");
+        span.className = "page-no";
+        span.textContent = pageNumber;
+        footer.appendChild(span);
+      }
+
+      return `<div class="page-content">${tempDiv.innerHTML}</div>`;
+    }
+
+    function createPageElement(page, zeroBasedIndex, extraClass = "") {
       const el = document.createElement("div");
-      el.className = "page static-left";
-      el.innerHTML = renderPageContent(page, index);
+      el.className = `page ${extraClass}`.trim();
+      el.innerHTML = renderPageContent(page, zeroBasedIndex);
       return el;
     }
 
-    function createSheet(frontPage, backPage, index) {
+    function createBookChrome() {
+      const base = document.createElement("div");
+      base.className = "book-base";
+
+      const gutter = document.createElement("div");
+      gutter.className = "gutter-shadow";
+
+      const spine = document.createElement("div");
+      spine.className = "spine";
+
+      return { base, gutter, spine };
+    }
+
+    function createStaticLeftPage() {
+      return createPageElement(PAGES[0], 0, "static-left");
+    }
+
+    function createStaticRightPage() {
+      return createPageElement(PAGES[totalPages - 1], totalPages - 1, "static-right-final");
+    }
+
+    function createSheet(frontPage, backPage, sheetIndex, frontIndex, backIndex) {
       const sheet = document.createElement("div");
       sheet.className = "sheet";
-      sheet.dataset.index = index;
-      sheet.style.zIndex = 100 - index;
-      const front = document.createElement("div");
-      front.className = "page front";
-      front.innerHTML = renderPageContent(frontPage, index * 2 + 1);
-      const back = document.createElement("div");
-      back.className = "page back";
-      back.innerHTML = renderPageContent(backPage, index * 2 + 2);
+      sheet.dataset.index = sheetIndex;
+      sheet.style.zIndex = String(100 - sheetIndex);
+
+      const front = createPageElement(frontPage, frontIndex, "front");
+      const back = createPageElement(backPage, backIndex, "back");
+
       sheet.appendChild(front);
       sheet.appendChild(back);
       return sheet;
     }
 
+    function ensureMeasureRoot() {
+      if (measureRoot) return measureRoot;
+      measureRoot = document.createElement("div");
+      measureRoot.className = "measure-root";
+      document.body.appendChild(measureRoot);
+      return measureRoot;
+    }
+
+    function getPageGap() {
+      const rootStyle = getComputedStyle(document.documentElement);
+      return parseFloat(rootStyle.getPropertyValue("--page-gap")) || 24;
+    }
+
+    function getBookWidth() {
+      const measuredWidth = book.getBoundingClientRect().width;
+      if (measuredWidth > 0) return measuredWidth;
+
+      const rootStyle = getComputedStyle(document.documentElement);
+      const mobile = window.innerWidth <= 640;
+      if (mobile) {
+        return Math.min(window.innerWidth * 0.95, 1400);
+      }
+      if (window.innerWidth <= 980) {
+        return Math.min(window.innerWidth * 0.97, 1260);
+      }
+      if (window.innerWidth <= 1400) {
+        return Math.min(window.innerWidth * 0.95, 1800);
+      }
+      return Math.min(window.innerWidth * 0.96, 2200);
+    }
+
+    function getPageWidth() {
+      return Math.max((getBookWidth() / 2) - getPageGap(), 260);
+    }
+
+    function getPageVerticalInset() {
+      const samplePage = book.querySelector(".page");
+      if (!samplePage) return 48;
+      const top = parseFloat(getComputedStyle(samplePage).top) || 24;
+      return top * 2;
+    }
+
+    function measurePages() {
+      const root = ensureMeasureRoot();
+      root.innerHTML = "";
+
+      const pageWidth = getPageWidth();
+
+      pageHeights = PAGES.map((page, index) => {
+        const probe = createPageElement(page, index, "measure-page");
+        probe.style.width = `${pageWidth}px`;
+        root.appendChild(probe);
+
+        const height = Math.ceil(
+          Math.max(
+            probe.scrollHeight,
+            probe.offsetHeight,
+            probe.querySelector(".page-content")?.scrollHeight || 0
+          )
+        );
+
+        probe.remove();
+        return height;
+      });
+
+      syncBookHeight();
+    }
+
+    function getSpreadPageIndices(spreadIndex) {
+      const leftIndex = spreadIndex * 2;
+      const rightIndex = leftIndex + 1;
+      return [leftIndex, rightIndex].filter((index) => index < totalPages);
+    }
+
+    function syncBookHeight() {
+      const spreadIndices = getSpreadPageIndices(currentSpread);
+      const maxPageHeight = Math.max(
+        420,
+        ...spreadIndices.map((index) => pageHeights[index] || 0)
+      );
+      const targetHeight = Math.ceil(maxPageHeight + getPageVerticalInset());
+
+      book.style.height = `${targetHeight}px`;
+
+      if (stage) {
+        stage.style.minHeight = `${targetHeight + 40}px`;
+      }
+    }
+
     function buildBook() {
-      document.querySelectorAll(".sheet, .static-left").forEach(el => el.remove());
-      const leftPage = createStaticLeftPage(PAGES[0], 0);
-      book.appendChild(leftPage);
-      for (let i = 0; i < totalSpreads - 1; i++) {
-        const frontPage = PAGES[i * 2 + 1];
-        const backPage = PAGES[i * 2 + 2];
-        const sheet = createSheet(frontPage, backPage, i);
+      book.innerHTML = "";
+
+      const chrome = createBookChrome();
+      book.appendChild(chrome.base);
+      book.appendChild(chrome.gutter);
+
+      book.appendChild(createStaticLeftPage());
+
+      for (let sheetIndex = 0; sheetIndex < sheetCount; sheetIndex++) {
+        const frontIndex = sheetIndex * 2 + 1;
+        const backIndex = sheetIndex * 2 + 2;
+        const sheet = createSheet(
+          PAGES[frontIndex],
+          PAGES[backIndex],
+          sheetIndex,
+          frontIndex,
+          backIndex
+        );
         book.appendChild(sheet);
       }
+
+      if (totalPages % 2 === 0 && totalPages > 1) {
+        book.appendChild(createStaticRightPage());
+      }
+
+      book.appendChild(chrome.spine);
       updateBook();
+      requestAnimationFrame(measurePages);
     }
 
     function updateBook() {
-      const sheets = [...document.querySelectorAll(".sheet")];
-      sheets.forEach((sheet, i) => {
-        if (i < currentSpread) {
+      const sheets = [...book.querySelectorAll(".sheet")];
+
+      sheets.forEach((sheet, index) => {
+        if (index < currentSpread) {
           sheet.classList.add("flipped");
-          sheet.style.zIndex = i + 1;
+          sheet.style.zIndex = String(index + 1);
         } else {
           sheet.classList.remove("flipped");
-          sheet.style.zIndex = 100 - i;
+          sheet.style.zIndex = String(100 - index);
         }
       });
-      const staticLeft = document.querySelector(".static-left");
-      if (staticLeft) staticLeft.style.visibility = currentSpread === 0 ? "visible" : "hidden";
+
+      const staticLeft = book.querySelector(".static-left");
+      if (staticLeft) {
+        staticLeft.style.visibility = currentSpread === 0 ? "visible" : "hidden";
+      }
+
+      const staticRight = book.querySelector(".static-right-final");
+      if (staticRight) {
+        staticRight.style.visibility =
+          currentSpread === totalSpreads - 1 ? "visible" : "hidden";
+      }
+
       const currentPage = Math.min(currentSpread * 2 + 1, totalPages);
       pageInfo.textContent = `Trang ${currentPage} / ${totalPages}`;
+
       const max = Math.max(totalPages - 1, 1);
       progressBar.style.width = `${((currentPage - 1) / max) * 100}%`;
+
       prevBtn.disabled = currentSpread === 0;
       nextBtn.disabled = currentSpread >= totalSpreads - 1;
+
+      syncBookHeight();
     }
 
-    function nextPage() { if (currentSpread < totalSpreads - 1) { currentSpread++; updateBook(); } }
-    function prevPage() { if (currentSpread > 0) { currentSpread--; updateBook(); } }
+    function nextPage() {
+      if (currentSpread < totalSpreads - 1) {
+        currentSpread += 1;
+        updateBook();
+      }
+    }
 
-    prevBtn.addEventListener("click", (e) => { e.stopPropagation(); prevPage(); });
-    nextBtn.addEventListener("click", (e) => { e.stopPropagation(); nextPage(); });
-    book.addEventListener("click", (e) => {
+    function prevPage() {
+      if (currentSpread > 0) {
+        currentSpread -= 1;
+        updateBook();
+      }
+    }
+
+    prevBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      prevPage();
+    });
+
+    nextBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      nextPage();
+    });
+
+    book.addEventListener("click", (event) => {
       const rect = book.getBoundingClientRect();
-      const x = e.clientX - rect.left;
+      const x = event.clientX - rect.left;
+
       if (x > rect.width * 0.55) nextPage();
       else if (x < rect.width * 0.45) prevPage();
     });
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") nextPage();
-      if (e.key === "ArrowLeft") prevPage();
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") nextPage();
+      if (event.key === "ArrowLeft") prevPage();
     });
+
     let touchStartX = 0;
-    window.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
-    window.addEventListener("touchend", (e) => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 40) {
-        if (dx < 0) nextPage();
-        else prevPage();
-      }
-    }, { passive: true });
+    window.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchend",
+      (event) => {
+        const dx = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) {
+          if (dx < 0) nextPage();
+          else prevPage();
+        }
+      },
+      { passive: true }
+    );
+
+    function scheduleRebuildAndMeasure() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        measurePages();
+        updateBook();
+      }, 120);
+    }
 
     renderNavbar();
     buildBook();
+
+    window.addEventListener("resize", scheduleRebuildAndMeasure);
+    window.addEventListener("load", scheduleRebuildAndMeasure);
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleRebuildAndMeasure).catch(() => {});
+    }
+
+    sourceContainer.querySelectorAll("img, video, iframe").forEach((media) => {
+      media.addEventListener("load", scheduleRebuildAndMeasure, { passive: true });
+      media.addEventListener("loadedmetadata", scheduleRebuildAndMeasure, { passive: true });
+    });
+
+    // Hiệu ứng biểu tượng rơi
+    const effectStyle = document.createElement("style");
+    effectStyle.innerHTML = `
+.falling-literary {
+  position: fixed;
+  top: -80px;
+  pointer-events: none;
+  z-index: 9999;
+  user-select: none;
+  animation-name: literaryFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+  opacity: 0.8;
+}
+
+@keyframes literaryFall {
+  0% {
+    transform: translateY(-80px) translateX(0) rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateY(50vh) translateX(25px) rotate(140deg) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(110vh) translateX(-25px) rotate(300deg) scale(0.95);
+    opacity: 0;
+  }
+}
+`;
+    document.head.appendChild(effectStyle);
+
+    const literaryItems = ["📚", "📖", "🖋️", "✒️"];
+
+    for (let i = 0; i < 22; i++) {
+      const item = document.createElement("div");
+      item.className = "falling-literary";
+      item.innerHTML = literaryItems[Math.floor(Math.random() * literaryItems.length)];
+
+      const size = Math.random() * 18 + 20;
+      const duration = Math.random() * 6 + 8;
+      const delay = Math.random() * 10;
+      const left = Math.random() * 100;
+      const opacity = Math.random() * 0.35 + 0.45;
+
+      item.style.left = `${left}vw`;
+      item.style.fontSize = `${size}px`;
+      item.style.animationDuration = `${duration}s`;
+      item.style.animationDelay = `${delay}s`;
+      item.style.opacity = opacity;
+
+      document.body.appendChild(item);
+    }
+
+    // Hiệu ứng 3D cho khối sách giới thiệu web
+    (function () {
+      const scene = document.getElementById("readingBookScene");
+      const readingBook = document.getElementById("readingBook");
+      const rows = Array.from(document.querySelectorAll(".book-site-row"));
+
+      if (!scene || !readingBook) return;
+
+      let rafId = null;
+      let activeRowIndex = 0;
+
+      function resetBookTilt() {
+        readingBook.style.transform =
+          window.innerWidth > 992 ? "rotateX(8deg) rotateY(-12deg)" : "none";
+
+        scene.style.setProperty("--glow-x", "50%");
+        scene.style.setProperty("--glow-y", "32%");
+      }
+
+      resetBookTilt();
+
+      function moveBook(event) {
+        if (window.innerWidth <= 992) return;
+
+        const rect = scene.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width;
+        const py = (event.clientY - rect.top) / rect.height;
+
+        const rotateY = -12 + (px - 0.5) * 16;
+        const rotateX = 8 - (py - 0.5) * 12;
+
+        scene.style.setProperty("--glow-x", `${px * 100}%`);
+        scene.style.setProperty("--glow-y", `${py * 100}%`);
+
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          readingBook.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+      }
+
+      scene.addEventListener("mousemove", moveBook);
+      scene.addEventListener("mouseleave", resetBookTilt);
+      window.addEventListener("resize", resetBookTilt);
+
+      if (rows.length) {
+        rows[0].classList.add("is-highlighted");
+
+        setInterval(() => {
+          rows[activeRowIndex].classList.remove("is-highlighted");
+          activeRowIndex = (activeRowIndex + 1) % rows.length;
+          rows[activeRowIndex].classList.add("is-highlighted");
+        }, 2200);
+      }
+    })();
+
+    // Ảnh chuyển slide
+    document.querySelectorAll(".slider, .slider2").forEach((slider) => {
+      const slides = slider.querySelectorAll(".slide");
+      if (!slides.length) return;
+
+      let index = 0;
+
+      slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        if (i === 0) slide.classList.add("active");
+      });
+
+      setInterval(() => {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+      }, 2000);
+    });
   </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
