@@ -687,6 +687,37 @@
       white-space: pre-wrap;
     }
 
+    .toc-compact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .toc-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
+      border: 1px solid rgba(17, 132, 245, 0.12);
+    }
+
+    .toc-label {
+      margin: 0;
+      font-size: clamp(16px, 1.1vw, 22px);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #0f2742;
+    }
+
+    .toc-text {
+      font-size: clamp(13px, 0.96vw, 18px);
+      line-height: 1.45;
+      color: #55708c;
+    }
+
     .highlight {
       padding: clamp(14px, 1vw, 18px);
       border-radius: 16px;
@@ -2889,7 +2920,7 @@
     <div class="container-fluid px-3 px-lg-4">
       <a class="navbar-brand" id="brandLink" href="/index.html">
         <img id="brandLogo"
-          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231659d6'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-family='monospace'%3E🌾%3C/text%3E%3C/svg%3E"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231659d6'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-family='monospace'%3E🪷%3C/text%3E%3C/svg%3E"
           alt="Logo">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"><span
@@ -2955,7 +2986,7 @@
     <!-- Trang 1: Bìa -->
     <div class="page-content-static cover">
       <div class="cover-layout">
-        <div class="cover-emblem">🌾</div>
+        <div class="cover-emblem">🪷</div>
         <div class="cover-badge">TIỂU THUYẾT LỊCH SỬ</div>
         <h1 class="cover-title">BÚP SEN XANH</h1>
         <p class="cover-sub">Sơn Tùng</p>
@@ -3018,53 +3049,80 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Tác Phẩm Gồm Có 3 Chương</div>
       <h3 class="chapter-title">Tác Phẩm Gồm Có 3 Chương</h3>
-      <p class="lead">
-      <h4>Chương I</h4>Thời Thơ Ấu <br>
-      <h4>Chương II</h4>Thời Trẻ Trung <br>
-      <h4>Chương III</h4>Thời Trung Niên</p>
+      <div class="toc-compact">
+        <div class="toc-item">
+          <h4 class="toc-label">Chương I</h4>
+          <div class="toc-text">Thời thơ ấu</div>
+        </div>
+        <div class="toc-item">
+          <h4 class="toc-label">Chương II</h4>
+          <div class="toc-text">Thời trẻ trung</div>
+        </div>
+        <div class="toc-item">
+          <h4 class="toc-label">Chương III</h4>
+          <div class="toc-text">Thời trung niên</div>
+        </div>
+      </div>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 4: Chương I - Phần 2 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
+      <div class="chapter-kicker">Nội Dung Chính</div>
       <h3 class="chapter-title">Nội Dung Chính</h3>
-      <p class="lead">Nội dung chính của "Búp sen xanh" có thể tóm gọn qua 3 giai đoạn cuộc đời của nhân vật chính
-        Nguyễn Sinh Cung (Bác Hồ):
-
-        Thời niên thiếu tại quê nhà: Khắc họa sự hình thành nhân cách của cậu bé Cung trong truyền thống hiếu học của
-        gia đình và nghĩa tình của làng Sen, làng Chùa (Nghệ An).
-
-        Nỗi đau và sự trưởng thành: Giai đoạn sống tại Huế với biến cố đau thương nhất là sự ra đi của người mẹ (bà
-        Hoàng Thị Loan). Những bất công của xã hội thực dân phong kiến đã nhen nhóm trong anh thanh niên Tất Thành ý chí
-        cứu nước.
-
-        Quyết định lịch sử: Sau thời gian dạy học tại trường Dục Thanh (Phan Thiết), Nguyễn Tất Thành vào Sài Gòn và
-        quyết định rời bến Nhà Rồng năm 1911 trên con tàu Đô đốc Latouche-Tréville để tìm con đường giải phóng dân tộc.
-
-        Điểm đặc biệt: Tác phẩm không thần thánh hóa vĩ nhân mà miêu tả Bác như một con người bình dị, có tình yêu gia
-        đình, tình yêu đôi lứa (nhân vật Út Huệ) và trên hết là lòng yêu nước nồng nàn.</p>
+      <p class="lead">
+        <strong>1. Thời niên thiếu tại quê nhà:</strong>
+        Tác phẩm khắc họa tuổi thơ của Nguyễn Sinh Cung trong không gian quê hương Nghệ An, nơi có làng Sen, làng Chùa giàu truyền thống hiếu học, nghĩa tình và lòng yêu nước. Chính môi trường gia đình và quê hương ấy đã góp phần hình thành ở cậu bé Cung những phẩm chất tốt đẹp đầu tiên như hiếu thảo, chăm học, giàu tình cảm và gắn bó với nhân dân.
+        <strong>2. Nỗi đau và sự trưởng thành:</strong>
+        Khi sống tại Huế, Nguyễn Sinh Cung phải trải qua nhiều biến cố đau thương, đặc biệt là sự ra đi của người mẹ – bà Hoàng Thị Loan. Những mất mát ấy cùng với việc tận mắt chứng kiến cuộc sống cơ cực của nhân dân dưới ách thực dân phong kiến đã khiến anh sớm trưởng thành, biết suy nghĩ sâu sắc hơn về thân phận con người và vận mệnh đất nước.
+        <strong>3. Quyết định lịch sử:</strong>
+        Sau một thời gian dạy học tại trường Dục Thanh ở Phan Thiết, Nguyễn Tất Thành vào Sài Gòn để tiếp tục tìm hướng đi mới cho mình. Tại đây, anh đã đưa ra quyết định trọng đại: rời bến Nhà Rồng năm 1911 trên con tàu Đô đốc Latouche-Tréville để ra đi tìm con đường giải phóng dân tộc, mở đầu cho hành trình cách mạng vĩ đại sau này.
+        <strong>4. Điểm đặc biệt của tác phẩm:</strong>
+        Búp sen xanh không xây dựng hình tượng Bác Hồ theo cách xa vời hay thần thánh hóa, mà miêu tả Người như một con người rất đỗi bình dị và gần gũi. Tác phẩm làm nổi bật tình yêu gia đình, sự gắn bó với quê hương, những rung động tình cảm chân thành như với nhân vật Út Huệ, và trên hết là lòng yêu nước sâu nặng luôn cháy bỏng trong trái tim Nguyễn Tất Thành.
+      </p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 5: Chương I - Phần 3 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
-      <h3 class="chapter-title">Phần 3</h3>
-      <p class="lead">Không ai còn nhớ được người đầu tiên của dòng họ Nguyễn Sinh đến làng Sen khai cơ lập nghiệp.
-        Người ta chỉ còn nhớ rằng, từ buổi làng Sen còn là trang trại đã có người họ Nguyễn ở sinh sống. Hồi bấy giờ còn
-        gọi là Trại Sen, vì có nhiều đầm sen rộng bát ngát. Hà Thị Hy là con gái một nghệ nhân nổi tiếng về ngón đàn
-        đáy, đàn bầu. Cô có biệt tài về múa đèn, được gọi là cô Đèn. Cô Hy về làm bạn với ông Nguyễn Sinh Nhậm, năm Quý
-        Hợi (1863) sinh con trai đặt tên là Nguyễn Sinh Sắc. Cha mất sớm, mẹ cũng mất khi Sắc mới lên bốn, Sắc về ở với
-        người anh cùng cha khác mẹ.</p>
+      <div class="chapter-kicker">Một Số Hình Ảnh Về Tác Phẩm</div>
+      <h3 class="chapter-title">Nội Dung Chính</h3>
+      <p class="lead">
+      <strong>5. Hành trình nhận thức về con đường cứu nước:</strong>
+      Từ một cậu bé giàu lòng thương người, Nguyễn Sinh Cung dần lớn lên thành Nguyễn Tất Thành với nhận thức ngày càng sâu sắc hơn về thời cuộc. Qua những điều mắt thấy tai nghe, anh hiểu rằng muốn cứu nước, cứu dân thì không thể đi theo những con đường cũ đã thất bại, mà phải tìm ra một hướng đi mới đúng đắn và hiệu quả hơn.
+        <strong>6. Hình ảnh quê hương và con người Việt Nam:</strong>
+        Tác phẩm không chỉ kể về cuộc đời của nhân vật chính mà còn tái hiện sinh động vẻ đẹp của quê hương đất nước qua các chặng đường Nghệ An, Huế, Phan Thiết, Sài Gòn. Bên cạnh đó là hình ảnh những con người lao động bình dị, giàu nghĩa tình, từ gia đình, thầy giáo, bạn bè đến đồng bào nghèo khổ, tất cả đã góp phần nuôi dưỡng tâm hồn và lý tưởng sống của Nguyễn Tất Thành.
+        <strong>7. Ý nghĩa của nhan đề “Búp sen xanh”:</strong>  
+        Nhan đề Búp sen xanh mang ý nghĩa biểu tượng sâu sắc. “Búp sen” gợi hình ảnh tuổi thơ trong sáng, thuần khiết và thanh cao của Nguyễn Sinh Cung; còn màu “xanh” gợi sự sống, niềm tin và sự phát triển. Qua đó, tác phẩm muốn nói đến quá trình lớn lên của một con người vĩ đại từ những điều bình dị nhất của quê hương, gia đình và truyền thống dân tộc.
+      </p>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 6: Chương I - Phần 4 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương I - Thời Thơ Ấu</div>
+      <div class="chapter-kicker">Nhân vật trung tâm</div>
       <h3 class="chapter-title"> Nhân vật trung tâm: Nguyễn Sinh Cung (Nguyễn Tất Thành)</h3>
-      <p class="lead"></p>
+      <p class="lead">      
+        Nguyễn Sinh Cung là tên khai sinh thời niên thiếu của Chủ tịch Hồ Chí Minh. Ông sinh ngày 19/5/1890 tại làng Hoàng Trù (quê ngoại), xã Kim Liên, huyện Nam Đàn, tỉnh Nghệ An; mất ngày 2/9/1969 tại Hà Nội. Trong cuộc đời hoạt động, ông còn dùng nhiều tên gọi khác như Nguyễn Tất Thành, Nguyễn Ái Quốc và Hồ Chí Minh.
+        Về gia đình, thân phụ của Nguyễn Sinh Cung là Nguyễn Sinh Sắc (còn gọi Nguyễn Sinh Huy), thân mẫu là Hoàng Thị Loan. Tuổi thơ của ông gắn với vùng Kim Liên, Nam Đàn, Nghệ An, nơi hiện nay còn nhiều di tích lưu niệm về thời niên thiếu của ông. Các tư liệu di tích cũng ghi nhận đây là nơi cậu bé Nguyễn Sinh Cung chào đời và lớn lên trong những năm đầu đời.
+        Khi lớn hơn và bắt đầu đi học, ông đổi tên thành Nguyễn Tất Thành. Về sau, trong quá trình hoạt động cách mạng ở trong nước và quốc tế, ông dùng tên Nguyễn Ái Quốc,  rồi Hồ Chí Minh tên gắn liền với sự nghiệp lãnh đạo cách mạng Việt Nam.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -3072,7 +3130,20 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Gia đình – Những người thầy đầu tiên </div>
       <h3 class="chapter-title">Cụ Phó bảng Nguyễn Sinh Sắc (Cha)</h3>
-      <p class="lead"></p>
+      <p class="lead">
+        Nguyễn Sinh Sắc (còn gọi là Nguyễn Sinh Huy, thường được gọi là cụ Phó bảng) là thân sinh của Chủ tịch Hồ Chí Minh. Theo các tư liệu chính thống về Hồ Chí Minh, ông sinh năm 1862 tại làng Kim Liên (làng Sen), Nam Đàn, Nghệ An và mất năm 1929.
+        Ông xuất thân trong một gia đình nông dân, mồ côi cha mẹ từ nhỏ, sau đó được nhà nho Hoàng Xuân Đường nhận nuôi, cho ăn học. Nhờ thông minh và ham học, ông theo đuổi con đường khoa cử, rồi đỗ Phó bảng năm 1901.
+        Sau khi đỗ đạt, Nguyễn Sinh Sắc từng ra làm quan. Một thời gian sau, ông được điều về làm quan ở Bình Khê, Bình Định. Nhiều tư liệu ghi ông là người có tinh thần yêu nước, thương dân, từng bênh vực người nghèo và chống lại sự áp bức của quan lại, thực dân nên bị cách chức.
+        Về sau, ông vào Nam Bộ sinh sống, dạy học và bốc thuốc chữa bệnh, sống thanh bạch giữa nhân dân. Những năm cuối đời, ông sống ở Cao Lãnh, Đồng Tháp và qua đời tại đó vào ngày 27/11/1929. Hiện nay, khu di tích và phần mộ của ông ở Đồng Tháp là nơi tưởng niệm quan trọng.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -3080,7 +3151,19 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Gia đình – Những người thầy đầu tiên</div>
       <h3 class="chapter-title">Bà Hoàng Thị Loan (Mẹ)</h3>
-      <p class="lead"></p>
+      <p class="lead">
+        Bà Hoàng Thị Loan (1868–1901) là thân mẫu của Chủ tịch Hồ Chí Minh. Bà sinh tại làng Hoàng Trù, xã Kim Liên, huyện Nam Đàn, Nghệ An, trong một gia đình nho học; thân sinh là Hoàng Xuân Đường, thân mẫu là Nguyễn Thị Kép. Các tư liệu mô tả bà là người chịu khó, đảm đang, khéo nghề xe tơ dệt vải và am hiểu dân ca Nghệ Tĩnh.
+        Bà kết hôn với Nguyễn Sinh Sắc và sinh các con: Nguyễn Thị Thanh, Nguyễn Sinh Khiêm và Nguyễn Sinh Cung (tên thuở nhỏ của Chủ tịch Hồ Chí Minh). Khi theo chồng vào Huế, bà tiếp tục làm nghề dệt vải để chăm lo gia đình trong hoàn cảnh nhiều thiếu thốn.
+        Năm 1900, bà sinh người con thứ tư là Nguyễn Sinh Xin. Do lao động quá sức và bệnh nặng, bà qua đời vào ngày 10/2/1901 (tức 22 tháng Chạp năm Canh Tý), khi còn rất trẻ. Trong nhiều tư liệu chính thống, bà được nhắc đến như hình mẫu người phụ nữ Việt Nam hiền hậu, hy sinh, giàu đức hạnh, có ảnh hưởng sâu sắc đến sự hình thành nhân cách của Chủ tịch Hồ Chí Minh.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -3088,7 +3171,18 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Gia đình – Những người thầy đầu tiên</div>
       <h3 class="chapter-title">Chị Thanh và Anh Khiêm</h3>
-      <p class="lead"></p>
+      <p class="lead">
+        Chị Thanh là Nguyễn Thị Thanh (1884–1954), chị cả của Chủ tịch Hồ Chí Minh, thường được nhân dân gọi là Bạch Liên nữ sĩ. Bà sinh tại làng Hoàng Trù, Nghệ An, từ nhỏ đã có vốn Hán học, y học, sớm thay mẹ quán xuyến gia đình và nuôi các em khôn lớn. Về sau, bà tham gia các hoạt động yêu nước, có liên hệ với Phan Bội Châu, từng làm liên lạc, quyên góp cho phong trào Đông Du; nhiều lần bị bắt và bị kết án tù khổ sai. Năm 1946, bà ra Hà Nội gặp lại em trai là Chủ tịch Hồ Chí Minh sau nhiều năm xa cách; bà mất vào tháng 3/1954.
+        Anh Khiêm là Nguyễn Sinh Khiêm (tên khác Nguyễn Tất Đạt, 1888–1950), anh trai của Chủ tịch Hồ Chí Minh, thường được gọi là cậu cả Khiêm. Ông sinh tại làng Hoàng Trù, Nghệ An, nổi tiếng thông minh, giỏi chữ Hán, hiểu y học cổ truyền, địa lý và văn học dân gian. Ông từng tham gia phong trào chống thuế Trung Kỳ năm 1908 cùng em trai, sau đó tiếp tục hoạt động yêu nước với chị gái Nguyễn Thị Thanh, mở lớp dạy học, dạy võ, nên nhiều lần bị thực dân Pháp bắt giam và tù đày. Năm 1946, ông cũng ra Hà Nội thăm em trai; ông qua đời năm 1950, hưởng thọ 62 tuổi.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -3096,23 +3190,62 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Những bóng hồng và tình bạn</div>
       <h3 class="chapter-title">Út Huệ (Lê Thị Huệ)</h3>
-      <p class="lead"></p>
+      <p class="lead">
+        Út Huệ thường được nhắc với tên Lê Thị Huệ, là nguyên mẫu nhân vật trong tiểu thuyết Búp sen xanh của nhà văn Sơn Tùng. Theo bài viết của QĐND, Út Huệ được kể là kém Nguyễn Tất Thành vài tuổi, sống cùng cha ở khu vực Bến Nhà Rồng; cha làm phu khuân vác, còn cô lo việc cơm nước và nấu ăn giúp một số công nhân độc thân. QĐND cũng thuật lại chi tiết cuộc chia tay trước ngày Nguyễn Tất Thành xuống tàu ra đi tìm đường cứu nước.
+        Một dữ kiện khác khá hay là theo Báo Nhân Dân, nhà văn Sơn Tùng đã dành nhiều năm điền dã, gặp thân nhân của Bác và tìm gặp cả bà Lê Thị Huệ. Bài này cho biết ông xem bà Huệ là người có liên hệ rất đặc biệt với Nguyễn Tất Thành, và từ những tư liệu đó ông xây dựng nên hình tượng Út Huệ trong Búp sen xanh. Báo cũng nêu rằng Búp Sen Xanh ra mắt lần đầu năm 1982 và sau đó được tái bản rất nhiều lần.
+        Tuy nhiên, chỗ này cần viết rất cẩn thận: Út Huệ không nên trình bày như một nhân vật lịch sử đã được xác nhận hoàn toàn theo kiểu sách giáo khoa. Báo Tuổi Trẻ cho biết ngay từ khi Búp sen xanh xuất bản đã có những quan điểm khác nhau về nhân vật Út Huệ; bài báo còn dẫn lời tựa của cố Thủ tướng Phạm Văn Đồng.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
+      
 
     <!-- Trang 11: Chương I - Phần 9 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Những bóng hồng và tình bạn</div>
       <h3 class="chapter-title">Các bạn đồng môn và thầy giáo</h3>
-      <p class="lead"></p>
+      <p class="lead">
+        Thầy Vương Thúc Quý: sau năm 1901, Nguyễn Tất Thành được cha gửi học chữ Hán với thầy ở làng Kim Liên. Nhà thầy Quý là nơi nhiều sĩ phu yêu nước lui tới, nên từ nhỏ Thành đã được nghe bàn luận về thời cuộc.
+        Thầy Hoàng Thông: khi học ở Trường Quốc học Huế, Nguyễn Tất Thành được tiếp xúc với những thầy có tư tưởng tiến bộ; các tài liệu của Bảo tàng Hồ Chí Minh và Bảo tàng Hồ Chí Minh TP Huế đều nhắc đến thầy Hoàng Thông như một người thầy yêu nước, dạy Hán văn và có ảnh hưởng đến tư tưởng của Nguyễn Tất Thành.
+        Thầy Lê Văn Miến (còn gọi Lê Huy Miến): là thầy dạy vẽ/Pháp văn ở Quốc học Huế, được ghi nhận là một trong những người thầy có ảnh hưởng rõ đến tầm nhìn và ý thức thời cuộc của Nguyễn Tất Thành.
+        Về bạn đồng môn, cái tên có cơ sở tư liệu rõ nhất mà mình tìm được là Diệp Văn Kỳ. Một bài nghiên cứu của Bảo tàng Hồ Chí Minh TP Huế, dẫn theo tài liệu lưu trữ tại Khu di tích Nguyễn Sinh Sắc, ghi Diệp Văn Kỳ “lúc còn ở Huế là học trò của cụ Phó Bảng, bạn với Nguyễn Tất Thành”.
+        Ngoài ra, các tên như Lê Thị Hạnh, Công tôn nữ Huệ Minh, hoặc Út Huệ thường xuất hiện trong hồi ức, bài báo, và đặc biệt trong mạch văn học hóa quanh Búp sen xanh. Vì vậy, nếu bạn làm bài học lịch sử, nên ghi đây là những nhân vật “thường được nhắc đến trong tư liệu hồi ức/văn học”, không nên khẳng định cứng như dữ kiện sử học đã thống nhất hoàn toàn.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 12: Chương I - Phần 10 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Nhân vật phụ và quần chúng</div>
-      <h3 class="chapter-title">nvf</h3>
-      <p class="lead"></p>
+      <h3 class="chapter-title">Nhân vật phụ và quần chúng</h3>
+      <p class="lead">
+        Nhân vật phụ trong Búp sen xanh có thể chia thành 3 nhóm: người thân trong gia đình, thầy giáo – bạn học, và những người yêu nước xuất hiện quanh Nguyễn Tất Thành. Ở nhóm thầy – bạn, thầy Vương Thức Quý là người dạy dỗ, tiễn Côn và anh Khiêm trước lúc vào Huế, còn tặng sách cho hai học trò; Võ Liêm Sơn là bạn học thường cùng Thành tranh luận; Điền và Thuyến là hai người bạn quê chạy theo tiễn Côn, mang khoai, gương sen và cả búp sen xanh làm kỷ vật.
+        Ở nhóm người thân, chị Thanh hiện lên là người chị giàu tình thương, cùng Côn chăm bà ngoại, lo toan việc nhà, và có cảnh đứng lặng bên bờ đầm sen khi cha cùng hai em rời quê. Anh Khiêm cũng được nhắc như người anh trong gia đình, thường đi cùng Côn trong nhiều sinh hoạt và được đặt song song với chị Thanh như tấm gương để Côn noi theo.
+        Nhân vật quần chúng không chỉ làm nền mà còn tạo ra không khí lịch sử – xã hội rất rõ. Đó là dân làng Sen và người thân đứng tiễn cha con ông Sắc rời quê; là dân kinh đô Huế lập bàn thờ, mặc chỉnh tề, khóc và quỳ hai bên đường khi tiễn vua Thành Thái; và là những đoàn dân nghèo chân đất, áo rách kéo đến tòa khâm đòi bỏ sưu, giảm thuế, bỏ bắt xâu. Trong cảnh ấy, Nguyễn Tất Thành còn gọi các bạn học đi cùng để thông ngôn, ủng hộ bà con.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -3120,11 +3253,20 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Tư tưởng của tác phẩm "Búp sen xanh" mà nhà văn Sơn Tùng muốn gửi gắm</div>
       <h3 class="chapter-title">Nguồn cội tạo nên vĩ nhân</h3>
-      <p class="lead">Tác phẩm khẳng định vĩ nhân không tự nhiên mà có. Tư tưởng của Người được bồi đắp từ:
+      <p class="lead">
+        Tác phẩm khẳng định vĩ nhân không tự nhiên mà có. Tư tưởng của Người được bồi đắp từ:
 
         Gia giáo: Sự kết hợp giữa trí tuệ của người cha (cụ Phó bảng) và đức hy sinh của người mẹ.
 
         Nghĩa tình: Tình làng nghĩa xóm, nỗi đau trước cảnh nước mất nhà tan của những người lao động nghèo khổ.</p>
+        <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -3132,14 +3274,22 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Tư tưởng của tác phẩm "Búp sen xanh" mà nhà văn Sơn Tùng muốn gửi gắm</div>
       <h3 class="chapter-title">Sự lựa chọn khác biệt và độc lập</h3>
-      <p class="lead">Trong khi các bậc tiền bối chọn con đường dựa vào ngoại bang hoặc bạo động tức thời, tư tưởng của
-        chàng thanh niên Nguyễn Tất Thành trong truyện thể hiện sự tự lực và thực tiễn:
+      <p class="lead">
+        Trong khi các bậc tiền bối chọn con đường dựa vào ngoại bang hoặc bạo động tức thời, tư tưởng của chàng thanh niên Nguyễn Tất Thành trong truyện thể hiện sự tự lực và thực tiễn:
 
         Muốn cứu nước phải hiểu rõ kẻ thù.
 
         Sẵn sàng dấn thân vào những công việc lao động chân tay thấp kém nhất để tìm ra chân lý.
 
         Đây là tư tưởng về sự đổi mới, không rập khuôn theo lối mòn.</p>
+        <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -3147,158 +3297,218 @@
     <div class="page-content-static">
       <div class="chapter-kicker">Tư tưởng của tác phẩm "Búp sen xanh" mà nhà văn Sơn Tùng muốn gửi gắm</div>
       <h3 class="chapter-title">Triết lý "Gần bùn mà chẳng hôi tanh mùi bùn</h3>
-      <p class="lead">Dù sống trong thời kỳ xã hội thuộc địa đầy cám dỗ và nhiễu nhương, nhân vật vẫn giữ trọn đạo đức,
-        sự khiêm nhường và lòng yêu đồng bào sắt son.
+      <p class="lead">
+        Dù sống trong thời kỳ xã hội thuộc địa đầy cám dỗ và nhiễu nhương, nhân vật vẫn giữ trọn đạo đức, sự khiêm nhường và lòng yêu đồng bào sắt son.
 
         Hình ảnh búp sen chính là biểu tượng cho tâm hồn tinh khiết, luôn hướng về phía ánh sáng.
 
-        Tư tưởng tác phẩm là lời khẳng định rằng: Lòng yêu nước nồng nàn kết hợp với một nhân cách đạo đức sáng ngời và
-        ý chí học hỏi không ngừng chính là chìa khóa để thay đổi vận mệnh dân tộc.</p>
+        Tư tưởng tác phẩm là lời khẳng định rằng: Lòng yêu nước nồng nàn kết hợp với một nhân cách đạo đức sáng ngời và ý chí học hỏi không ngừng chính là chìa khóa để thay đổi vận mệnh dân tộc.</p>
+        <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 16: Chương II - Phần 2 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 2</h3>
-      <p class="lead">Ba cha con ông Sắc trở lại Huế: quan Phó bảng Nguyễn Sinh Huy, Nguyễn Tất Đạt, Nguyễn Tất Thành.
-        Hai anh em trồng cây đại trên mộ mẹ. Những ngày đầu ở nhờ nhà ông Phạm Khắc Doãn. Tất Thành được quan biên tu
-        chú ý vì đôi mắt sáng. Thành thể hiện sự khéo léo, nội trợ, được Phạm Gia Cần quý mến. Quan Phó bảng Huy nhận
-        chức thừa biện Bộ Lễ. Phan Chu Trinh diễn thuyết đòi dân quyền. Tất Thành vào trường Đông Ba học chữ quốc ngữ và
-        tiếng Pháp. Thầy hiệu trưởng khen Thành học giỏi, dịch thơ Pháp thành ca dao Việt Nam.</p>
+      <div class="chapter-kicker">Chương I – Thời thơ ấu</div>
+      <h3 class="chapter-title">Thời thơ ấu</h3>
+      <p class="lead">
+        Nguyễn Sinh Cung sinh ra trong một gia đình nhà nho yêu nước ở quê Nghệ An. Tuổi thơ của cậu gắn liền với làng Sen, với những cánh đồng, hồ sen, mái nhà tranh và tình thương của cha mẹ, anh chị. Cha là cụ Nguyễn Sinh Sắc, người nghiêm khắc nhưng giàu lòng thương dân; mẹ là bà Hoàng Thị Loan, người phụ nữ hiền hậu, tần tảo, giàu đức hy sinh. Chính trong mái ấm ấy, Nguyễn Sinh Cung lớn lên giữa tình yêu thương gia đình, lời dạy về đạo lý làm người và những câu chuyện về cuộc sống cơ cực của nhân dân dưới ách đô hộ.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
-    <!-- Trang 17: Chương II - Phần 3 -->
+    <!-- Trang 17: Chương I - Phần 3 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 3</h3>
-      <p class="lead">Thu sang, Thành kết thúc tiểu học, hồi hộp chờ vào trường Quốc học. Chị Thanh gửi thư: "Chị sống
-        một thân, giữ nếp thanh bần mà không dốt nát. Chị đã học được chữ mới như em. Nghe lời giải San, chị vô Hội
-        kín..." Thầy Lê Văn Miến đến báo tin hai anh em được nhận vào trường Quốc học. Thầy nói: "Nước mất mà không biết
-        là bất trí, biết mà không chiến đấu là bất trung." Cầu Tràng Tiền được dựng lại. Nguyễn Tất Thành bước vào
-        "Thiên đường trường học" với bao ngờ vực. Trên cổng trường gắn biển: "Pháp tự quốc học trường môn".</p>
+      <div class="chapter-kicker">Chương I – Thời thơ ấu</div>
+      <h3 class="chapter-title">Thời thơ ấu</h3>
+      <p class="lead">
+        Từ nhỏ, Nguyễn Sinh Cung đã là một cậu bé thông minh, ham hiểu biết và rất giàu tình cảm. Cậu thích nghe cha giảng chữ, nghe người lớn nói chuyện thời cuộc, lại rất gần gũi với bạn bè và bà con xóm làng. Tuổi thơ của cậu không chỉ có niềm vui trong sáng mà còn sớm tiếp xúc với nỗi khổ của người dân nghèo. Những hình ảnh đó khiến tâm hồn cậu sớm biết suy nghĩ, biết thương người và biết trăn trở. Tác phẩm cho thấy Nguyễn Sinh Cung tuy còn nhỏ nhưng đã có nét khác biệt: ít vô tư hơn, hay quan sát và luôn muốn hiểu vì sao dân mình khổ.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
-    <!-- Trang 18: Chương II - Phần 4 -->
+    <!-- Trang 18: Chương I - Phần 4 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 4</h3>
-      <p class="lead">Đêm giỗ mẹ, ba cha con quây quần. Ông Đặng Thái Thân đến thăm, bàn việc đưa Nguyễn Tất Thành xuất
-        dương sang Nhật theo Phan Bội Châu. Thành bày tỏ quan điểm: "Đuổi hổ cửa trước, rước beo cửa sau. Muốn đánh đuổi
-        kẻ địch thì phải biết rõ chúng. Cháu muốn sang Pháp để tìm hiểu." Đặng Thái Thân xúc động: "Dù không cùng đường
-        đi, nhưng vẫn tìm thấy ở cháu một đồng chí đồng tâm. Chú cháu mình cùng một trái tim: Yêu nước." Ông lặn vào đêm
-        tối.</p>
+      <div class="chapter-kicker">Chương I – Thời thơ ấu</div>
+      <h3 class="chapter-title">Thời thơ ấu</h3>
+      <p class="lead">
+        Biến cố lớn nhất của tuổi thơ Nguyễn Sinh Cung là sự mất mát trong gia đình, đặc biệt là khi mẹ qua đời. Nỗi đau ấy khiến cậu sớm phải trưởng thành, biết chia sẻ gánh nặng với người thân và sống sâu sắc hơn. Cái chết của người mẹ hiền không chỉ để lại khoảng trống trong lòng cậu bé mà còn làm cho tình thương yêu gia đình trở nên thiêng liêng hơn bao giờ hết. Từ đó, Nguyễn Sinh Cung càng thêm gắn bó với cha, chị Thanh, anh Khiêm và càng thấm thía sự vất vả, bất hạnh của con người trong cuộc đời nghèo khó, mất mát.
+      </p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 19: Chương II - Phần 5 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 5</h3>
-      <p class="lead">Mùa hè, Thành cùng bạn thăm lăng tẩm, chùa Thiên Mụ. Bỗng tiếng trống ngũ liên, vọi đồng: "Hoàng
-        triều có biến!" Vua Thành Thái mưu đánh Tây bị lộ, bị hạ ngục. Quan thừa biện Huy kể: "Đức vua giả vờ lơ đễnh,
-        giấu kín chí lớn bằng cách ham đọc sách Pháp, tập lái ô tô. Người Tây sợ lý tưởng cấp tiến của ngài." Sáng 21
-        tháng 6 năm Đinh Mùi (30-7-1907), vua Thành Thái bị đày. Dân chúng lập bàn thờ tiễn biệt. Vua ném tờ tuyên cáo
-        xuống đất: "Muôn dân nô lệ từng đàn, vui chi bệ ngọc ngai vàng riêng ta? Hỡi ôi mất nước tan nhà, cừu thù quốc
-        sỉ ấy là nợ chung."</p>
+      <div class="chapter-kicker">Chương I - Thời thơ ấu</div>
+      <h3 class="chapter-title">Thời thơ ấu</h3>
+      <p class="lead">Cuối chương, hình ảnh Nguyễn Sinh Cung rời quê hương để theo cha mở ra một bước ngoặt mới. Cảnh chia tay với bạn bè, làng xóm và những kỷ niệm êm đềm của quê nhà để lại nhiều xúc động. Hình tượng “búp sen xanh” trở thành biểu tượng đẹp cho tuổi thơ trong sáng, cho tình bạn chân thành và cho tâm hồn thanh khiết của cậu bé xứ Nghệ. Chương I không chỉ kể lại quãng đời thơ ấu của Nguyễn Sinh Cung mà còn đặt nền móng cho sự hình thành nhân cách của Người: yêu quê hương, thương gia đình, gần gũi nhân dân và sớm mang trong lòng nỗi đau mất nước.</p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 20: Chương II - Phần 6 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 6</h3>
-      <p class="lead">Nguyễn Sinh Huy bị buộc thôi chức, bổ nhiệm tri huyện Bình Khê. Vương Thúc Quý từ trần trên đường
-        xuất dương. Tất Thành tiễn cha đi Bình Khê. Bến đò sông Hương, ông Huy nói: "Cha đã kính thư vào ông Hồ Tá Bang.
-        Nếu lập được trường Dục Thanh tại Phan Thiết, cha tới dạy chữ nho, con nhận dạy chữ mới." Ông đặt tay lên vai
-        con: "Với con, cha mong đợi rất nhiều. Cha đi nhá!" Thành đứng nhìn theo, cái ô của cha nhòa vào nắng quáng.</p>
+      <h3 class="chapter-title">Thời niên thiếu</h3>
+      <p class="lead">Bước sang thời niên thiếu, Nguyễn Sinh Cung đổi tên thành Nguyễn Tất Thành và theo cha vào Huế sinh sống, học tập. Đây là quãng thời gian nhân vật có nhiều thay đổi lớn trong nhận thức. Từ một cậu bé ở làng quê, Nguyễn Tất Thành bước vào môi trường học tập rộng lớn hơn, được tiếp xúc với nhiều người, nhiều cảnh đời và nhiều luồng tư tưởng khác nhau. Cuộc sống ở kinh đô Huế vừa mở ra trước mắt anh vẻ đẹp của học vấn, văn hóa, vừa phơi bày sự giả dối, bất công của chế độ phong kiến lệ thuộc thực dân. Chính môi trường ấy đã giúp anh trưởng thành nhanh chóng hơn về tư tưởng.</p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 21: Chương II - Phần 7 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 7</h3>
-      <p class="lead">Nguyễn Tất Đạt từ Nghệ về, Thành bị cảm sốt. Thầy Lê Văn Miến đến thăm, mời hai anh em về ở nhưng
-        Thành từ chối vì muốn sống tự lập. Trong giờ học lịch sử cách mạng Pháp, Thành suy tư: nước Pháp có những nhà tư
-        tưởng như Montesquieu, Rousseau đề xướng Tự do, Bình đẳng, Bác ái, sao lại xâm lược nước Nam? Thầy giáo Pháp
-        khen những học trò thuộc lòng sử Pháp. Thành nói: "Biết nhiều càng quý, tiếc là hai anh ấy lại quên mất lịch sử
-        nước nhà, chẳng nhớ nổi tên các con sông, trái núi ở quê hương mình!"</p>
+      <h3 class="chapter-title">Thời niên thiếu</h3>
+      <p class="lead">Ở Huế, Nguyễn Tất Thành chăm chỉ học tập, ham đọc sách và rất thích suy ngẫm. Anh không học chỉ để thi đỗ hay làm quan, mà học để hiểu đời, hiểu người, hiểu vận mệnh đất nước. Những người thầy, bạn học và các cuộc tranh luận đã tác động mạnh đến tư duy của anh. Anh thường đặt câu hỏi về thân phận của dân nghèo, về cảnh nước mất và về con đường cứu dân, cứu nước. Qua đó, tác phẩm khắc họa Nguyễn Tất Thành là một thanh niên có chí lớn, có tinh thần tự học và có ý thức vượt ra khỏi những lối suy nghĩ thông thường của tầng lớp nho sinh đương thời.</p>
+        <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 22: Chương II - Phần 8 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 8</h3>
-      <p class="lead">Cuộc nổi dậy của nông dân Thừa Thiên – Huế bị dập tắt. Nguyễn Tất Thành bị cảnh sát săn đuổi. Tòa
-        khâm sứ yêu cầu học sinh tham gia biểu tình làm giấy đầu thú. Thầy Lê Văn Miến khuyên Thành nhẫn nhục để học.
-        Thành đáp: "Con cam chịu bị đuổi ra khỏi trường chứ không thể tự trói mình nộp mạng cho tòa khâm! Vua ung dung
-        đi đày, không quay trở lại ngồi trên ngai vàng nô lệ. Con yêu cái ghế học trò, nhưng không thể chịu nhục để có
-        mảnh bằng thành chung." Thầy Miến nghẹn ngào: "Con hãy đi theo tiếng gọi của lòng con."</p>
+      <h3 class="chapter-title">Thời niên thiếu</h3>
+      <p class="lead">Điểm nổi bật của chương này là việc Nguyễn Tất Thành trực tiếp chứng kiến cuộc sống khổ cực của nhân dân và các phong trào đấu tranh chống áp bức. Hình ảnh những đoàn người nghèo khổ đi xin giảm sưu thuế, cảnh dân chúng bị đàn áp tàn nhẫn đã gây chấn động mạnh trong tâm hồn anh. Anh không đứng ngoài nhìn mà đã bắt đầu đồng cảm sâu sắc với quần chúng. Từ đây, tình yêu nước của Nguyễn Tất Thành không còn chỉ là cảm xúc tự nhiên, mà dần trở thành suy nghĩ có định hướng. Anh hiểu rằng đất nước muốn thay đổi thì phải có một con đường mới, chứ không thể chỉ dựa vào những cách cũ đã thất bại.</p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 23: Chương II - Phần 9 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 9</h3>
-      <p class="lead">Nắng nóng như lửa đốt Huế. Nguyễn Tất Thành rời Huế, đi theo nhóm lái kẹo mạch nha vào Quảng Ngãi.
-        Qua đèo Hải Vân, hổ vồ ngựa. Mọi người đào huyệt chôn ngựa. Ông xà ích khấn: "Con trâu là đầu cơ nghiệp, con
-        ngựa là vựa tiền." Thành cùng đẩy xe vượt đèo. Đến Quảng Ngãi, anh nghe dân kể về quan Trần Văn Phổ (cha Trần
-        Phú) thắt cổ tự tử vì không chịu hợp tác với thực dân. Thành vào Bình Định, gặp phường tuồng Vinh Thanh, nhận
-        xét về vai Hoàng Phi Hổ. Ông trùm phường ngạc nhiên: "Cậu là thầy tuồng rồi!"</p>
+      <h3 class="chapter-title">Thời niên thiếu</h3>
+      <p class="lead">Cuối chương II, Nguyễn Tất Thành rời Huế và tiếp tục cuộc hành trình của mình vào miền Trung, miền Nam. Trong thời gian dạy học ở trường Dục Thanh, anh vừa truyền đạt kiến thức vừa gieo vào lòng học trò tinh thần yêu nước và ý thức sống có ích. Anh hiện lên là một người thanh niên giản dị, nghiêm túc, giàu trách nhiệm và luôn đau đáu về vận mệnh dân tộc. Chương II cho thấy rõ quá trình trưởng thành trong tư tưởng của Nguyễn Tất Thành: từ một học trò thông minh, giàu cảm xúc trở thành một thanh niên có chí hướng, biết quan sát thực tế và chuẩn bị cho bước đi lớn hơn của cuộc đời mình.</p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 24: Chương II - Phần 10 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 10</h3>
-      <p class="lead">Thành vào Bình Khê gặp cha. Quan huyện Sắc hỏi lạnh lùng: "Anh đến với tôi để làm gì?" Thành đáp:
-        "Con đến thăm cha để rồi con đi." Ông nói: "Được. Cha tưởng con đi theo cha thì đáng buồn. Con phải tự tìm ra
-        cho mình một hướng đi." Ông kể chuyện thử lính hầu để nghiệm ra việc xử án. Ông nói: "Làm quan dẫu có giữ mình
-        trong sạch cũng không tránh được hết lỗi lầm. Chỉ một lần gieo oan thì cũng phải ba đời mình chịu oán. Thôi đi
-        đi con! Nước mất con đi tìm nước."</p>
+      <div class="chapter-kicker">Chương III – Tuổi hai mươi</div>
+      <h3 class="chapter-title">Tuổi hai mươi</h3>
+      <p class="lead">Chương III kể về tuổi hai mươi của Nguyễn Tất Thành, khi anh đặt chân vào Sài Gòn – nơi có nhịp sống mới mẻ, đông đúc và đầy biến động. Thành phố hiện ra với bến cảng, tàu thuyền, phố xá và ánh sáng của một trung tâm buôn bán lớn dưới thời thuộc địa. Nhưng đằng sau vẻ ngoài sầm uất ấy là sự bất công, áp bức và khoảng cách giàu nghèo rất rõ rệt. Nguyễn Tất Thành không nhìn Sài Gòn bằng sự choáng ngợp, mà bằng con mắt suy tư của một người đang đi tìm lời giải cho vận mệnh dân tộc. Càng đi, càng thấy nhiều, anh càng hiểu đất nước mình đang bị trói buộc nặng nề.</p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
-    <!-- Trang 25: Chương II - Phần 11 -->
+    <!-- Trang 25: Chương III - Phần 11 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 11</h3>
-      <p class="lead">Nguyễn Tất Thành vào Phan Thiết, nhận dạy học tại trường Dục Thanh. Anh dạy chữ Tây, sử ký, địa
-        dư. Trong giờ học sử: "Truyện Con Rồng cháu Tiên là niềm tự hào về giống nòi. Cái bọc 100 trứng là lòng mẹ.
-        Chung một lòng mẹ là cùng một nòi giống, đó là hai tiếng Đồng Bào." Thầy dạy học trò, giúp đỡ người nghèo, tắm
-        cho trẻ em xóm chài. Thầy gặp Tư Lê - người được anh cứu trong cuộc biểu tình ở Huế. Họ kết bạn, Tư Lê gọi anh
-        là anh Ba. Anh Ba quyết định vào Sài Gòn.</p>
+      <div class="chapter-kicker">Chương III – Tuổi hai mươi</div>
+      <h3 class="chapter-title">Tuổi hai mươi</h3>
+      <p class="lead">Trong quãng thời gian sống ở Sài Gòn, Nguyễn Tất Thành tiếp xúc với nhiều tầng lớp nhân dân lao động và cảm nhận rõ hơn nỗi cơ cực của họ. Anh sống giản dị, gần gũi, biết chia sẻ và luôn giữ lòng thương người. Một số mối quan hệ bạn bè, tình cảm và sự gắn bó với những người xung quanh giúp hình tượng Nguyễn Tất Thành hiện lên rất đời thường, chân thật. Dù vậy, trong sâu thẳm, anh vẫn luôn mang một lý tưởng lớn. Những tình cảm riêng tư không làm anh quên mục đích cao cả, mà càng khiến anh hiểu rằng muốn nhân dân bớt khổ, phải tìm ra con đường giải phóng cho cả dân tộc.</p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
-    <!-- Trang 26: Chương II - Phần 12 -->
+    <!-- Trang 26: Chương III - Phần 12 -->
     <div class="page-content-static">
-      <div class="chapter-kicker">Chương II - Thời Niên Thiếu</div>
-      <h3 class="chapter-title">Phần 12</h3>
-      <p class="lead">Một buổi sáng, thầy Thành vắng mặt ở trường. Ông Hồ Tá Bang đọc thư thầy để lại: "Các trò thân
-        yêu! Thầy không thể ở lại trường Dục Thanh dài hơn nữa. Thầy phải đi, đi rất xa. Ước mơ một ngày mai nước nhà
-        độc lập tự do kêu gọi thầy dấn bước ra đi... Hồn nước gọi chúng ta lên phía trước! Ngày… tháng 10 năm 1910.
-        Nguyễn Tất Thành." Ông Hồ Tá Bang nói: "Chiếc lồng son nuôi chim họa mi không thể nuôi được chim đại bàng.
-        Trường Dục Thanh không thể là nơi luyện chí anh hùng của thầy Nguyễn Tất Thành." Những áng mây nhuộm nắng ban
-        mai bay ra biển xa xăm.</p>
+      <div class="chapter-kicker">Chương III – Tuổi hai mươi</div>
+      <h3 class="chapter-title">Tuổi hai mươi</h3>
+      <p class="lead">Một chi tiết rất đẹp của chương này là hình ảnh Nguyễn Tất Thành mở lớp dạy chữ cho anh em lao động nghèo. Việc làm ấy cho thấy anh không chỉ thương dân bằng lời nói mà bằng hành động thiết thực. Anh tin rằng muốn cứu nước thì trước hết con người phải được mở mang tri thức, phải được thức tỉnh về tinh thần. Qua những việc làm âm thầm, tác phẩm khắc họa Nguyễn Tất Thành như một thanh niên giàu ý chí, có trách nhiệm với cộng đồng và luôn hướng về quần chúng. Anh không chọn cuộc sống an nhàn cho bản thân mà luôn nghĩ đến việc làm sao để sống có ích cho người khác.</p>
+      <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
     <!-- Trang 27: Chương III - Phần 1 -->
     <div class="page-content-static">
       <div class="chapter-kicker">Chương III - Tuổi Hai Mươi</div>
-      <h3 class="chapter-title">Phần 1</h3>
-      <p class="lead">Thuyền chở hàng của Tư Lê từ Phan Thiết về Sài Gòn lúc đêm khuya. Anh Ba ngỡ ngàng trước đèn điện
-        sáng trưng. Tư Lê đưa anh Ba qua bến cảng Nhà Rồng. Anh thấy những con tàu viễn dương sừng sững, những người thợ
-        khuân vác vất vả. Họ giúp một ông lão bị đổ gạo. Tư Lê đưa anh Ba về xóm thợ gần Bến Nhà Rồng, gặp ông già Đờn
-        và cô Út Huệ. Ông già Đờn đờn hay, được anh em thợ quý mến. Ông tiếp đón anh Ba niềm nở: "Thầy Ba là người tai
-        mắt, dám xả thân cứu người khổ đau, là hạng người Lục Vân Tiên rồi."</p>
+      <h3 class="chapter-title">Tuổi hai mươi</h3>
+      <p class="lead">Đỉnh điểm của chương III là quyết định rời Bến Nhà Rồng để ra đi tìm đường cứu nước vào năm 1911. Đây là khoảnh khắc thiêng liêng, đánh dấu bước ngoặt lớn trong cuộc đời Nguyễn Tất Thành. Anh rời quê hương, rời người thân, bạn bè và những tình cảm riêng để bắt đầu một hành trình đầy gian khổ nhưng vô cùng cao đẹp. Hình ảnh người thanh niên trẻ tuổi bước lên con tàu mang theo khát vọng cứu dân, cứu nước đã khép lại tác phẩm trong âm hưởng xúc động và hào hùng. Chương III vì thế không chỉ kết thúc tuổi trẻ của Nguyễn Tất Thành mà còn mở ra con đường lớn của Nguyễn Ái Quốc – Hồ Chí Minh sau này.</p>
+        <div class="anhnhom">
+        <div class="slider">
+          <img src="/imgalbum/bacho1.jpg" class="slide active"> 
+        </div>
+        <div class="slider">
+          <img src="/imgalbum/23.jpg" class="slide active">
+        </div>
+      </div>
       <div class="page-footer"><span>Búp Sen Xanh</span><span class="page-no"></span></div>
     </div>
 
@@ -3379,7 +3589,7 @@
     <!-- Trang 34: Bìa kết thúc -->
     <div class="page-content-static cover">
       <div class="cover-layout">
-        <div class="cover-emblem">🌿</div>
+        <div class="cover-emblem">🪷</div>
         <div class="cover-badge">BÚP SEN XANH</div>
         <h1 class="cover-title">HẾT</h1>
         <p class="cover-sub">Ngõ Văn, ngày 23 tháng 8 năm 1981</p>
@@ -3412,7 +3622,7 @@
           <span class="earth-map"></span>
           <span class="earth-shine"></span>
         </span>
-        <span class="earth-label">Vào web đọc sách</span>
+        <span class="earth-label">Hãy nhấn ở đây</span>
       </a>
       <!-- hết trái đất -->
       <div class="reading-book-shadow"></div>
@@ -3619,7 +3829,7 @@
 
         <div class="side-video-frame">
           <video controls playsinline preload="metadata">
-            <source src="/chinh/YTSave.com_YouTube_nhom6-T3-k47_Media_P_e15MkeX0Q_002_720p.mp4" type="video/mp4">
+            <source src="/chinh/0328 (3).mp4" type="video/mp4">
             Trình duyệt của bạn không hỗ trợ video.
           </video>
         </div>
