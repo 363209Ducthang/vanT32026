@@ -6,10 +6,335 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Búp Sen Xanh - Sơn Tùng</title>
 
+  <!-- link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@700;800;900&family=Montserrat:wght@700;800;900&display=swap"
+    rel="stylesheet">
+
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
+    /* tên  ebook */
+    .ebook-hero {
+      position: relative;
+      width: 100%;
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 40px 20px;
+      margin-top: 3%;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(110, 180, 255, 0.16), transparent 36%),
+        linear-gradient(180deg, #eef5ff 0%, #e8f1ff 45%, #f8fbff 100%);
+    }
+
+    .ebook-hero::before {
+      content: "";
+      position: absolute;
+      width: 75%;
+      height: 200px;
+      left: 50%;
+      top: 54%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(53, 152, 255, 0.15) 0%, rgba(53, 152, 255, 0.06) 45%, transparent 75%);
+      filter: blur(10px);
+      z-index: 0;
+    }
+
+    .ebook-hero::after {
+      content: "";
+      position: absolute;
+      width: 78%;
+      height: 70px;
+      left: 50%;
+      bottom: 48px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(90, 170, 255, 0.18), transparent 70%);
+      filter: blur(18px);
+      z-index: 0;
+    }
+
+    .ebook-title-wrap {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      line-height: 0.86;
+      transform: translateY(8px);
+    }
+
+    .ebook-title-top,
+    .ebook-title-bottom {
+      margin: 0;
+      font-family: "Montserrat", "Be Vietnam Pro", sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-kerning: normal;
+      text-rendering: geometricPrecision;
+    }
+
+    .ebook-title-top {
+      font-size: clamp(58px, 10vw, 150px);
+      letter-spacing: 1px;
+      background: linear-gradient(180deg, #fff16a 0%, #ffc400 45%, #ff7a00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 8px #0d76ea;
+      text-shadow:
+        0 5px 0 #005fd2,
+        0 10px 0 #004fb4,
+        0 18px 22px rgba(0, 88, 190, 0.34),
+        0 0 18px rgba(255, 168, 0, 0.28);
+      filter: drop-shadow(0 10px 18px rgba(0, 112, 255, 0.24));
+    }
+
+    .ebook-title-bottom {
+      margin-top: 6px;
+      font-size: clamp(66px, 10.8vw, 158px);
+      letter-spacing: 0.5px;
+      line-height: 1.02;
+      background: linear-gradient(180deg, #ffffff 0%, #f4fbff 28%, #cfeaff 68%, #8fd3ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 8px #1184f5;
+      text-shadow:
+        0 4px 0 #0f72dd,
+        0 8px 0 #0a63ca,
+        0 14px 0 #0756b4,
+        0 20px 24px rgba(0, 98, 210, 0.30),
+        0 0 18px rgba(110, 200, 255, 0.35);
+      filter: drop-shadow(0 10px 18px rgba(0, 132, 255, 0.22));
+      position: relative;
+      z-index: 2;
+    }
+
+    .ebook-side {
+      position: relative;
+      z-index: 2;
+      flex: 0 0 auto;
+    }
+
+    .book-open {
+      position: relative;
+      width: 130px;
+      height: 92px;
+      transform: rotate(-10deg);
+    }
+
+    .book-open .page {
+      position: absolute;
+      top: 8px;
+      width: 62px;
+      height: 76px;
+      background: linear-gradient(180deg, #fffef8, #f3ede0);
+      border: 4px solid #1f7af0;
+      box-shadow: 0 8px 14px rgba(0, 70, 160, 0.18);
+    }
+
+    .book-open .page.left {
+      left: 4px;
+      border-radius: 8px 2px 10px 12px;
+      transform: skewY(8deg);
+    }
+
+    .book-open .page.right {
+      right: 4px;
+      border-radius: 2px 8px 12px 10px;
+      transform: skewY(-8deg);
+    }
+
+    .book-open .book-line {
+      position: absolute;
+      left: 50%;
+      top: 6px;
+      width: 6px;
+      height: 82px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, #ff8c5a, #c22d00);
+      border-radius: 20px;
+      box-shadow: 0 0 8px rgba(255, 102, 0, 0.2);
+    }
+
+    .right-books {
+      position: relative;
+      width: 140px;
+      height: 110px;
+    }
+
+    .stack-book {
+      position: absolute;
+      right: 0;
+      width: 95px;
+      height: 22px;
+      border-radius: 4px;
+      box-shadow: 0 8px 15px rgba(0, 60, 140, 0.18);
+    }
+
+    .stack-book::before {
+      content: "";
+      position: absolute;
+      inset: 4px 0 auto 0;
+      height: 16px;
+      background: #f2f2f2;
+      border-radius: 3px;
+    }
+
+    .stack-book.green {
+      top: 12px;
+      transform: rotate(16deg);
+      background: #6fcf43;
+    }
+
+    .stack-book.red {
+      top: 40px;
+      right: 8px;
+      transform: rotate(8deg);
+      background: #f06a6a;
+    }
+
+    .stack-book.blue {
+      top: 68px;
+      right: 2px;
+      transform: rotate(12deg);
+      background: #557df3;
+    }
+
+    .ebook-confetti {
+      position: absolute;
+      width: 14px;
+      height: 38px;
+      border-radius: 20px;
+      opacity: 0.9;
+      z-index: 1;
+      animation: floatConfetti 5s ease-in-out infinite;
+    }
+
+    .c1 {
+      top: 20%;
+      left: 10%;
+      background: linear-gradient(180deg, #4facfe, #005bea);
+      transform: rotate(-60deg);
+    }
+
+    .c2 {
+      top: 16%;
+      left: 28%;
+      background: linear-gradient(180deg, #43e97b, #38f9d7);
+      transform: rotate(25deg);
+    }
+
+    .c3 {
+      top: 13%;
+      left: 60%;
+      background: linear-gradient(180deg, #fa709a, #fee140);
+      transform: rotate(55deg);
+    }
+
+    .c4 {
+      top: 56%;
+      left: 6%;
+      background: linear-gradient(180deg, #f5576c, #f093fb);
+      transform: rotate(40deg);
+    }
+
+    .c5 {
+      top: 58%;
+      right: 10%;
+      background: linear-gradient(180deg, #4facfe, #00f2fe);
+      transform: rotate(-30deg);
+    }
+
+    .c6 {
+      top: 42%;
+      right: 4%;
+      background: linear-gradient(180deg, #43e97b, #f9f586);
+      transform: rotate(32deg);
+    }
+
+    @keyframes floatConfetti {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-10px) rotate(12deg);
+      }
+
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .ebook-hero {
+        min-height: 320px;
+        gap: 14px;
+        padding: 30px 10px;
+      }
+
+      .book-open {
+        width: 90px;
+        height: 64px;
+      }
+
+      .book-open .page {
+        width: 42px;
+        height: 56px;
+      }
+
+      .book-open .book-line {
+        height: 58px;
+      }
+
+      .right-books {
+        width: 90px;
+        height: 80px;
+      }
+
+      .stack-book {
+        width: 65px;
+        height: 16px;
+      }
+
+      .stack-book::before {
+        height: 11px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .ebook-hero {
+        min-height: 260px;
+        padding: 24px 10px;
+      }
+
+      .left-book,
+      .right-books {
+        display: none;
+      }
+
+      .ebook-title-wrap {
+        line-height: 0.92;
+      }
+
+      .ebook-title-top {
+        font-size: clamp(42px, 12vw, 82px);
+        -webkit-text-stroke: 5px #0d76ea;
+        letter-spacing: 0.5px;
+      }
+
+      .ebook-title-bottom {
+        font-size: clamp(46px, 13vw, 92px);
+        -webkit-text-stroke: 5px #1080f2;
+        letter-spacing: 0;
+      }
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -598,6 +923,248 @@
 
     .tv-frame::after {
       left: 40px;
+    }
+
+    /* chatbot + robot AI responsive dưới video */
+    .chatbot-ai-row {
+      width: min(94%, 1480px);
+      margin: 28px auto 42px;
+      display: grid;
+      grid-template-columns: minmax(0, 980px) minmax(280px, 340px);
+      justify-content: center;
+      align-items: start;
+      gap: clamp(28px, 2.6vw, 46px);
+      position: relative;
+      z-index: 3;
+    }
+
+    .chatbot-embed-section {
+      width: 100%;
+      max-width: 980px;
+      min-width: 0;
+      margin: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .chatbot-embed-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(237, 247, 255, 0.96));
+      border: 1px solid rgba(17, 132, 245, 0.14);
+      box-shadow:
+        0 22px 56px rgba(16, 72, 128, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88);
+      padding: 18px;
+    }
+
+    .chatbot-embed-card::before {
+      content: "";
+      position: absolute;
+      inset: -120px auto auto -120px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(77, 184, 255, 0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    .chatbot-embed-card::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -90px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(54, 214, 22, 0.14), transparent 72%);
+      pointer-events: none;
+    }
+
+    .chatbot-embed-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .chatbot-embed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(17, 132, 245, 0.12);
+      box-shadow: 0 8px 20px rgba(16, 72, 128, 0.08);
+      min-width: 0;
+    }
+
+    .chatbot-embed-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      background: linear-gradient(135deg, #1184f5, #36d616);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(17, 132, 245, 0.24);
+      flex: 0 0 auto;
+    }
+
+    .chatbot-embed-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .chatbot-embed-label strong {
+      font-family: "Montserrat", "Be Vietnam Pro", sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f2742;
+      line-height: 1.2;
+    }
+
+    .chatbot-embed-label span {
+      font-size: 13px;
+      color: #55708c;
+      line-height: 1.5;
+    }
+
+    .chatbot-embed-note {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e5ea8;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(17, 132, 245, 0.12);
+      padding: 10px 14px;
+      border-radius: 14px;
+      white-space: nowrap;
+    }
+
+    .chatbot-embed-frame {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+      min-width: 0;
+    }
+
+    .chatbot-embed-frame iframe {
+      width: 100%;
+      height: clamp(560px, 50vw, 760px);
+      min-height: 560px;
+      border: 0;
+      display: block;
+      background: #fff;
+    }
+
+    @media (max-width: 1320px) {
+      .chatbot-ai-row {
+        width: min(calc(100% - 28px), 1120px);
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+      }
+
+      .chatbot-embed-section {
+        max-width: 100%;
+      }
+
+      .chatbot-embed-card {
+        padding: 16px;
+        border-radius: 24px;
+      }
+
+      .chatbot-embed-note {
+        white-space: normal;
+      }
+
+      .chatbot-embed-frame iframe {
+        height: 620px;
+        min-height: 620px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .chatbot-ai-row {
+        width: calc(100% - 18px);
+        gap: 18px;
+      }
+
+      .chatbot-embed-card {
+        padding: 12px;
+        border-radius: 20px;
+      }
+
+      .chatbot-embed-head {
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .chatbot-embed-badge,
+      .chatbot-embed-note {
+        width: 100%;
+      }
+
+      .chatbot-embed-note {
+        text-align: center;
+      }
+
+      .chatbot-embed-frame {
+        border-radius: 18px;
+      }
+
+      .chatbot-embed-frame iframe {
+        height: 560px;
+        min-height: 560px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .chatbot-ai-row {
+        width: calc(100% - 14px);
+        gap: 16px;
+      }
+
+      .chatbot-embed-card {
+        padding: 10px;
+        border-radius: 18px;
+      }
+
+      .chatbot-embed-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+      }
+
+      .chatbot-embed-label strong {
+        font-size: 16px;
+      }
+
+      .chatbot-embed-label span {
+        font-size: 12px;
+      }
+
+      .chatbot-embed-note {
+        font-size: 13px;
+        padding: 8px 10px;
+      }
+
+      .chatbot-embed-frame iframe {
+        height: 500px;
+        min-height: 500px;
+      }
     }
 
     /* =========================================
@@ -1245,6 +1812,1075 @@
     .slide.active {
       opacity: 1;
     }
+
+    /* ===== TRÁI ĐẤT QUAY - CLICK MỞ LINK ===== */
+    .earth-link {
+      position: absolute;
+      top: 24px;
+      right: 3.5%;
+      width: 130px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      text-decoration: none;
+      z-index: 8;
+      animation: earthFloat 4.5s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .earth-link:hover {
+      transform: translateY(-4px) scale(1.04);
+    }
+
+    .earth-link:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .earth-orbit {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 28px rgba(88, 180, 255, 0.28);
+      animation: orbitPulse 2.8s ease-in-out infinite;
+    }
+
+    .earth-sphere {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
+      border-radius: 50%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.95) 0 8%, rgba(255, 255, 255, 0.18) 9%, transparent 25%),
+        radial-gradient(circle at 35% 30%, #67d8ff 0%, #2fa4ff 32%, #1260cb 66%, #08285f 100%);
+      box-shadow:
+        inset -18px -16px 26px rgba(0, 0, 0, 0.36),
+        inset 12px 10px 20px rgba(255, 255, 255, 0.22),
+        0 0 30px rgba(71, 160, 255, 0.42),
+        0 12px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    .earth-map {
+      position: absolute;
+      top: -2%;
+      left: -150%;
+      width: 300%;
+      height: 104%;
+      opacity: 0.95;
+      background:
+        radial-gradient(circle at 8% 50%, #58c56e 0 4%, transparent 4.5%),
+        radial-gradient(circle at 12% 38%, #58c56e 0 7%, transparent 7.5%),
+        radial-gradient(circle at 18% 56%, #58c56e 0 6%, transparent 6.5%),
+        radial-gradient(circle at 27% 42%, #4cad61 0 9%, transparent 9.6%),
+        radial-gradient(circle at 33% 60%, #4cad61 0 7%, transparent 7.5%),
+        radial-gradient(circle at 44% 36%, #63d377 0 8%, transparent 8.5%),
+        radial-gradient(circle at 51% 50%, #63d377 0 11%, transparent 11.5%),
+        radial-gradient(circle at 60% 62%, #58c56e 0 8%, transparent 8.5%),
+        radial-gradient(circle at 71% 40%, #58c56e 0 7%, transparent 7.5%),
+        radial-gradient(circle at 79% 55%, #4cad61 0 10%, transparent 10.5%),
+        radial-gradient(circle at 90% 44%, #63d377 0 8%, transparent 8.5%);
+      filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.12));
+      animation: earthSpin 9s linear infinite;
+    }
+
+    .earth-shine {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 24% 24%, rgba(255, 255, 255, 0.9), transparent 22%),
+        radial-gradient(circle at 70% 75%, rgba(255, 255, 255, 0.08), transparent 26%);
+      pointer-events: none;
+    }
+
+    .earth-label {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      color: #0f3f75;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+      white-space: nowrap;
+    }
+
+    @keyframes earthSpin {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(66.666%);
+      }
+    }
+
+    @keyframes earthFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes orbitPulse {
+
+      0%,
+      100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: translateX(-50%) scale(1.08);
+        opacity: 0.95;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .earth-link {
+        top: -6px;
+        right: 10px;
+        width: 92px;
+        height: 108px;
+      }
+
+      .earth-orbit {
+        width: 86px;
+        height: 86px;
+      }
+
+      .earth-sphere {
+        width: 72px;
+        height: 72px;
+        margin-top: 6px;
+      }
+
+      .earth-label {
+        font-size: 10px;
+        padding: 5px 10px;
+      }
+    }
+
+    /* hiệu ứng con AI */
+    /* ===== ROBOT AI NẰM DƯỚI VIDEO ===== */
+    .ai-robot-under-video {
+      width: 100%;
+      max-width: 340px;
+      min-height: 360px;
+      margin: 0;
+      padding: 104px 18px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.80), rgba(236, 245, 255, 0.90));
+      border: 1px solid rgba(17, 132, 245, 0.12);
+      box-shadow:
+        0 20px 50px rgba(16, 72, 128, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88);
+      overflow: visible;
+      isolation: isolate;
+    }
+
+    .ai-robot-wrap {
+      position: relative;
+      width: 220px;
+      height: 240px;
+      margin: 0 auto;
+      pointer-events: none;
+      animation: robotFloat 4.8s ease-in-out infinite;
+      filter: drop-shadow(0 18px 30px rgba(20, 40, 80, 0.20));
+    }
+
+    .ai-robot-wrap::before {
+      content: "";
+      position: absolute;
+      inset: auto 18px 8px 18px;
+      height: 24px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(79, 172, 254, 0.25), rgba(79, 172, 254, 0.02) 70%, transparent 72%);
+      filter: blur(8px);
+      animation: robotShadowPulse 4.8s ease-in-out infinite;
+    }
+
+    .ai-robot {
+      position: absolute;
+      inset: 0;
+    }
+
+    .robot-halo {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      width: 110px;
+      height: 110px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(147, 197, 253, 0.30), rgba(96, 165, 250, 0.14) 38%, rgba(59, 130, 246, 0.00) 68%);
+      filter: blur(8px);
+      animation: haloPulse 2.6s ease-in-out infinite;
+    }
+
+    .robot-antena {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      width: 4px;
+      height: 22px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, #e2e8f0, #94a3b8);
+      border-radius: 999px;
+    }
+
+    .robot-antena::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 14px;
+      height: 14px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0%, #7dd3fc 35%, #2563eb 100%);
+      box-shadow: 0 0 16px rgba(96, 165, 250, 0.9);
+      animation: antenaBlink 1.6s ease-in-out infinite;
+    }
+
+    .robot-head {
+      position: absolute;
+      top: 34px;
+      left: 50%;
+      width: 92px;
+      height: 74px;
+      transform: translateX(-50%);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.92),
+        0 10px 24px rgba(37, 99, 235, 0.12);
+    }
+
+    .robot-face {
+      position: absolute;
+      inset: 10px 12px 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #071325 0%, #0f172a 100%);
+      box-shadow:
+        inset 0 0 0 1px rgba(125, 211, 252, 0.12),
+        0 0 18px rgba(59, 130, 246, 0.16);
+    }
+
+    .robot-eye {
+      position: absolute;
+      top: 18px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0%, #a5f3fc 38%, #38bdf8 78%, #0ea5e9 100%);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.9);
+      animation: robotBlink 4.2s infinite;
+    }
+
+    .robot-eye.left {
+      left: 16px;
+    }
+
+    .robot-eye.right {
+      right: 16px;
+    }
+
+    .robot-mouth {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      width: 30px;
+      height: 8px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8, #93c5fd);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.55);
+    }
+
+    .robot-body {
+      position: absolute;
+      top: 112px;
+      left: 50%;
+      width: 106px;
+      height: 84px;
+      transform: translateX(-50%);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(241, 245, 249, 0.98), rgba(203, 213, 225, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.88),
+        0 14px 24px rgba(15, 23, 42, 0.10);
+    }
+
+    .robot-core {
+      position: absolute;
+      top: 19px;
+      left: 50%;
+      width: 34px;
+      height: 34px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0%, #bae6fd 25%, #60a5fa 55%, #1d4ed8 100%);
+      box-shadow: 0 0 24px rgba(96, 165, 250, 0.75);
+      animation: coreSpin 4.6s linear infinite;
+    }
+
+    .robot-core::before,
+    .robot-core::after {
+      content: "";
+      position: absolute;
+      inset: 50%;
+      width: 3px;
+      height: 24px;
+      margin-left: -1.5px;
+      margin-top: -12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .robot-core::after {
+      transform: rotate(90deg);
+    }
+
+    .robot-arm,
+    .robot-leg {
+      position: absolute;
+      background: linear-gradient(180deg, #e2e8f0, #94a3b8);
+      border-radius: 999px;
+    }
+
+    .robot-arm {
+      top: 14px;
+      width: 14px;
+      height: 52px;
+    }
+
+    .robot-arm.left {
+      left: -8px;
+      transform-origin: top center;
+      transform: rotate(24deg);
+      animation: armWaveLeft 2.8s ease-in-out infinite;
+    }
+
+    .robot-arm.right {
+      right: -8px;
+      transform-origin: top center;
+      transform: rotate(-24deg);
+      animation: armWaveRight 2.8s ease-in-out infinite;
+    }
+
+    .robot-arm::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      width: 18px;
+      height: 18px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: linear-gradient(180deg, #f8fafc, #cbd5e1);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    }
+
+    .robot-leg {
+      bottom: -18px;
+      width: 14px;
+      height: 34px;
+    }
+
+    .robot-leg.left {
+      left: 28px;
+      animation: legStepLeft 2.6s ease-in-out infinite;
+    }
+
+    .robot-leg.right {
+      right: 28px;
+      animation: legStepRight 2.6s ease-in-out infinite;
+    }
+
+    .robot-leg::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      width: 24px;
+      height: 10px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: linear-gradient(180deg, #e2e8f0, #94a3b8);
+    }
+
+    .robot-msg {
+      position: absolute;
+      left: 50%;
+      top: -84px;
+      transform: translateX(-50%);
+      width: min(100%, 270px);
+      min-height: 98px;
+      padding: 18px 18px 16px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 250, 255, 0.95));
+      border: 1px solid rgba(151, 181, 255, 0.42);
+      box-shadow:
+        0 18px 42px rgba(88, 126, 186, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #14213d;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.55;
+      letter-spacing: 0.1px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+      z-index: 3;
+    }
+
+    .robot-msg::before {
+      content: "AI đồng hành";
+      position: absolute;
+      left: 50%;
+      top: -12px;
+      transform: translateX(-50%);
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #4f8cff, #69b8ff);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(79, 140, 255, 0.28);
+    }
+
+    .robot-msg::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -9px;
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 250, 255, 0.95));
+      border-right: 1px solid rgba(151, 181, 255, 0.42);
+      border-bottom: 1px solid rgba(151, 181, 255, 0.42);
+      transform: translateX(-50%) rotate(45deg);
+      box-shadow: 8px 8px 18px rgba(88, 126, 186, 0.08);
+    }
+
+    @keyframes robotFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes robotShadowPulse {
+
+      0%,
+      100% {
+        transform: scaleX(1);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: scaleX(0.92);
+        opacity: 0.85;
+      }
+    }
+
+    @keyframes haloPulse {
+
+      0%,
+      100% {
+        transform: translateX(-50%) scale(0.96);
+        opacity: 0.65;
+      }
+
+      50% {
+        transform: translateX(-50%) scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    @keyframes antenaBlink {
+
+      0%,
+      100% {
+        opacity: 0.65;
+        transform: translateX(-50%) scale(0.92);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.15);
+      }
+    }
+
+    @keyframes robotBlink {
+
+      0%,
+      44%,
+      48%,
+      100% {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+
+      46% {
+        transform: scaleY(0.08);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes coreSpin {
+      from {
+        transform: translateX(-50%) rotate(0deg);
+      }
+
+      to {
+        transform: translateX(-50%) rotate(360deg);
+      }
+    }
+
+    @keyframes armWaveLeft {
+
+      0%,
+      100% {
+        transform: rotate(24deg);
+      }
+
+      50% {
+        transform: rotate(46deg);
+      }
+    }
+
+    @keyframes armWaveRight {
+
+      0%,
+      100% {
+        transform: rotate(-24deg);
+      }
+
+      50% {
+        transform: rotate(-42deg);
+      }
+    }
+
+    @keyframes legStepLeft {
+
+      0%,
+      100% {
+        transform: rotate(8deg);
+      }
+
+      50% {
+        transform: rotate(-6deg);
+      }
+    }
+
+    @keyframes legStepRight {
+
+      0%,
+      100% {
+        transform: rotate(-8deg);
+      }
+
+      50% {
+        transform: rotate(6deg);
+      }
+    }
+
+    @media (max-width: 1320px) {
+      .ai-robot-under-video {
+        max-width: min(100%, 380px);
+        min-height: 320px;
+        margin: 0 auto;
+        padding: 96px 18px 22px;
+      }
+
+      .ai-robot-wrap {
+        width: 180px;
+        height: 220px;
+      }
+
+      .robot-msg {
+        width: min(92vw, 320px);
+        min-height: 90px;
+        padding: 16px 16px 14px;
+        font-size: 14px;
+      }
+
+      .robot-msg::before {
+        font-size: 10px;
+        padding: 4px 10px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .ai-robot-under-video {
+        max-width: 100%;
+        min-height: 296px;
+        padding: 86px 14px 18px;
+        border-radius: 22px;
+      }
+
+      .ai-robot-wrap {
+        width: 142px;
+        height: 188px;
+      }
+
+      .robot-msg {
+        width: min(88vw, 280px);
+        min-height: 76px;
+        padding: 14px 14px 12px;
+        font-size: 13px;
+      }
+    }
+  
+    /* ===== TỐI ƯU LẠI BỐ CỤC CHATBOT + ROBOT + VIDEO PHỤ ===== */
+    .chatbot-ai-row {
+      width: min(94%, 1500px);
+      margin: 32px auto 48px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+      gap: clamp(22px, 2.2vw, 34px);
+      align-items: start;
+    }
+
+    .chatbot-embed-section {
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+    }
+
+    .chatbot-embed-card {
+      padding: 16px;
+      border-radius: 28px;
+    }
+
+    .chatbot-embed-frame {
+      min-width: 0;
+    }
+
+    .chatbot-embed-frame iframe {
+      width: 100%;
+      height: clamp(560px, 46vw, 760px);
+      min-height: 560px;
+      display: block;
+    }
+
+    .chatbot-side-stack {
+      width: 100%;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-self: start;
+    }
+
+    .ai-robot-under-video {
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+      margin: 0;
+      min-height: 332px;
+    }
+
+    .side-video-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.98), rgba(238, 247, 255, 0.96));
+      border: 1px solid rgba(17, 132, 245, 0.14);
+      box-shadow:
+        0 22px 56px rgba(16, 72, 128, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      padding: 16px;
+      min-width: 0;
+      
+    }
+
+    .side-video-card::before {
+      content: "";
+      position: absolute;
+      inset: -90px -70px auto auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(77, 184, 255, 0.18), transparent 72%);
+      pointer-events: none;
+    }
+
+    .side-video-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .side-video-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(17, 132, 245, 0.10);
+      box-shadow: 0 8px 20px rgba(16, 72, 128, 0.07);
+      min-width: 0;
+    }
+
+    .side-video-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      color: #fff;
+      background: linear-gradient(135deg, #1184f5, #36d616);
+      box-shadow: 0 10px 24px rgba(17, 132, 245, 0.22);
+      flex: 0 0 auto;
+    }
+
+    .side-video-label {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .side-video-label strong {
+      font-family: "Montserrat", "Be Vietnam Pro", sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f2742;
+      line-height: 1.2;
+    }
+
+    .side-video-label span {
+      font-size: 13px;
+      color: #5c7590;
+      line-height: 1.45;
+    }
+
+    .side-video-tag {
+      padding: 8px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.80);
+      border: 1px solid rgba(17, 132, 245, 0.12);
+      color: #1e5ea8;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .side-video-frame {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #0f172a, #101828);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      aspect-ratio: 16 / 9;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 16px 30px rgba(15, 23, 42, 0.14);
+    }
+
+    .side-video-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 30%);
+    }
+
+    .side-video-frame video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      background: #000;
+    }
+
+    .side-video-tip {
+      position: relative;
+      z-index: 1;
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #58708a;
+    }
+
+    @media (max-width: 1320px) {
+      .chatbot-ai-row {
+        width: min(calc(100% - 28px), 1120px);
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .chatbot-side-stack {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .chatbot-embed-frame iframe {
+        height: 620px;
+        min-height: 620px;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .chatbot-side-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .chatbot-embed-frame iframe {
+        height: 560px;
+        min-height: 560px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .chatbot-ai-row {
+        width: calc(100% - 14px);
+        gap: 16px;
+      }
+
+      .chatbot-embed-card,
+      .side-video-card,
+      .ai-robot-under-video {
+        border-radius: 22px;
+      }
+
+      .chatbot-embed-card,
+      .side-video-card {
+        padding: 12px;
+      }
+
+      .chatbot-embed-frame iframe {
+        height: 500px;
+        min-height: 500px;
+      }
+
+      .side-video-head {
+        gap: 10px;
+      }
+
+      .side-video-badge,
+      .side-video-tag {
+        width: 100%;
+      }
+
+      .side-video-tag {
+        text-align: center;
+        white-space: normal;
+      }
+
+      .side-video-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+      }
+
+      .side-video-label strong {
+        font-size: 16px;
+      }
+
+      .side-video-label span,
+      .side-video-tip {
+        font-size: 12px;
+      }
+    }
+
+  
+  /* ===== TINH CHỈNH KHUNG VIDEO PHỤ: SÁT LỀ PHẢI HƠN, GỌN CHỮ HƠN ===== */
+  .chatbot-ai-row {
+    width: min(calc(100% - 18px), 1780px) !important;
+    margin: 32px auto 48px !important;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 430px) !important;
+    gap: clamp(20px, 2vw, 30px) !important;
+  }
+
+  .chatbot-side-stack {
+    gap: 18px !important;
+  }
+
+  .side-video-card {
+    padding: 10px !important;
+    border-radius: 30px !important;
+    background:
+      radial-gradient(circle at 12% 12%, rgba(112, 214, 255, 0.24), transparent 26%),
+      radial-gradient(circle at 88% 0%, rgba(65, 148, 255, 0.18), transparent 28%),
+      linear-gradient(160deg, rgba(255, 255, 255, 0.985), rgba(237, 247, 255, 0.97)) !important;
+    border: 1px solid rgba(17, 132, 245, 0.16) !important;
+    box-shadow:
+      0 26px 58px rgba(25, 88, 152, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .side-video-card::before {
+    width: 220px !important;
+    height: 220px !important;
+    inset: -110px -90px auto auto !important;
+    background: radial-gradient(circle, rgba(82, 188, 255, 0.22), transparent 72%) !important;
+  }
+
+  .side-video-title-wrap {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    margin: 4px 0 12px;
+    padding: 0 4px;
+  }
+
+  .side-video-title {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-family: "Montserrat", "Be Vietnam Pro", sans-serif;
+    font-size: clamp(18px, 1.3vw, 24px);
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    background:
+      linear-gradient(135deg, #0f7bf0 0%, #31b7ff 45%, #6be36f 100%);
+    box-shadow:
+      0 16px 30px rgba(19, 123, 240, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    text-shadow: 0 2px 10px rgba(15, 60, 120, 0.25);
+    max-width: 100%;
+  }
+
+  .side-video-frame {
+    border-radius: 24px !important;
+    aspect-ratio: 16 / 10 !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 18px 32px rgba(15, 23, 42, 0.16) !important;
+  }
+
+  .side-video-frame::after {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.10), transparent 30%),
+      radial-gradient(circle at 12% 10%, rgba(255,255,255,0.08), transparent 24%) !important;
+  }
+
+  @media (max-width: 1320px) {
+    .chatbot-ai-row {
+      width: min(calc(100% - 16px), 1240px) !important;
+      grid-template-columns: 1fr !important;
+      gap: 18px !important;
+    }
+
+    .chatbot-side-stack {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 18px !important;
+    }
+
+    .side-video-card {
+      padding: 10px !important;
+    }
+
+    .side-video-frame {
+      aspect-ratio: 16 / 9 !important;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .chatbot-ai-row {
+      width: calc(100% - 14px) !important;
+    }
+
+    .chatbot-side-stack {
+      grid-template-columns: 1fr !important;
+    }
+
+    .side-video-title-wrap {
+      margin-bottom: 10px;
+    }
+
+    .side-video-title {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: clamp(16px, 4.6vw, 21px);
+      line-height: 1.25;
+    }
+
+    .side-video-frame {
+      aspect-ratio: 16 / 9 !important;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .chatbot-ai-row {
+      width: calc(100% - 10px) !important;
+      gap: 14px !important;
+    }
+
+    .side-video-card {
+      padding: 8px !important;
+      border-radius: 24px !important;
+    }
+
+    .side-video-title-wrap {
+      margin: 2px 0 10px;
+      padding: 0;
+    }
+
+    .side-video-title {
+      border-radius: 18px;
+      padding: 11px 14px;
+      font-size: 16px;
+      letter-spacing: 0.01em;
+    }
+
+    .side-video-frame {
+      border-radius: 18px !important;
+    }
+  }
+
+
   </style>
 </head>
 
@@ -1264,6 +2900,35 @@
       </div>
     </div>
   </nav>
+
+  <!-- tên -->
+  <section class="ebook-hero">
+    <div class="ebook-confetti c1"></div>
+    <div class="ebook-confetti c2"></div>
+    <div class="ebook-confetti c3"></div>
+    <div class="ebook-confetti c4"></div>
+    <div class="ebook-confetti c5"></div>
+    <div class="ebook-confetti c6"></div>
+
+    <div class="ebook-side left-book">
+      <div class="book-open">
+        <span class="page left"></span>
+        <span class="page right"></span>
+        <span class="book-line"></span>
+      </div>
+    </div>
+
+    <div class="ebook-title-wrap">
+      <h1 class="ebook-title-top">EBOOK</h1>
+      <h2 class="ebook-title-bottom">VĂN HỌC</h2>
+    </div>
+
+    <div class="ebook-side right-books">
+      <div class="stack-book green"></div>
+      <div class="stack-book red"></div>
+      <div class="stack-book blue"></div>
+    </div>
+  </section>
 
   <div class="app">
     <div class="stage">
@@ -1740,6 +3405,16 @@
       <span class="book-spark spark-3"></span>
       <span class="book-spark spark-4"></span>
 
+      <!-- trái đất quay -->
+      <a class="earth-link" href="/hieu/index1.html" target="_blank" rel="noopener noreferrer" title="Mở web đọc sách">
+        <span class="earth-orbit"></span>
+        <span class="earth-sphere">
+          <span class="earth-map"></span>
+          <span class="earth-shine"></span>
+        </span>
+        <span class="earth-label">Vào web đọc sách</span>
+      </a>
+      <!-- hết trái đất -->
       <div class="reading-book-shadow"></div>
 
       <article class="reading-book" id="readingBook">
@@ -1881,9 +3556,76 @@
       <source src="/chinh/YTSave.com_YouTube_nhom6-T3-k47_Media_P_e15MkeX0Q_002_720p.mp4" type="video/mp4">
       Trình duyệt của bạn không hỗ trợ video.
     </video>
-    </iframe>
   </div>
 
+  <!-- chatbot + robot AI + video phụ responsive dưới video -->
+  <div class="chatbot-ai-row">
+    <section class="chatbot-embed-section" aria-labelledby="chatbotTitle">
+      <div class="chatbot-embed-card">
+        <div class="chatbot-embed-head">
+          <div class="chatbot-embed-badge">
+            <div class="chatbot-embed-icon">🤖</div>
+            <div class="chatbot-embed-label">
+              <strong id="chatbotTitle">Chatbot hỗ trợ đọc sách</strong>
+              <span>Hỏi đáp nhanh, tra cứu nội dung và hỗ trợ người xem ngay bên dưới video.</span>
+            </div>
+          </div>
+          <div class="chatbot-embed-note">Trò chuyện trực tiếp với AI ✨</div>
+        </div>
+
+        <div class="chatbot-embed-frame">
+          <iframe
+            src="https://www.chatbase.co/chatbot-iframe/feREVFfXJGFSGqypOPu2z"
+            title="Chatbot hỗ trợ đọc sách"
+            loading="lazy"
+            allow="clipboard-write; microphone">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <aside class="chatbot-side-stack" aria-label="Khối AI và video bổ sung">
+      <div class="ai-robot-under-video" id="aiRobotZone">
+        <div class="ai-robot-wrap" id="aiRobotWrap" aria-hidden="true">
+          <div class="ai-robot">
+            <div class="robot-halo"></div>
+            <div class="robot-antena"></div>
+
+            <div class="robot-head">
+              <div class="robot-face">
+                <span class="robot-eye left"></span>
+                <span class="robot-eye right"></span>
+                <span class="robot-mouth"></span>
+              </div>
+            </div>
+
+            <div class="robot-body">
+              <span class="robot-arm left"></span>
+              <span class="robot-arm right"></span>
+              <span class="robot-core"></span>
+              <span class="robot-leg left"></span>
+              <span class="robot-leg right"></span>
+            </div>
+
+            <div class="robot-msg" id="robotMsg">Chúc bạn có trải nghiệm đọc sách thật cuốn hút 📚</div>
+          </div>
+        </div>
+      </div>
+
+      <section class="side-video-card" aria-labelledby="supportVideoTitle">
+        <div class="side-video-title-wrap">
+          <h3 class="side-video-title" id="supportVideoTitle">✨ Video hoạt động nhóm</h3>
+        </div>
+
+        <div class="side-video-frame">
+          <video controls playsinline preload="metadata">
+            <source src="/chinh/YTSave.com_YouTube_nhom6-T3-k47_Media_P_e15MkeX0Q_002_720p.mp4" type="video/mp4">
+            Trình duyệt của bạn không hỗ trợ video.
+          </video>
+        </div>
+      </section>
+    </aside>
+  </div>
   <div class="anhnhom">
     <div class="slider">
       <img src="/imgalbum/13.jpg" class="slide active">
@@ -1964,7 +3706,7 @@
       brandLogo.src =
         "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231659d6'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-family='monospace'%3E🌾%3C/text%3E%3C/svg%3E";
       navButtons.innerHTML =
-        `<a class="btn-nav" href="/chinh/lop.html">Lớp 11T3</a><a class="btn-nav" href="/chinh/thanhvien.html">Thành Viên Nhóm</a>`;
+        `<a class="btn-nav" href="/hieu/index1.html">Lớp 11T3</a><a class="btn-nav" href="/chinh/thanhvien.html">Thành Viên Nhóm</a>`;
     }
 
     function renderPageContent(page, zeroBasedIndex) {
@@ -2272,7 +4014,7 @@
     window.addEventListener("load", scheduleRebuildAndMeasure);
 
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(scheduleRebuildAndMeasure).catch(() => {});
+      document.fonts.ready.then(scheduleRebuildAndMeasure).catch(() => { });
     }
 
     sourceContainer.querySelectorAll("img, video, iframe").forEach((media) => {
@@ -2360,7 +4102,7 @@
       resetBookTilt();
 
       function moveBook(event) {
-        if (window.innerWidth <= 992) return;
+        if (window.innerWidth <= 1400) return;
 
         const rect = scene.getBoundingClientRect();
         const px = (event.clientX - rect.left) / rect.width;
@@ -2411,6 +4153,44 @@
         slides[index].classList.add("active");
       }, 2000);
     });
+    // Hiệu ứng con AI
+    // ===== ROBOT AI DƯỚI VIDEO =====
+    (function () {
+      const zone = document.getElementById("aiRobotZone");
+      const robot = document.getElementById("aiRobotWrap");
+      const robotMsg = document.getElementById("robotMsg");
+
+      if (!zone || !robot) return;
+
+      if (robotMsg) {
+        robotMsg.textContent = "Chúc bạn có trải nghiệm đọc sách thật cuốn hút 📚";
+      }
+
+      zone.addEventListener("mousemove", (e) => {
+        if (window.innerWidth <= 1400) return;
+
+        const rect = zone.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+
+        const tx = (px - 0.5) * 8;
+        const ty = (py - 0.5) * 6;
+
+        robot.style.transform = `translate(${tx}px, ${ty}px)`;
+
+        if (robotMsg) {
+          const glow = 0.16 + Math.abs(px - 0.5) * 0.18;
+          robotMsg.style.boxShadow = `0 18px 42px rgba(88, 126, 186, ${glow}), inset 0 1px 0 rgba(255, 255, 255, 0.95)`;
+        }
+      });
+
+      zone.addEventListener("mouseleave", () => {
+        robot.style.transform = "translate(0, 0)";
+        if (robotMsg) {
+          robotMsg.style.boxShadow = "0 18px 42px rgba(88, 126, 186, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.95)";
+        }
+      });
+    })();
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
